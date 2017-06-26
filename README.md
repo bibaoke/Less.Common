@@ -1,2 +1,1 @@
-# Less.Common
-Less 绯诲垪鍩虹绫诲簱
+Less 系列基础类库

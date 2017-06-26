@@ -1,0 +1,68 @@
+﻿//bibaoke.com
+
+namespace Less
+{
+    /// <summary>
+    /// 值类型类
+    /// 值类型的一个引用包装
+    /// </summary>
+    public class Class<T> where T : struct
+    {
+        /// <summary>
+        /// 值
+        /// </summary>
+        private T Value
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 私有构造函数
+        /// </summary>
+        private Class(T t)
+        {
+            this.Value = t;
+        }
+
+        /// <summary>
+        /// 从 Class<T> 到 T? 的隐式转换
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static implicit operator T?(Class<T> value)
+        {
+            return value.IsNotNull() ? value.Value : default(T?);
+        }
+
+        /// <summary>
+        /// 从 T? 到 Class<T> 的隐式转换
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static implicit operator Class<T>(T? value)
+        {
+            return value.IsNotNull() ? new Class<T>(value.Value) : null;
+        }
+
+        /// <summary>
+        /// 从 Class<T> 到 T 的隐式转换
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static implicit operator T(Class<T> value)
+        {
+            return value.IsNotNull() ? value.Value : default(T);
+        }
+
+        /// <summary>
+        /// 从 T 到 Class<T> 的隐式转换
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static implicit operator Class<T>(T value)
+        {
+            return new Class<T>(value);
+        }
+    }
+}
