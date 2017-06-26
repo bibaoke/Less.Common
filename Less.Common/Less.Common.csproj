@@ -29,6 +29,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Less.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -92,6 +96,9 @@
     <Compile Include="Less.Windows\Performance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Less.Common.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
