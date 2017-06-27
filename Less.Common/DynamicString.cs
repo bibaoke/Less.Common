@@ -88,7 +88,7 @@ namespace Less
         /// <returns></returns>
         public override string ToString()
         {
-            string concat = string.Concat(this.List);
+            string concat = string.Concat(this.List.ToArray());
 
             this.List = new List<string>();
 
