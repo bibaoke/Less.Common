@@ -43,37 +43,38 @@ namespace Less.Windows
             ValueSet<int, int> result = cmd.IndexOfWhiteSpace();
 
             //创建进程
-            Process p = new Process();
-
-            //如果没有参数
-            if (result.IsNull())
+            using (Process p = new Process())
             {
-                p.StartInfo.FileName = cmd;
+                //如果没有参数
+                if (result.IsNull())
+                {
+                    p.StartInfo.FileName = cmd;
+                }
+                //如果有参数
+                else
+                {
+                    p.StartInfo.FileName = cmd.Substring(0, result.Value1);
+                    p.StartInfo.Arguments = cmd.Substring(result.Value1 + result.Value2);
+                }
+
+                //不使用 shell 启动进程
+                p.StartInfo.UseShellExecute = false;
+                //指示进程把输出写入流
+                p.StartInfo.RedirectStandardOutput = true;
+                //指示进程把错误写入流
+                p.StartInfo.RedirectStandardError = true;
+
+                //启动进程
+                p.Start();
+
+                //读取输出
+                //并执行委托
+                Cmd.Output(p.StandardOutput, output);
+
+                //读取错误
+                //并执行委托
+                Cmd.Output(p.StandardError, output);
             }
-            //如果有参数
-            else
-            {
-                p.StartInfo.FileName = cmd.Substring(0, result.Value1);
-                p.StartInfo.Arguments = cmd.Substring(result.Value1 + result.Value2);
-            }
-
-            //不使用 shell 启动进程
-            p.StartInfo.UseShellExecute = false;
-            //指示进程把输出写入流
-            p.StartInfo.RedirectStandardOutput = true;
-            //指示进程把错误写入流
-            p.StartInfo.RedirectStandardError = true;
-
-            //启动进程
-            p.Start();
-
-            //读取输出
-            //并执行委托
-            Cmd.Output(p.StandardOutput, output);
-
-            //读取错误
-            //并执行委托
-            Cmd.Output(p.StandardError, output);
         }
 
         /// <summary>
