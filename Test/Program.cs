@@ -20,6 +20,9 @@ namespace Test
             {
                 Console.WriteLine(s);
             });
+
+            //
+            Cmd.Exec("Form.exe");
         }
     }
 }

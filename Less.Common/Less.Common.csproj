@@ -39,6 +39,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base64.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Less.Windows\CLI\Function.cs" />
     <Compile Include="Less.Windows\CLI\Funtions\Exit.cs" />
     <Compile Include="Less.Windows\Config.cs" />
+    <Compile Include="Less.Windows\GUI\ControlExtensions.cs" />
     <Compile Include="Less.Windows\IO\Buffer.cs" />
     <Compile Include="Less.Windows\IO\ByteArrayExtensions.cs" />
     <Compile Include="Less.Windows\IO\StreamExtensions.cs" />
