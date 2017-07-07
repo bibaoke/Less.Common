@@ -34,6 +34,7 @@ namespace Less.Text
 
         /// <summary>
         /// 字符串是否与数组中的任意一项相等
+        /// 大小写敏感
         /// </summary>
         /// <param name="s"></param>
         /// <param name="array"></param>
@@ -47,7 +48,7 @@ namespace Less.Text
         /// 字符串是否与数组中的任意一项相等
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="option"></param>
+        /// <param name="option">大小写选项</param>
         /// <param name="array"></param>
         /// <returns></returns>
         public static bool In(this string s, CaseOptions option, params string[] array)
