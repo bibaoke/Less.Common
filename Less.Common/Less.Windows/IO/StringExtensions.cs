@@ -219,6 +219,18 @@ namespace Less.Windows
         }
 
         /// <summary>
+        /// 使用指定的编码写入字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="content">要写入的内容</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string Write(this string s, string content, Encoding encoding)
+        {
+            return s.Write(content.ToByteArray(encoding));
+        }
+
+        /// <summary>
         /// 写入数据 目录不存在则创建 文件存在则覆盖
         /// </summary>
         /// <param name="s"></param>

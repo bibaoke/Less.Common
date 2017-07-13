@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using Less.Text;
 
 namespace Test
 {
@@ -46,6 +47,17 @@ namespace Test
                     Assert.IsTrue(data1.Length == data2.Length);
                 }
             }
+
+            //
+            string testString = "test string";
+
+            string file = Application.SetupDir.CombinePath(Guid.NewGuid());
+
+            file.Write(testString, Encoding.UTF8);
+
+            Assert.IsTrue(file.ReadString(Encoding.UTF8) == testString);
+
+            file.DeleteFile();
         }
     }
 }
