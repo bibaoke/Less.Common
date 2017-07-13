@@ -13,6 +13,6 @@
     <description>$description$</description>
     <releaseNotes>修改信息</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
-    <tags>system extensions</tags>
+    <tags>system-extensions</tags>
   </metadata>
 </package>
