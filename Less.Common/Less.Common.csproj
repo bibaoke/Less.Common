@@ -65,7 +65,6 @@
     <Compile Include="Less.Collection\IntExtensions.cs" />
     <Compile Include="Less.Collection\ObjectExtensions.cs" />
     <Compile Include="Less.Encrypt\Encrypt.cs" />
-    <Compile Include="Less.MultiThread\Agent.cs" />
     <Compile Include="Less.MultiThread\Asyn.cs" />
     <Compile Include="Less.MultiThread\Pool.cs" />
     <Compile Include="Less.Network\EmailClient.cs" />

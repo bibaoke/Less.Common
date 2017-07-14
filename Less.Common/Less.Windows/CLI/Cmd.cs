@@ -115,7 +115,7 @@ namespace Less.Windows
             //如果缓存中还有字符
             //输出缓存中的字符
             if (buffer.Count > 0)
-                del(string.Concat(new string(buffer.ToArray()), Symbol.NewLine));
+                del(new string(buffer.ToArray()));
         }
     }
 }

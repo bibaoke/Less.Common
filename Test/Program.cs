@@ -6,6 +6,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Less.Text;
+using Less.MultiThread;
+using Less.Collection;
+using System.Threading;
 
 namespace Test
 {
@@ -58,6 +61,28 @@ namespace Test
             Assert.IsTrue(file.ReadString(Encoding.UTF8) == testString);
 
             file.DeleteFile();
+
+            //
+            Action[] testActions = new Action[100];
+
+            testActions.Length.Each((index) =>
+            {
+                testActions[index] = () =>
+                {
+                    Thread.Sleep(1000.Random());
+
+                    Console.WriteLine(index);
+                };
+            });
+
+            Asyn.Exec(50, testActions);
+
+            //
+            int[] testNumbers = new int[100];
+
+            testNumbers.Length.Each((index) => testNumbers[index] = index);
+
+            Pool.Exec(50, testNumbers, (i) => Console.WriteLine(i));
         }
     }
 }

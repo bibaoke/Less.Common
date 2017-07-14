@@ -26,31 +26,7 @@ namespace Less.MultiThread
         /// <param name="action">任务委托</param>
         public static void Exec<T>(T value, Action<T> action)
         {
-            Asyn.Exec(value, action, null);
-        }
-
-        /// <summary>
-        /// 异步执行任务
-        /// </summary>
-        /// <param name="value">传递的值</param>
-        /// <param name="action">任务委托</param>
-        /// <param name="onError">出错处理委托</param>
-        public static void Exec<T>(T value, Action<T> action, Action<Exception> onError)
-        {
-            new Thread(new ParameterizedThreadStart(delegate (object o)
-            {
-                try
-                {
-                    action((T)o);
-                }
-                catch (Exception ex)
-                {
-                    if (onError.IsNull())
-                        throw;
-                    else
-                        onError(ex);
-                }
-            })).Start(value);
+            new Thread(new ParameterizedThreadStart(i => action((T)i))).Start(value);
         }
 
         /// <summary>
@@ -59,8 +35,7 @@ namespace Less.MultiThread
         /// <param name="actions">任务委托</param>
         public static void Exec(params Action[] actions)
         {
-            if (actions.IsNotNull())
-                Asyn.Exec(actions.Length, actions);
+            Asyn.Exec(actions.Length, actions);
         }
 
         /// <summary>
@@ -70,54 +45,36 @@ namespace Less.MultiThread
         /// <param name="actions">任务委托</param>
         public static void Exec(int threads, params Action[] actions)
         {
-            if (actions.IsNotNull() && threads > 0)
+            if (threads > 0)
             {
-                int available = threads;
+                Semaphore semaphore = new Semaphore(threads, threads);
 
-                object availableLock = new object();
+                int count = actions.Length;
+
+                object countLock = new object();
 
                 foreach (Action i in actions)
                 {
-                    while (true)
+                    if (semaphore.WaitOne())
                     {
-                        if (available > 0)
+                        new Thread(new ThreadStart(() =>
                         {
-                            lock (availableLock)
+                            try
                             {
-                                if (available > 0)
-                                    available--;
-                                else
-                                    continue;
+                                i();
                             }
-
-                            Asyn.Exec(i, action =>
+                            finally
                             {
-                                try
-                                {
-                                    action();
-                                }
-                                finally
-                                {
-                                    lock (availableLock)
-                                        available++;
-                                }
-                            });
+                                semaphore.Release();
 
-                            break;
-                        }
-                        else
-                        {
-                            Thread.Sleep(100);
-                        }
+                                lock (countLock)
+                                    count--;
+
+                                if (count == 0)
+                                    semaphore.Close();
+                            }
+                        })).Start();
                     }
-                }
-
-                while (true)
-                {
-                    if (available == threads)
-                        break;
-                    else
-                        Thread.Sleep(100);
                 }
             }
         }
