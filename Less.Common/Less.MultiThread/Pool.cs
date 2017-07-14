@@ -61,16 +61,6 @@ namespace Less.MultiThread
         /// <summary>
         /// 在线程池中执行任务
         /// </summary>
-        /// <param name="enumerable">任务集合</param>
-        /// <param name="action">任务委托</param>
-        public static void Exec<T>(IEnumerable<T> enumerable, Action<T> action)
-        {
-            Pool.Exec(int.MaxValue, enumerable, action);
-        }
-
-        /// <summary>
-        /// 在线程池中执行任务
-        /// </summary>
         /// <param name="threads">线程数</param>
         /// <param name="enumerable">任务集合</param>
         /// <param name="action">任务委托</param>

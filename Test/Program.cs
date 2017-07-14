@@ -77,6 +77,8 @@ namespace Test
 
             Asyn.Exec(50, testActions);
 
+            Asyn.Exec(testActions);
+
             //
             int[] testNumbers = new int[100];
 
