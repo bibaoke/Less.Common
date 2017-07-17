@@ -93,6 +93,7 @@ namespace Less.Collection
         /// <param name="array"></param>
         /// <param name="extension">扩展元素</param>
         /// <returns></returns>
+        /// <exception cref="OutOfMemoryException"></exception>
         public static T[] ExtArray<T>(this T[] array, params T[] extension)
         {
             T[] result = new T[array.Length + extension.Length];
@@ -111,6 +112,7 @@ namespace Less.Collection
         /// <param name="array"></param>
         /// <param name="length">新长度</param>
         /// <returns></returns>
+        /// <exception cref="OutOfMemoryException"></exception>
         public static T[] ExtArray<T>(this T[] array, int length)
         {
             T[] result = new T[length];
@@ -127,7 +129,7 @@ namespace Less.Collection
         /// <param name="array">父数组</param>
         /// <param name="startIndex">起始索引</param>
         /// <returns>子数组</returns>
-        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static T[] SubArray<T>(this T[] array, int startIndex)
         {
             T[] result = new T[array.Length - startIndex];
@@ -145,7 +147,7 @@ namespace Less.Collection
         /// <param name="startIndex">起始索引</param>
         /// <param name="count">元素个数</param>
         /// <returns>子数组</returns>
-        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static T[] SubArray<T>(this T[] array, int startIndex, int count)
         {
             T[] result = new T[count];

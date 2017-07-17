@@ -42,7 +42,7 @@ namespace Less.MultiThread
         /// 设置最大线程数
         /// </summary>
         /// <param name="value"></param>
-        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static void SetMaxThreads(int value)
         {
             int workerThreads, completionPortThreads;
@@ -57,8 +57,8 @@ namespace Less.MultiThread
         /// 在线程池中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
-        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
-        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
+        /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec(Action action)
         {
             if (action.IsNotNull())
@@ -70,8 +70,8 @@ namespace Less.MultiThread
         /// </summary>
         /// <param name="value">传递的值</param>
         /// <param name="action">任务委托</param>        
-        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
-        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
+        /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec<T>(T value, Action<T> action)
         {
             if (action.IsNotNull())
@@ -84,8 +84,8 @@ namespace Less.MultiThread
         /// <param name="threads">线程数</param>
         /// <param name="enumerable">任务集合</param>
         /// <param name="action">任务委托</param>
-        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
-        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
+        /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec<T>(int threads, IEnumerable<T> enumerable, Action<T> action)
         {
             if (threads > 0 && enumerable.IsNotNull() && action.IsNotNull())
@@ -100,26 +100,25 @@ namespace Less.MultiThread
 
                 foreach (T i in array)
                 {
-                    if (semaphore.WaitOne())
+                    semaphore.WaitOne();
+
+                    ThreadPool.QueueUserWorkItem((state) =>
                     {
-                        ThreadPool.QueueUserWorkItem((state) =>
+                        try
                         {
-                            try
-                            {
-                                action((T)state);
-                            }
-                            finally
-                            {
-                                semaphore.Release();
+                            action((T)state);
+                        }
+                        finally
+                        {
+                            semaphore.Release();
 
-                                lock (countLock)
-                                    count--;
+                            lock (countLock)
+                                count--;
 
-                                if (count == 0)
-                                    semaphore.Close();
-                            }
-                        }, i);
-                    }
+                            if (count == 0)
+                                semaphore.Close();
+                        }
+                    }, i);
                 }
             }
         }
