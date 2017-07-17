@@ -11,7 +11,7 @@ namespace Less.Collection
     public static class ArrayExtensions
     {
         /// <summary>
-        /// 倒叙迭代
+        /// 倒序迭代
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -25,7 +25,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 倒叙迭代
+        /// 倒序迭代
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -41,7 +41,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 倒叙迭代
+        /// 倒序迭代
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -127,6 +127,7 @@ namespace Less.Collection
         /// <param name="array">父数组</param>
         /// <param name="startIndex">起始索引</param>
         /// <returns>子数组</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         public static T[] SubArray<T>(this T[] array, int startIndex)
         {
             T[] result = new T[array.Length - startIndex];
@@ -144,6 +145,7 @@ namespace Less.Collection
         /// <param name="startIndex">起始索引</param>
         /// <param name="count">元素个数</param>
         /// <returns>子数组</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         public static T[] SubArray<T>(this T[] array, int startIndex, int count)
         {
             T[] result = new T[count];

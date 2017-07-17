@@ -57,8 +57,8 @@ namespace Less.MultiThread
         /// 在线程池中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
-        /// <exception cref="System.ApplicationException"></exception>
-        /// <exception cref="System.OutOfMemoryException"></exception>
+        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec(Action action)
         {
             if (action.IsNotNull())
@@ -69,9 +69,9 @@ namespace Less.MultiThread
         /// 在线程池中执行任务
         /// </summary>
         /// <param name="value">传递的值</param>
-        /// <param name="action">任务委托</param>
-        /// <exception cref="System.ApplicationException"></exception>
-        /// <exception cref="System.OutOfMemoryException"></exception>
+        /// <param name="action">任务委托</param>        
+        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec<T>(T value, Action<T> action)
         {
             if (action.IsNotNull())
@@ -84,8 +84,8 @@ namespace Less.MultiThread
         /// <param name="threads">线程数</param>
         /// <param name="enumerable">任务集合</param>
         /// <param name="action">任务委托</param>
-        /// <exception cref="System.ApplicationException"></exception>
-        /// <exception cref="System.OutOfMemoryException"></exception>
+        /// <exception cref="System.ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="System.OutOfMemoryException">无法将该工作项排队</exception>
         public static void Exec<T>(int threads, IEnumerable<T> enumerable, Action<T> action)
         {
             if (threads > 0 && enumerable.IsNotNull() && action.IsNotNull())
