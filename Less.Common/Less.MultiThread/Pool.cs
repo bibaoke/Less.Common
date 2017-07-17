@@ -13,6 +13,19 @@ namespace Less.MultiThread
     public static class Pool
     {
         /// <summary>
+        ///  获取可用线程数
+        /// </summary>
+        /// <returns></returns>
+        public static int GetAvailableThreads()
+        {
+            int workerThreads, completionPortThreads;
+
+            ThreadPool.GetAvailableThreads(out workerThreads, out completionPortThreads);
+
+            return workerThreads;
+        }
+
+        /// <summary>
         /// 获取最大线程数
         /// </summary>
         /// <returns></returns>
@@ -29,6 +42,7 @@ namespace Less.MultiThread
         /// 设置最大线程数
         /// </summary>
         /// <param name="value"></param>
+        /// <exception cref="System.ArgumentException"></exception>
         public static void SetMaxThreads(int value)
         {
             int workerThreads, completionPortThreads;
@@ -43,9 +57,12 @@ namespace Less.MultiThread
         /// 在线程池中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
+        /// <exception cref="System.ApplicationException"></exception>
+        /// <exception cref="System.OutOfMemoryException"></exception>
         public static void Exec(Action action)
         {
-            ThreadPool.QueueUserWorkItem(i => action());
+            if (action.IsNotNull())
+                ThreadPool.QueueUserWorkItem(i => action());
         }
 
         /// <summary>
@@ -53,9 +70,12 @@ namespace Less.MultiThread
         /// </summary>
         /// <param name="value">传递的值</param>
         /// <param name="action">任务委托</param>
+        /// <exception cref="System.ApplicationException"></exception>
+        /// <exception cref="System.OutOfMemoryException"></exception>
         public static void Exec<T>(T value, Action<T> action)
         {
-            ThreadPool.QueueUserWorkItem(i => action((T)i), value);
+            if (action.IsNotNull())
+                ThreadPool.QueueUserWorkItem(i => action((T)i), value);
         }
 
         /// <summary>
@@ -64,9 +84,11 @@ namespace Less.MultiThread
         /// <param name="threads">线程数</param>
         /// <param name="enumerable">任务集合</param>
         /// <param name="action">任务委托</param>
+        /// <exception cref="System.ApplicationException"></exception>
+        /// <exception cref="System.OutOfMemoryException"></exception>
         public static void Exec<T>(int threads, IEnumerable<T> enumerable, Action<T> action)
         {
-            if (threads > 0)
+            if (threads > 0 && enumerable.IsNotNull() && action.IsNotNull())
             {
                 Semaphore semaphore = new Semaphore(threads, threads);
 

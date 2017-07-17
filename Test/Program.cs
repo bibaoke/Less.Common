@@ -63,23 +63,6 @@ namespace Test
             file.DeleteFile();
 
             //
-            Action[] testActions = new Action[100];
-
-            testActions.Length.Each((index) =>
-            {
-                testActions[index] = () =>
-                {
-                    Thread.Sleep(1000.Random());
-
-                    Console.WriteLine(index);
-                };
-            });
-
-            Asyn.Exec(50, testActions);
-
-            Asyn.Exec(testActions);
-
-            //
             int[] testNumbers = new int[100];
 
             testNumbers.Length.Each((index) => testNumbers[index] = index);
