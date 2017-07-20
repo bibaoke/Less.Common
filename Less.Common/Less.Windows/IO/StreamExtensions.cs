@@ -37,7 +37,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        /// <exception cref="OutOfMemoryException">栈空间不足</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
         public static byte[] ToByteArray(this Stream s)
         {

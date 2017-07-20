@@ -134,7 +134,7 @@ namespace Less.Windows
         /// 读取流并写入缓存
         /// </summary>
         /// <param name="s">要读取的流</param>
-        /// <exception cref="OutOfMemoryException">栈空间不足</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
         public void Buff(Stream s)
         {
@@ -146,7 +146,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s">要读取的流</param>
         /// <param name="once">每次读取的字节数</param>
-        /// <exception cref="OutOfMemoryException">栈空间不足</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
         public void Buff(Stream s, int once)
         {
@@ -161,7 +161,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="func">读取数据委托</param>
         /// <param name="once">每次读取的字节数</param>
-        /// <exception cref="OutOfMemoryException">栈空间不足</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
         public void Buff(Func<byte[], int, int, int> func, int once)
         {
