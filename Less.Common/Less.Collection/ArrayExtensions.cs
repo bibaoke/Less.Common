@@ -93,7 +93,8 @@ namespace Less.Collection
         /// <param name="array"></param>
         /// <param name="extension">扩展元素</param>
         /// <returns></returns>
-        /// <exception cref="OutOfMemoryException"></exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数组超过了最大长度</exception>
         public static T[] ExtArray<T>(this T[] array, params T[] extension)
         {
             T[] result = new T[array.Length + extension.Length];
@@ -112,7 +113,8 @@ namespace Less.Collection
         /// <param name="array"></param>
         /// <param name="length">新长度</param>
         /// <returns></returns>
-        /// <exception cref="OutOfMemoryException"></exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数组超过了最大长度</exception>
         public static T[] ExtArray<T>(this T[] array, int length)
         {
             T[] result = new T[length];
