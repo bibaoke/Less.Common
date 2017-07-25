@@ -42,7 +42,7 @@ namespace Less.MultiThread
         /// 设置最大线程数
         /// </summary>
         /// <param name="value"></param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">线程数超出范围</exception>
         public static void SetMaxThreads(int value)
         {
             int workerThreads, completionPortThreads;
@@ -50,7 +50,7 @@ namespace Less.MultiThread
             ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
 
             if (!ThreadPool.SetMaxThreads(value, completionPortThreads))
-                throw new ArgumentException();
+                throw new ArgumentOutOfRangeException("线程数超出范围");
         }
 
         /// <summary>
