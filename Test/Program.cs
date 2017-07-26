@@ -22,10 +22,7 @@ namespace Test
             Assert.IsTrue(a.Append("b").ToString() == "ab");
 
             //
-            Cmd.Exec("ping bibaoke.com", (s) =>
-            {
-                Console.WriteLine(s);
-            });
+            Cmd.Exec("ping bibaoke.com");
 
             //
             Cmd.Exec("Form.exe");
