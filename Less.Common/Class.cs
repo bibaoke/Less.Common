@@ -3,8 +3,8 @@
 namespace Less
 {
     /// <summary>
-    /// 值类型类
     /// 值类型的一个引用包装
+    /// 用来隐式转换到值类型或可空的值类型
     /// </summary>
     public class Class<T> where T : struct
     {
@@ -30,7 +30,7 @@ namespace Less
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static implicit operator T?(Class<T> value)
+        public static implicit operator T? (Class<T> value)
         {
             return value.IsNotNull() ? value.Value : default(T?);
         }

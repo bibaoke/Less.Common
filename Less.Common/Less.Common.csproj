@@ -56,7 +56,6 @@
     <Compile Include="Extensions\MatchCollectionExtensions.cs" />
     <Compile Include="Extensions\MatchExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\StructExtensions.cs" />
     <Compile Include="HexString.cs" />
     <Compile Include="Less.Collection\ArrayExtensions.cs" />
     <Compile Include="Less.Collection\EnumInfo.cs" />

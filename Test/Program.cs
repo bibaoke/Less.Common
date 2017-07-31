@@ -9,6 +9,7 @@ using Less.Text;
 using Less.MultiThread;
 using Less.Collection;
 using System.Threading;
+using Less.Text;
 
 namespace Test
 {
@@ -65,6 +66,17 @@ namespace Test
             testNumbers.Length.Each((index) => testNumbers[index] = index);
 
             Pool.Exec(50, testNumbers, (i) => Console.WriteLine(i));
+
+            //
+            int number1 = "10".ToInt();
+
+            string number2String = null;
+
+            int? number2 = number2String.ToInt();
+
+            Assert.IsTrue(number1 == 10);
+
+            Assert.IsTrue(number2 == null);
         }
     }
 }
