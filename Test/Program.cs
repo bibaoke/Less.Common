@@ -77,6 +77,17 @@ namespace Test
             Assert.IsTrue(number1 == 10);
 
             Assert.IsTrue(number2 == null);
+
+            //
+            byte[] data = "测试字符串".ToByteArray(Encoding.UTF8);
+
+            Base64 base64 = new Base64(data);
+
+            HexString hex = new HexString(data);
+
+            Assert.IsTrue(base64.ToHexString() == hex.ToString());
+
+            Assert.IsTrue(base64 == hex.ToBase64());
         }
     }
 }

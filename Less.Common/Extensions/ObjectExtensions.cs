@@ -10,19 +10,6 @@ namespace Less
     public static class ObjectExtensions
     {
         /// <summary>
-        /// 在实例中获取值
-        /// </summary>
-        /// <typeparam name="T">需要取值实例的类型</typeparam>
-        /// <typeparam name="U">取值函数的返回类型</typeparam>
-        /// <param name="t"></param>
-        /// <param name="func">取值函数</param>
-        /// <returns>返回取值函数的结果</returns>
-        public static U Get<T, U>(this T t, Func<T, U> func)
-        {
-            return func(t);
-        }
-
-        /// <summary>
         /// 如果不是默认值
         /// </summary>
         /// <typeparam name="T"></typeparam>

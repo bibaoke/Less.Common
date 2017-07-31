@@ -29,10 +29,12 @@ namespace Less
         }
 
         /// <summary>
-        /// 创建对象
+        /// 创建实例
         /// </summary>
         /// <param name="stringValue">Base64 字符串</param>
-        private Base64(string stringValue)
+        /// <exception cref="ArgumentNullException">Base64 字符串不能为空引用</exception>
+        /// <exception cref="FormatException">Base64 字符串格式不正确</exception>
+        public Base64(string stringValue)
         {
             this.StringValue = stringValue;
 
@@ -40,10 +42,11 @@ namespace Less
         }
 
         /// <summary>
-        /// 创建对象
+        /// 创建实例
         /// </summary>
         /// <param name="byteArrayValue">字节序列</param>
-        private Base64(byte[] byteArrayValue)
+        /// <exception cref="ArgumentNullException">字节序列不能为空引用</exception>
+        public Base64(byte[] byteArrayValue)
         {
             this.StringValue = Convert.ToBase64String(byteArrayValue);
 
@@ -170,7 +173,7 @@ namespace Less
         /// <returns></returns>
         public HexString ToHexString()
         {
-            return this.ToByteArray().ToHexString();
+            return this.ByteArrayValue.ToHexString();
         }
 
         /// <summary>

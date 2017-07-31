@@ -24,10 +24,35 @@ namespace Less
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <param name="arrayValue">数据字节数组</param>
-        private HexString(byte[] arrayValue)
+        /// <param name="stringValue">Hex 字符串</param>
+        /// <exception cref="ArgumentNullException">Hex 字符串不能为空引用</exception>
+        /// <exception cref="FormatException">Hex 字符串格式不正确</exception>
+        public HexString(string stringValue)
         {
-            this.ByteArrayValue = arrayValue;
+            if (stringValue.IsNull())
+                throw new ArgumentNullException();
+
+            stringValue = stringValue.TrimStart("0x").Clear("-");
+
+            List<byte> list = new List<byte>(stringValue.Length / 2);
+
+            for (int i = 0; i < stringValue.Length; i = i + 2)
+                list.Add(byte.Parse(stringValue.Substring(i, 2), NumberStyles.HexNumber));
+
+            this.ByteArrayValue = list.ToArray();
+        }
+
+        /// <summary>
+        /// 创建实例
+        /// </summary>
+        /// <param name="byteArrayValue">字节序列</param>
+        /// <exception cref="ArgumentNullException">字节序列不能为空引用</exception>
+        public HexString(byte[] byteArrayValue)
+        {
+            if (byteArrayValue.IsNull())
+                throw new ArgumentNullException();
+
+            this.ByteArrayValue = byteArrayValue;
         }
 
         /// <summary>
@@ -125,17 +150,7 @@ namespace Less
         /// <returns></returns>
         public static implicit operator HexString(string value)
         {
-            if (value.IsNull())
-                return null;
-
-            value = value.TrimStart("0x").Clear("-");
-
-            List<byte> list = new List<byte>(value.Length / 2);
-
-            for (int i = 0; i < value.Length; i = i + 2)
-                list.Add(byte.Parse(value.Substring(i, 2), NumberStyles.HexNumber));
-
-            return new HexString(list.ToArray());
+            return new HexString(value);
         }
 
         /// <summary>
