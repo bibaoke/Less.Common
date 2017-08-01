@@ -8,10 +8,41 @@ using System.Linq;
 namespace Less.MultiThread
 {
     /// <summary>
-    /// 在线程池中执行任务
+    /// 线程池
     /// </summary>
-    public static class Pool
+    public class Pool : IDisposable
     {
+        private static object MaxThreadsLock = new object();
+
+        private Semaphore Semaphore
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 创建一个线程池
+        /// </summary>
+        /// <param name="threads"></param>
+        /// <exception cref="ArgumentOutOfRangeException">线程数超出范围</exception>
+        public Pool(int threads)
+        {
+            lock (Pool.MaxThreadsLock)
+            {
+                Pool.SetMaxThreads(Pool.GetMaxThreads() + threads);
+            }
+
+            this.Semaphore = new Semaphore(threads, threads);
+        }
+
+        /// <summary>
+        /// 释放非托管资源
+        /// </summary>
+        ~Pool()
+        {
+            this.Dispose();
+        }
+
         /// <summary>
         ///  获取可用线程数
         /// </summary>
@@ -68,7 +99,7 @@ namespace Less.MultiThread
         /// <summary>
         /// 在线程池中执行任务
         /// </summary>
-        /// <param name="value">传递的值</param>
+        /// <param name="value">委托参数</param>
         /// <param name="action">任务委托</param>        
         /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
         /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
@@ -81,46 +112,62 @@ namespace Less.MultiThread
         /// <summary>
         /// 在线程池中执行任务
         /// </summary>
-        /// <param name="threads">线程数</param>
-        /// <param name="enumerable">任务集合</param>
         /// <param name="action">任务委托</param>
         /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
         /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
-        public static void Exec<T>(int threads, IEnumerable<T> enumerable, Action<T> action)
+        public void Execute(Action action)
         {
-            if (threads > 0 && enumerable.IsNotNull() && action.IsNotNull())
+            if (action.IsNotNull())
             {
-                Semaphore semaphore = new Semaphore(threads, threads);
-
-                T[] array = enumerable.ToArray();
-
-                int count = array.Length;
-
-                object countLock = new object();
-
-                foreach (T i in array)
+                ThreadPool.QueueUserWorkItem(i =>
                 {
-                    semaphore.WaitOne();
+                    this.Semaphore.WaitOne();
 
-                    ThreadPool.QueueUserWorkItem((state) =>
+                    try
                     {
-                        try
-                        {
-                            action((T)state);
-                        }
-                        finally
-                        {
-                            semaphore.Release();
-
-                            lock (countLock)
-                                count--;
-
-                            if (count == 0)
-                                semaphore.Close();
-                        }
-                    }, i);
-                }
+                        action();
+                    }
+                    finally
+                    {
+                        this.Semaphore.Release();
+                    }
+                });
             }
+        }
+
+        /// <summary>
+        /// 在线程池中执行任务
+        /// </summary>
+        /// <param name="value">委托参数</param>
+        /// <param name="action">任务委托</param>
+        /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
+        /// <exception cref="OutOfMemoryException">无法将该工作项排队</exception>
+        public void Execute<T>(T value, Action<T> action)
+        {
+            if (action.IsNotNull())
+            {
+                ThreadPool.QueueUserWorkItem(i =>
+                {
+                    this.Semaphore.WaitOne();
+
+                    try
+                    {
+                        action((T)i);
+                    }
+                    finally
+                    {
+                        this.Semaphore.Release();
+                    }
+                }, value);
+            }
+        }
+
+        /// <summary>
+        /// 释放非托管资源
+        /// </summary>
+        public void Dispose()
+        {
+            this.Semaphore.Close();
         }
     }
 }

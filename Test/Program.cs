@@ -61,11 +61,10 @@ namespace Test
             file.DeleteFile();
 
             //
-            int[] testNumbers = new int[100];
+            Pool pool = new Pool(50);
 
-            testNumbers.Length.Each((index) => testNumbers[index] = index);
-
-            Pool.Exec(50, testNumbers, (i) => Console.WriteLine(i));
+            for (int i = 0; i < 100; i++)
+                pool.Execute(i, j => Console.WriteLine(j));
 
             //
             int number1 = "10".ToInt();
