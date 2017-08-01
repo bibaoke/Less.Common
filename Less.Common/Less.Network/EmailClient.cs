@@ -11,7 +11,7 @@ namespace Less.Network
     /// </summary>
     public class EmailClient
     {
-        private MailAddress DefaultFrom
+        private string UserName
         {
             get;
             set;
@@ -33,7 +33,7 @@ namespace Less.Network
         {
             this.SmtpClient = this.GetSmtpClient(host, userName, password);
 
-            this.DefaultFrom = new MailAddress(userName);
+            this.UserName = userName;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Less.Network
         /// <param name="body">邮件正文</param>
         public void Send(string fromName, string to, string toName, string subject, string body)
         {
-            this.Send(this.DefaultFrom.Address, fromName, to, toName, subject, body);
+            this.Send(this.UserName, fromName, to, toName, subject, body);
         }
 
         /// <summary>
