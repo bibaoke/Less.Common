@@ -59,7 +59,7 @@ namespace Less
         /// <returns></returns>
         public static int Random(this int i)
         {
-            return MyRandom.Next(i);
+            return IntExtensions.MyRandom.Next(i);
         }
 
         /// <summary>
