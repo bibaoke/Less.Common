@@ -1,9 +1,7 @@
 ﻿//bibaoke.com
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Linq;
 
 namespace Less.MultiThread
 {
@@ -85,7 +83,7 @@ namespace Less.MultiThread
         }
 
         /// <summary>
-        /// 在线程池中执行任务
+        /// 在进程的线程池中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
         /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
@@ -97,7 +95,7 @@ namespace Less.MultiThread
         }
 
         /// <summary>
-        /// 在线程池中执行任务
+        /// 在进程的线程池中执行任务
         /// </summary>
         /// <param name="value">委托参数</param>
         /// <param name="action">任务委托</param>        
@@ -110,7 +108,7 @@ namespace Less.MultiThread
         }
 
         /// <summary>
-        /// 在线程池中执行任务
+        /// 在线程池实例中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
         /// <exception cref="ApplicationException">遇到了内存不足的情况</exception>
@@ -136,7 +134,7 @@ namespace Less.MultiThread
         }
 
         /// <summary>
-        /// 在线程池中执行任务
+        /// 在线程池实例中执行任务
         /// </summary>
         /// <param name="value">委托参数</param>
         /// <param name="action">任务委托</param>
