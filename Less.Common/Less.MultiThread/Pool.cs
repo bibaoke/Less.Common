@@ -119,10 +119,10 @@ namespace Less.MultiThread
         {
             if (action.IsNotNull())
             {
+                this.Semaphore.WaitOne();
+
                 ThreadPool.QueueUserWorkItem(i =>
                 {
-                    this.Semaphore.WaitOne();
-
                     try
                     {
                         action();
@@ -146,10 +146,10 @@ namespace Less.MultiThread
         {
             if (action.IsNotNull())
             {
+                this.Semaphore.WaitOne();
+
                 ThreadPool.QueueUserWorkItem(i =>
                 {
-                    this.Semaphore.WaitOne();
-
                     try
                     {
                         action((T)i);
