@@ -32,7 +32,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 如果不是空引用
+        /// 如果不是 null
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 如果是空引用
+        /// 如果是 null
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="t">实例</param>
@@ -53,7 +53,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 如果是空引用
+        /// 如果是 null
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>

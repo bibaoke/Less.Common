@@ -25,7 +25,7 @@ namespace Less
         /// 创建实例
         /// </summary>
         /// <param name="stringValue">Hex 字符串</param>
-        /// <exception cref="ArgumentNullException">Hex 字符串不能为空引用</exception>
+        /// <exception cref="ArgumentNullException">Hex 字符串不能为 null</exception>
         /// <exception cref="FormatException">Hex 字符串格式不正确</exception>
         public HexString(string stringValue)
         {
@@ -46,7 +46,7 @@ namespace Less
         /// 创建实例
         /// </summary>
         /// <param name="byteArrayValue">字节序列</param>
-        /// <exception cref="ArgumentNullException">字节序列不能为空引用</exception>
+        /// <exception cref="ArgumentNullException">字节序列不能为 null</exception>
         public HexString(byte[] byteArrayValue)
         {
             if (byteArrayValue.IsNull())
