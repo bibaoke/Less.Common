@@ -7,6 +7,7 @@ using System.IO;
 using Less.Text;
 using Less.Collection;
 using System;
+using System.Security;
 
 namespace Less.Windows
 {
@@ -171,6 +172,20 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="e">编码</param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        /// <exception cref="DecoderFallbackException">
+        /// 发生回退（请参见了解编码以获得完整的解释） 
+        /// - 并且 - 
+        /// System.Text.Encoding.DecoderFallback 被设置为 System.Text.DecoderExceptionFallback
+        /// </exception>
         public static string ReadString(this string s, Encoding e)
         {
             return e.GetString(s.ReadBytes());
@@ -181,6 +196,15 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
         public static byte[] ReadBytes(this string s)
         {
             return File.ReadAllBytes(s);
@@ -191,6 +215,13 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
         public static FileStream ReadStream(this string s)
         {
             return File.OpenRead(s);
@@ -200,8 +231,20 @@ namespace Less.Windows
         /// 写入数据流 目录不存在则创建 文件存在则覆盖
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="readStream"></param>
+        /// <param name="readStream">数据流</param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录 或文件是只读的</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null 且 readStream 不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">读取错误 或 写入错误</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="NotSupportedException">readStream 不支持读取</exception>
+        /// <exception cref="ObjectDisposedException">readStream 已关闭</exception>
         public static string Write(this string s, Stream readStream)
         {
             s.GetDirectoryName().CreateDir();
@@ -225,6 +268,20 @@ namespace Less.Windows
         /// <param name="content">要写入的内容</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录 或文件是只读的</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null 且 content 不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">写入错误</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="EncoderFallbackException">
+        /// 发生回退（请参见了解编码以获得完整的解释） 
+        /// - 并且 - 
+        /// System.Text.Encoding.EncoderFallback 被设置为 System.Text.EncoderExceptionFallback
+        /// </exception>
         public static string Write(this string s, string content, Encoding encoding)
         {
             return s.Write(content.ToByteArray(encoding));
@@ -234,8 +291,17 @@ namespace Less.Windows
         /// 写入数据 目录不存在则创建 文件存在则覆盖
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="data"></param>
+        /// <param name="data">数据</param>
         /// <returns></returns>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录 或文件是只读的</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">写入错误</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
         public static string Write(this string s, byte[] data)
         {
             s.GetDirectoryName().CreateDir();
@@ -252,6 +318,15 @@ namespace Less.Windows
         /// <param name="content">内容</param>
         /// <param name="e">编码</param>
         /// <returns></returns>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录 或文件是只读的</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">写入错误</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
         public static string AppendLine(this string s, string content, Encoding e)
         {
             File.AppendAllText(s, content.Combine(Symbol.NewLine), e);
@@ -264,6 +339,13 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">指定的文件正在使用中</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
         public static string DeleteFile(this string s)
         {
             if (s.ExistsFile())
@@ -298,6 +380,8 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string ChangeFileName(this string s, string fileName)
         {
             return s.Combine(fileName.Combine(s.GetExtension()));
@@ -308,6 +392,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string GetExtension(this string s)
         {
             return Path.GetExtension(s);
@@ -318,6 +403,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string GetFileNameWithoutExtension(this string s)
         {
             return Path.GetFileNameWithoutExtension(s);
@@ -328,6 +414,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string GetFileName(this string s)
         {
             return Path.GetFileName(s);
@@ -338,6 +425,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static bool HasExtension(this string s)
         {
             return Path.HasExtension(s);
@@ -350,6 +438,11 @@ namespace Less.Windows
         /// <param name="s">查找目录</param>
         /// <param name="startWith">文件前缀</param>
         /// <returns>返回找的文件的路径</returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static IEnumerable<string> SearchFiles(string s, string startWith)
         {
             return s.SearchFiles(startWith, true);
@@ -362,6 +455,11 @@ namespace Less.Windows
         /// <param name="startWith">文件前缀</param>
         /// <param name="ascending">是否按升序返回文件</param>
         /// <returns>返回找的文件的路径</returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static IEnumerable<string> SearchFiles(this string s, string startWith, bool ascending)
         {
             string[] files = Directory.GetFiles(s, startWith.Combine("*"));
@@ -375,6 +473,11 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="searchPattern"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static string[] GetFiles(this string s, string searchPattern)
         {
             return Directory.GetFiles(s, searchPattern);
@@ -385,6 +488,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static string[] GetFiles(this string s)
         {
             return Directory.GetFiles(s);
@@ -395,6 +504,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名 或 该目录为应用程序的当前工作目录</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static string ClearEmptyDir(this string s)
         {
             IEnumerable<string> children = s.GetDirectories();
@@ -416,6 +531,12 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="deleteAll"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名 或 该目录为应用程序的当前工作目录</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static string DeleteDir(this string s, bool deleteAll)
         {
             if (deleteAll)
@@ -442,6 +563,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名 或 该目录为应用程序的当前工作目录 或 指定的目录不为空</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static string DeleteDir(this string s)
         {
             Directory.Delete(s);
@@ -454,6 +581,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static bool IsEmptyDir(this string s)
         {
             return s.GetFiles().IsEmpty() && s.GetDirectories().IsEmpty();
@@ -464,6 +597,13 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">指定的目录是只读的</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="NotSupportedException">路径中含有非法字符</exception>
         public static string CreateDir(this string s)
         {
             Directory.CreateDirectory(s);
@@ -476,6 +616,10 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
         public static string GetFolderName(this string s)
         {
             return new DirectoryInfo(s).Name;
@@ -486,6 +630,8 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
         public static string GetDirectoryName(this string s)
         {
             return Path.GetDirectoryName(s);
@@ -496,6 +642,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="IOException">路径是一个文件名</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static IEnumerable<string> GetDirectories(this string s)
         {
             return Directory.GetDirectories(s);
@@ -505,8 +657,9 @@ namespace Less.Windows
         /// 更改扩展名
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="extension"></param>
+        /// <param name="extension">扩展名</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string ChangeExtension(this string s, string extension)
         {
             return Path.ChangeExtension(s, extension);
@@ -518,6 +671,8 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        /// <exception cref="NullReferenceException">路径不能为 null 且 paths 不能为 null</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string CombinePath(this string s, params object[] paths)
         {
             return s.CombinePath(paths.Select(i => i.ToString()).ToArray());
@@ -529,6 +684,9 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        /// <exception cref="NullReferenceException">paths 不能为 null</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string CombinePath(this string s, params string[] paths)
         {
             foreach (string i in paths)

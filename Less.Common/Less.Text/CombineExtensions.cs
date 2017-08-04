@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Specialized;
 using Less.Collection;
 using System.Linq;
+using System;
 
 namespace Less.Text
 {
@@ -86,6 +87,8 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="values"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">values 不能为 null</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         public static string Combine(this string s, params string[] values)
         {
             return string.Concat(s.ConstructArray(values));

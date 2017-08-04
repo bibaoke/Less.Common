@@ -149,7 +149,10 @@ namespace Less.Collection
         /// <param name="startIndex">起始索引</param>
         /// <param name="count">元素个数</param>
         /// <returns>子数组</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentNullException">array 不能为 null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于 array 的下限</exception>
+        /// <exception cref="ArgumentException">count 不能大于 startIndex 到 array 末尾的元素数</exception>
+        /// <exception cref="OverflowException">count 超出范围</exception>
         public static T[] SubArray<T>(this T[] array, int startIndex, int count)
         {
             T[] result = new T[count];

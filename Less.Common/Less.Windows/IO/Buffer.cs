@@ -39,9 +39,11 @@ namespace Less.Windows
         }
 
         /// <summary>
-        /// 
+        /// 创建缓冲器
         /// </summary>
         /// <param name="capacity">初始容量</param>
+        /// <exception cref="OverflowException">capacity 不能为负数</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
         public Buffer(int capacity)
         {
             this.Capacity = capacity;
@@ -54,6 +56,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="from">源数据流</param>
         /// <param name="to">目标数据流</param>
+        /// <exception cref="NullReferenceException">from 不能为 null 且 to 不能为 null</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="IOException">from 读取错误 或 to 写入错误</exception>
+        /// <exception cref="NotSupportedException">from 不支持读取 或 to 不支持写入</exception>
+        /// <exception cref="ObjectDisposedException">from 已关闭 或 to 已关闭</exception>
         public void Buff(Stream from, Stream to)
         {
             this.Buff(from, this.Capacity, to, this.Capacity);
@@ -66,6 +74,13 @@ namespace Less.Windows
         /// <param name="fromOnce">每次读取的字节数</param>
         /// <param name="to">目标数据流</param>
         /// <param name="toOnce">缓存到达或超过此字节数则写入目标流</param>
+        /// <exception cref="NullReferenceException">from 不能为 null 且 to 不能为 null</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="ArgumentOutOfRangeException">fromOnce 不能为负数</exception>
+        /// <exception cref="IOException">from 读取错误 或 to 写入错误</exception>
+        /// <exception cref="NotSupportedException">from 不支持读取 或 to 不支持写入</exception>
+        /// <exception cref="ObjectDisposedException">from 已关闭 或 to 已关闭</exception>
         public void Buff(Stream from, int fromOnce, Stream to, int toOnce)
         {
             this.Buff(from, fromOnce, data => to.Write(data), toOnce);
@@ -76,6 +91,11 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s">要读取的流</param>
         /// <param name="action">要执行的委托</param>
+        /// <exception cref="NullReferenceException">s 不能为 null 且 action 不能为 null</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="NotSupportedException">s 不支持读取</exception>
+        /// <exception cref="ObjectDisposedException">s 已关闭</exception>
         public void Buff(Stream s, Action<byte[]> action)
         {
             this.Buff(s, this.Capacity, action, this.Capacity);
@@ -88,6 +108,13 @@ namespace Less.Windows
         /// <param name="fromOnce">每次读取的字节数</param>
         /// <param name="action">要执行的委托</param>
         /// <param name="toOnce">缓存到达或超过此字节数则执行委托</param>
+        /// <exception cref="NullReferenceException">s 不能为 null 且 action 不能为 null</exception>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="ArgumentOutOfRangeException">fromOnce 不能为负数</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="NotSupportedException">s 不支持读取</exception>
+        /// <exception cref="ObjectDisposedException">s 已关闭</exception>
         public void Buff(Stream s, int fromOnce, Action<byte[]> action, int toOnce)
         {
             while (true)
@@ -134,8 +161,12 @@ namespace Less.Windows
         /// 读取流并写入缓存
         /// </summary>
         /// <param name="s">要读取的流</param>
+        /// <exception cref="NullReferenceException">s 不能为 null</exception>
         /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="NotSupportedException">s 不支持读取</exception>
+        /// <exception cref="ObjectDisposedException">s 已关闭</exception>
         public void Buff(Stream s)
         {
             this.Buff(s, this.Capacity);
@@ -146,8 +177,13 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s">要读取的流</param>
         /// <param name="once">每次读取的字节数</param>
+        /// <exception cref="NullReferenceException">s 不能为 null</exception>
         /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
+        /// <exception cref="ArgumentOutOfRangeException">once 不能为负数</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="NotSupportedException">s 不支持读取</exception>
+        /// <exception cref="ObjectDisposedException">s 已关闭</exception>
         public void Buff(Stream s, int once)
         {
             this.Buff((space, position, fOnce) =>
@@ -161,6 +197,7 @@ namespace Less.Windows
         /// </summary>
         /// <param name="func">读取数据委托</param>
         /// <param name="once">每次读取的字节数</param>
+        /// <exception cref="NullReferenceException">func 不能为 null</exception>
         /// <exception cref="OutOfMemoryException">内存不足</exception>
         /// <exception cref="OverflowException">数据过多</exception>
         public void Buff(Func<byte[], int, int, int> func, int once)
@@ -207,6 +244,8 @@ namespace Less.Windows
         /// 检查存储空间 空间不足则扩展
         /// </summary>
         /// <param name="write">将要写入的数据长度</param>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数组超过了最大长度</exception>
         private void CheckSpace(int write)
         {
             //如果空间不足

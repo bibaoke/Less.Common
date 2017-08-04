@@ -27,8 +27,12 @@ namespace Less.Collection
         /// <param name="t"></param>
         /// <param name="array"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">array 不能为 null</exception>
         public static T[] ConstructArray<T>(this T t, params T[] array)
         {
+            if (array.IsNull())
+                throw new ArgumentNullException();
+
             T[] result = new T[array.Length + 1];
 
             result[0] = t;

@@ -16,6 +16,12 @@ namespace Less.Windows
         /// </summary>
         /// <param name="s"></param>
         /// <param name="data"></param>
+        /// <exception cref="NullReferenceException">Stream 不能为 null</exception>
+        /// <exception cref="ArgumentNullException">data 不能为 null</exception>
+        /// <exception cref="ArgumentException">data 的长度大于 Stream 缓冲区的长度</exception>
+        /// <exception cref="IOException">写入错误</exception>
+        /// <exception cref="NotSupportedException">Stream 不支持写入</exception>
+        /// <exception cref="ObjectDisposedException">Stream 已关闭</exception>
         public static void Write(this Stream s, byte[] data)
         {
             s.Write(data, 0, data.Length);

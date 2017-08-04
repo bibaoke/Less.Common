@@ -41,6 +41,12 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="encoding">指定的编码</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">字符串不能为 null</exception>
+        /// <exception cref="EncoderFallbackException">
+        /// 发生回退（请参见了解编码以获得完整的解释） 
+        /// - 并且 - 
+        /// System.Text.Encoding.EncoderFallback 被设置为 System.Text.EncoderExceptionFallback
+        /// </exception>
         public static byte[] ToByteArray(this string s, Encoding encoding)
         {
             return encoding.GetBytes(s);
