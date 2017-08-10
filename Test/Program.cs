@@ -87,6 +87,9 @@ namespace Test
             Assert.IsTrue(base64.ToHexString() == hex.ToString());
 
             Assert.IsTrue(base64 == hex.ToBase64());
+
+            //
+            Assert.IsTrue("http://bibaoke.com/blog/74".GetUrl("71") == "http://bibaoke.com/blog/71");
         }
     }
 }
