@@ -89,7 +89,11 @@ namespace Test
             Assert.IsTrue(base64 == hex.ToBase64());
 
             //
-            Assert.IsTrue("http://bibaoke.com/blog/74".GetUrl("71") == "http://bibaoke.com/blog/71");
+            Assert.IsTrue("http://bibaoke.com/post/74".GetUrl("71") == "http://bibaoke.com/post/71");
+
+            Assert.IsTrue("http://bibaoke.com/post/74".GetUrl("/post/71") == "http://bibaoke.com/post/71");
+
+            Assert.IsTrue("http://bibaoke.com".GetUrl("post/71") == "http://bibaoke.com/post/71");
         }
     }
 }
