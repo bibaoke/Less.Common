@@ -22,6 +22,23 @@ namespace Less
         }
 
         /// <summary>
+        /// 获取或设置指定索引的字节
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <returns></returns>
+        public byte this[int index]
+        {
+            get
+            {
+                return this.ByteArrayValue[index];
+            }
+            set
+            {
+                this.ByteArrayValue[index] = value;
+            }
+        }
+
+        /// <summary>
         /// 创建实例
         /// </summary>
         /// <param name="stringValue">Hex 字符串</param>

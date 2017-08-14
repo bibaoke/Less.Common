@@ -23,6 +23,16 @@ namespace Less.Text
         }
 
         /// <summary>
+        /// 根据换行符分隔字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string[] SplitByNewLine(this string s)
+        {
+            return s.Split(Symbol.NewLine, CaseOptions.CaseSensitive);
+        }
+
+        /// <summary>
         /// 根据空白字符分隔字符串
         /// </summary>
         /// <param name="s"></param>
