@@ -10,6 +10,26 @@ namespace Less.Text
     public static class EncodeExtensions
     {
         /// <summary>
+        /// url 解码
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string UrlDecode(this string s)
+        {
+            return HttpUtility.UrlDecode(s);
+        }
+
+        /// <summary>
+        /// url 编码
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string UrlEncode(this string s)
+        {
+            return HttpUtility.UrlEncode(s);
+        }
+
+        /// <summary>
         /// html 解码
         /// </summary>
         /// <param name="s"></param>
