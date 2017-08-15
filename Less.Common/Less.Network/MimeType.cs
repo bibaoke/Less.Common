@@ -109,6 +109,15 @@ namespace Less.Network
         }
 
         /// <summary>
+        /// text/css
+        /// </summary>
+        public static MimeType Text_Css
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// application/json
         /// </summary>
         public static MimeType Application_Json
@@ -130,6 +139,7 @@ namespace Less.Network
             MimeType.Image_Wmf = "image/wmf";
             MimeType.Image_MemoryBmp = "image/memorybmp";
             MimeType.Text_Html = "text/html";
+            MimeType.Text_Css = "text/css";
             MimeType.Application_Json = "application/json";
         }
 
