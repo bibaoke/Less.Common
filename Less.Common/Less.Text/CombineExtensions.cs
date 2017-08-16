@@ -15,7 +15,7 @@ namespace Less.Text
     public static class CombineExtensions
     {
         /// <summary>
-        /// 连接 Url 参数
+        /// 连接 url 参数
         /// </summary>
         /// <param name="s"></param>
         /// <param name="values"></param>
@@ -31,6 +31,8 @@ namespace Less.Text
             }
             else
             {
+                result.Append("?");
+
                 foreach (string i in values)
                     result.Append(i);
             }
@@ -39,7 +41,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 连接 Url 路径
+        /// 连接 url 路径
         /// </summary>
         /// <param name="s"></param>
         /// <param name="values"></param>
@@ -50,7 +52,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 连接 Url 路径
+        /// 连接 url 路径
         /// </summary>
         /// <param name="s"></param>
         /// <param name="values"></param>
@@ -113,28 +115,6 @@ namespace Less.Text
         public static string Join<T>(this IEnumerable<T> items, string separator)
         {
             return string.Join(separator, items.Select(i => i.ToString()).ToArray());
-        }
-
-        /// <summary>
-        /// 用文字表示并列项
-        /// 用顿号分隔
-        /// </summary>
-        /// <param name="list">并列文字项</param>
-        /// <returns>处理结果</returns>
-        public static string List(this string[] list)
-        {
-            return list.Join("、");
-        }
-
-        /// <summary>
-        /// 用文字表示键值集合
-        /// 用逗号分隔
-        /// </summary>
-        /// <param name="list">键值集合</param>
-        /// <returns></returns>
-        public static string List(this NameValueCollection list)
-        {
-            return list.List(",");
         }
 
         /// <summary>

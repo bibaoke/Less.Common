@@ -2,6 +2,7 @@
 using System.Linq;
 using Less.Text;
 using Less.Collection;
+using System.Collections.Specialized;
 
 namespace Less
 {
@@ -11,17 +12,30 @@ namespace Less
     public class Url : Uri
     {
         /// <summary>
+        /// url 的查询参数集合
+        /// </summary>
+        private NameValueCollection Parameters
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 创建 url 实例
         /// </summary>
         /// <param name="url"></param>
         public Url(string url) : base(url)
         {
-            //
+            this.Parameters = new NameValueCollection();
+
+            this.ParseQuery(this.Query);
         }
 
         private Url(Uri baseUri, string relativeUri) : base(baseUri, relativeUri)
         {
-            //
+            this.Parameters = new NameValueCollection();
+
+            this.ParseQuery(this.Query);
         }
 
         /// <summary>
@@ -45,10 +59,23 @@ namespace Less
         }
 
         /// <summary>
+        /// 设置 url 的查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>返回一个新的 url 实例</returns>
+        public Url SetQuery(string query)
+        {
+            this.ParseQuery(query);
+
+            return new Url(
+                this.Scheme.Combine("://", this.Host).CombineUrlPath(this.AbsolutePath).CombineUrlQuery(this.Parameters.List("&")));
+        }
+
+        /// <summary>
         /// 根据相对 url 创建新的 url
         /// </summary>
         /// <param name="relativeUrl">相对 url</param>
-        /// <returns></returns>
+        /// <returns>返回一个新的 url 实例</returns>
         /// <exception cref="UriFormatException">url 格式无效</exception>
         public Url GetUrl(string relativeUrl)
         {
@@ -109,6 +136,31 @@ namespace Less
             }
 
             return names.Join(".");
+        }
+
+        private void ParseQuery(string query)
+        {
+            string[] conditions = query.TrimStart('?').Split('&');
+
+            foreach (string i in conditions)
+            {
+                if (i.Length > 0)
+                {
+                    int index = i.IndexOf('=');
+
+                    if (index > 0)
+                    {
+                        string name = i.Substring(0, index);
+
+                        string value = "";
+
+                        if (index < i.Length - 1)
+                            value = i.Substring(index + 1);
+
+                        this.Parameters.Add(name, value);
+                    }
+                }
+            }
         }
     }
 }

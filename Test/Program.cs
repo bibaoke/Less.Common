@@ -7,9 +7,6 @@ using System.Net;
 using System.Text;
 using Less.Text;
 using Less.MultiThread;
-using Less.Collection;
-using System.Threading;
-using Less.Text;
 
 namespace Test
 {
@@ -94,6 +91,12 @@ namespace Test
             Assert.IsTrue(new Url("http://bibaoke.com/post/74").GetUrl("/post/71") == "http://bibaoke.com/post/71");
 
             Assert.IsTrue(new Url("http://bibaoke.com").GetUrl("post/71") == "http://bibaoke.com/post/71");
+
+            //
+            Assert.IsTrue(new Url("http://bibaoke.com/icon").SetQuery("char=和") == "http://bibaoke.com/icon?char=和");
+
+            Assert.IsTrue(
+                new Url("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
         }
     }
 }
