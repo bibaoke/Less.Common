@@ -10,7 +10,7 @@ namespace Less
     public static class ByteExtensions
     {
         /// <summary>
-        /// 输出十六进制字符串
+        /// 输出 Hex 字符串
         /// </summary>
         /// <param name="byteArray"></param>
         /// <returns></returns>

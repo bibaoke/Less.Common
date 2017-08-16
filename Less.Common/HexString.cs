@@ -8,7 +8,7 @@ using System.Globalization;
 namespace Less
 {
     /// <summary>
-    /// 表示十六进制字符串
+    /// 表示 Hex 字符串
     /// </summary>
     public class HexString
     {
@@ -109,7 +109,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 重载
+        /// 比较两个 HexString 是否相等
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -122,7 +122,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 重载
+        /// 哈希
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -155,7 +155,7 @@ namespace Less
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static implicit operator byte[](HexString value)
+        public static implicit operator byte[] (HexString value)
         {
             return value.IsNotNull() ? value.ToByteArray() : null;
         }
@@ -181,7 +181,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 输出十六进制字符串
+        /// 输出 Hex 字符串
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -190,7 +190,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 输出十六进制字符串
+        /// 输出 Hex 字符串
         /// </summary>
         /// <param name="prefix0x">0x前缀的格式</param>
         /// <returns></returns>
@@ -214,7 +214,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 输出 Base-64 字符串
+        /// 输出 Base64 字符串
         /// </summary>
         /// <returns></returns>
         public Base64 ToBase64()

@@ -14,19 +14,6 @@ namespace Less.Text
     public static class EditExtensions
     {
         /// <summary>
-        /// 根据相对链接创建新的链接字符串
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="relativeUrl">相对链接</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">基础链接不能为 null 且 relativeUrl 不能为 null</exception>
-        /// <exception cref="UriFormatException">url 格式无效</exception>
-        public static string GetUrl(this string s, string relativeUrl)
-        {
-            return new Uri(new Uri(s), relativeUrl).ToString();
-        }
-
-        /// <summary>
         /// 替换
         /// </summary>
         /// <param name="s"></param>

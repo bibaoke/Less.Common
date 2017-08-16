@@ -88,7 +88,7 @@ namespace Less
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static implicit operator byte[](Base64 value)
+        public static implicit operator byte[] (Base64 value)
         {
             return value.IsNotNull() ? value.ToByteArray() : null;
         }
@@ -168,7 +168,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 输出十六进制字符串
+        /// 输出 Hex 字符串
         /// </summary>
         /// <returns></returns>
         public HexString ToHexString()
