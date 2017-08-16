@@ -31,13 +31,11 @@ namespace Less.Text
             }
             else
             {
-                result.Append("?");
-
                 foreach (string i in values)
                     result.Append(i);
             }
 
-            return result.ToString().TrimEnd('?');
+            return result;
         }
 
         /// <summary>

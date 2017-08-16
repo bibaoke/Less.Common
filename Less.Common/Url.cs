@@ -68,7 +68,7 @@ namespace Less
             this.ParseQuery(query);
 
             return new Url(
-                this.Scheme.Combine("://", this.Host).CombineUrlPath(this.AbsolutePath).CombineUrlQuery(this.Parameters.List("&")));
+                this.Scheme.Combine("://", this.Host).CombineUrlPath(this.AbsolutePath).Combine("?").CombineUrlQuery(this.Parameters.List("&")));
         }
 
         /// <summary>
