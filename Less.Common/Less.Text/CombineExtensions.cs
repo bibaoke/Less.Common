@@ -37,7 +37,7 @@ namespace Less.Text
                     result.Append(i);
             }
 
-            return result;
+            return result.ToString().TrimEnd('?');
         }
 
         /// <summary>
