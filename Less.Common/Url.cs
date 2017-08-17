@@ -1,4 +1,6 @@
-﻿using System;
+﻿//bibaoke.com
+
+using System;
 using System.Linq;
 using Less.Text;
 using Less.Collection;

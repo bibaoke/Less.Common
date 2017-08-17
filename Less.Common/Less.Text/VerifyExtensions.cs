@@ -1,5 +1,7 @@
 ﻿//bibaoke.com
 
+using System;
+
 namespace Less.Text
 {
     /// <summary>
@@ -7,6 +9,27 @@ namespace Less.Text
     /// </summary>
     public static class VerifyExtensions
     {
+        /// <summary>
+        /// 字符串是否包含 values 中的任意一个值
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">values 不能为 null</exception>
+        public static bool ContainsAnyOf(this string s, params string[] values)
+        {
+            if (values.IsNull())
+                throw new ArgumentNullException("values");
+
+            foreach (string i in values)
+            {
+                if (i.IsNotNull() && s.Contains(i))
+                    return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// 是否 unicode 字符串
         /// </summary>

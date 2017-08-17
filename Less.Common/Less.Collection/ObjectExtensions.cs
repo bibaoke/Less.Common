@@ -31,7 +31,7 @@ namespace Less.Collection
         public static T[] ConstructArray<T>(this T t, params T[] array)
         {
             if (array.IsNull())
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("array");
 
             T[] result = new T[array.Length + 1];
 

@@ -47,7 +47,7 @@ namespace Less
         public HexString(string stringValue)
         {
             if (stringValue.IsNull())
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("stringValue");
 
             stringValue = stringValue.TrimStart("0x").Clear("-");
 
@@ -67,7 +67,7 @@ namespace Less
         public HexString(byte[] byteArrayValue)
         {
             if (byteArrayValue.IsNull())
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("byteArrayValue");
 
             this.ByteArrayValue = byteArrayValue;
         }
