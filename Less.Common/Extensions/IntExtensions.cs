@@ -25,6 +25,17 @@ namespace Less
         }
 
         /// <summary>
+        /// 返回指定次幂
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="power">次幂</param>
+        /// <returns></returns>
+        public static int Pow(this int i, int power)
+        {
+            return (int)Math.Pow(i, power);
+        }
+
+        /// <summary>
         /// 是否与数组中的任意一项相等
         /// </summary>
         /// <param name="i"></param>

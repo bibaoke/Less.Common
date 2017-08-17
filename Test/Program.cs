@@ -97,6 +97,8 @@ namespace Test
 
             Assert.IsTrue(
                 new Url("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
+
+            Assert.IsTrue(2.Pow(3) == 8);
         }
     }
 }
