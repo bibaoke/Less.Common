@@ -23,6 +23,37 @@ namespace Less.Text
         }
 
         /// <summary>
+        /// 获取语料
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="func">语料库检查委托 如果在语料库中存在返回 true 否则返回 false</param>
+        public static void GetCorpus(this string s, Func<string, bool> func)
+        {
+            int index = 0;
+
+            int length = 1;
+
+            while (index < s.Length)
+            {
+                while (index + length <= s.Length)
+                {
+                    if (func(s.Substring(index, length)))
+                    {
+                        index = index + length;
+                    }
+                    else
+                    {
+                        length++;
+                    }
+                }
+
+                index++;
+
+                length = 1;
+            }
+        }
+
+        /// <summary>
         /// 根据换行符分隔字符串
         /// </summary>
         /// <param name="s"></param>
