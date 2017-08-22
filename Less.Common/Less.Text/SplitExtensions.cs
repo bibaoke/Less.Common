@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Less.Collection;
 
 namespace Less.Text
 {
@@ -20,6 +21,28 @@ namespace Less.Text
         static SplitExtensions()
         {
             SplitExtensions.WhiteSpacePattern = @"\s+".ToRegex(RegexOptions.Compiled | RegexOptions.Singleline);
+        }
+
+        /// <summary>
+        /// 根据出现的第一个分隔符分隔字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="separator">分隔符</param>
+        /// <returns></returns>
+        public static string[] SplitByFirst(this string s, char separator)
+        {
+            int index = s.IndexOf(separator);
+
+            if (index < 0)
+            {
+                return s.ConstructArray();
+            }
+            else
+            {
+                int length = index + 1;
+
+                return new string[] { s.Substring(0, length), s.Substring(length) };
+            }
         }
 
         /// <summary>
@@ -171,7 +194,7 @@ namespace Less.Text
             List<string> result = new List<string>();
 
             //在文本中查找分隔符
-            while ((separatorIndex = s.IndexOf(separator, startIndex, comparison)) >= 0)
+            while ((separatorIndex = s.IndexOf(separator, startIndex, comparison)) > -1)
             {
                 //字符串截取起始索引
                 int substringStartIndex = startIndex;
@@ -196,7 +219,9 @@ namespace Less.Text
                 //如果分隔符不在位置0
                 //把分隔符前的内容加入结果队列
                 if (separatorIndex > 0)
+                {
                     result.Add(s.Substring(substringStartIndex, substringCount));
+                }
 
                 //更新起始索引
                 startIndex = separatorIndex + separator.Length;
@@ -208,7 +233,9 @@ namespace Less.Text
             //如果还有剩余内容
             //把剩余的内容加入结果队列
             if (restCount > 0)
+            {
                 result.Add(s.Substring(startIndex, restCount));
+            }
 
             return result.ToArray();
         }
