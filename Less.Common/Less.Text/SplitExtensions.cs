@@ -39,9 +39,7 @@ namespace Less.Text
             }
             else
             {
-                int length = index + 1;
-
-                return new string[] { s.Substring(0, length), s.Substring(length) };
+                return new string[] { s.Substring(0, index), s.Substring(index + 1) };
             }
         }
 
