@@ -1,6 +1,7 @@
 ﻿//bibaoke.com
 
 using System;
+using System.Text;
 
 namespace Less.Text
 {
@@ -19,25 +20,19 @@ namespace Less.Text
         public static bool ContainsAnyOf(this string s, params string[] values)
         {
             if (values.IsNull())
+            {
                 throw new ArgumentNullException("values");
+            }
 
             foreach (string i in values)
             {
                 if (i.IsNotNull() && s.Contains(i))
+                {
                     return true;
+                }
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// 是否 unicode 字符串
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static bool IsUnicode(this string s)
-        {
-            return MyEncoding.GB2312.GetByteCount(s) >= s.Length + (decimal)s.Length / 2;
         }
 
         /// <summary>
@@ -47,7 +42,7 @@ namespace Less.Text
         /// <returns></returns>
         public static bool HasUnicode(this string s)
         {
-            return MyEncoding.GB2312.GetByteCount(s) != s.Length;
+            return Encoding.UTF8.GetByteCount(s) > s.Length;
         }
 
         /// <summary>
@@ -128,7 +123,9 @@ namespace Less.Text
             foreach (string i in s)
             {
                 if (i != null)
+                {
                     return false;
+                }
             }
 
             return true;
@@ -144,7 +141,9 @@ namespace Less.Text
             foreach (string i in s)
             {
                 if (i == null)
+                {
                     return true;
+                }
             }
 
             return false;
