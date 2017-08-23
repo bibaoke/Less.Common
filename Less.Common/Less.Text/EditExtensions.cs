@@ -28,7 +28,7 @@ namespace Less.Text
         /// 省略文本
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="keepUnicodeCharCount">要保留的 Unicode 字符数</param>
+        /// <param name="keepUnicodeCharCount">要保留的 unicode 字符数</param>
         /// <returns></returns>
         public static string Ellipsis(this string s, int keepUnicodeCharCount)
         {

@@ -3,6 +3,7 @@
 using Less.Collection;
 using Less.Text;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Less
 {
@@ -40,7 +41,7 @@ namespace Less
         /// <returns></returns>
         public static bool IsUnicode(this char c)
         {
-            return MyEncoding.GB2312.GetByteCount(c.ConstructArray()) >= 2;
+            return Encoding.UTF8.GetByteCount(c.ConstructArray()) >= 2;
         }
 
         /// <summary>
