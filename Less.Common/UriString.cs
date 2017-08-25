@@ -26,12 +26,26 @@ namespace Less
         /// 创建 UriString 实例
         /// </summary>
         /// <param name="uri"></param>
+        public UriString(Uri uri) : this(uri.OriginalString)
+        {
+            //
+        }
+
+        /// <summary>
+        /// 创建 UriString 实例
+        /// </summary>
+        /// <param name="uri"></param>
         public UriString(string uri) : base(uri)
         {
             this.Init();
         }
 
-        private UriString(Uri baseUri, string relativeUri) : base(baseUri, relativeUri)
+        /// <summary>
+        /// 创建 UriString 实例
+        /// </summary>
+        /// <param name="baseUri"></param>
+        /// <param name="relativeUri"></param>
+        public UriString(Uri baseUri, string relativeUri) : base(baseUri, relativeUri)
         {
             this.Init();
         }
