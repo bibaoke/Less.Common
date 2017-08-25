@@ -15,62 +15,6 @@ namespace Less.Text
     public static class CombineExtensions
     {
         /// <summary>
-        /// 连接 url 参数
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static string CombineUrlQuery(this string s, params string[] values)
-        {
-            DynamicString result = new DynamicString(s);
-
-            if (s.Contains("?"))
-            {
-                foreach (string i in values)
-                    result.Append(i.Replace('?', '&'));
-            }
-            else
-            {
-                foreach (string i in values)
-                    result.Append(i);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 连接 url 路径
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static string CombineUrlPath(this string s, params object[] values)
-        {
-            return s.CombineUrlPath(values.Select(i => i.ToString()));
-        }
-
-        /// <summary>
-        /// 连接 url 路径
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static string CombineUrlPath(this string s, params string[] values)
-        {
-            DynamicString result = new DynamicString(s.TrimEnd('/'));
-
-            foreach (string i in values)
-            {
-                if (i.StartsWith("/"))
-                    result.Append(i.TrimEnd('/'));
-                else
-                    result.Append("/").Append(i.TrimEnd('/'));
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// 连接对象字面量
         /// </summary>
         /// <param name="s"></param>
@@ -129,11 +73,15 @@ namespace Less.Text
 
             //拼接键值集合
             foreach (string i in list.AllKeys)
+            {
                 b.Append(i).Append("=").Append(list[i]).Append(separator);
+            }
 
             //移除最后一个分隔符
             if (b.Length > 0)
+            {
                 b.Remove(b.Length - 1, 1);
+            }
 
             return b.ToString();
         }

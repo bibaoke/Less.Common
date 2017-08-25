@@ -18,9 +18,19 @@ namespace Less.Text
             set;
         }
 
+        /// <summary>
+        /// GBK 编码
+        /// </summary>
+        public static Encoding GBK
+        {
+            get;
+            set;
+        }
+
         static MyEncoding()
         {
             MyEncoding.GB2312 = Encoding.GetEncoding("GB2312");
+            MyEncoding.GBK = Encoding.GetEncoding("GBK");
         }
     }
 }

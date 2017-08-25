@@ -11,7 +11,7 @@ namespace Less.Text
     public static class VerifyExtensions
     {
         /// <summary>
-        /// 字符串是否包含 values 中的任意一个值
+        /// 是否包含 values 中的任意一个值
         /// </summary>
         /// <param name="s"></param>
         /// <param name="values"></param>
@@ -46,7 +46,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 不是空字符串 不是空白字符
+        /// 是否不为 null 或 "" 或只有空白字符
         /// 
         /// </summary>
         /// <param name="s"></param>
@@ -57,7 +57,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 是空字符串 或空白字符
+        /// 是否 null 或 "" 或只有空白字符
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -67,7 +67,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 是否非空字符串
+        /// 是否不为 null 或 ""
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -77,7 +77,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 是否空字符串
+        /// 是否 null 或 ""
         /// </summary>
         /// <param name="s"></param>
         /// <param name="instead">替代字符串</param>
@@ -88,7 +88,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 是否空字符串
+        /// 是否 null 或 ""
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -98,7 +98,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 字符串是否全部为空
+        /// 是否全部 null 或 ""
         /// </summary>
         /// <param name="s">待判断的字符串</param>
         /// <returns></returns>
@@ -107,14 +107,16 @@ namespace Less.Text
             foreach (string i in s)
             {
                 if (!i.IsEmpty())
+                {
                     return false;
+                }
             }
 
             return true;
         }
 
         /// <summary>
-        /// 字符串是否全部为 null
+        /// 是否全部 null
         /// </summary>
         /// <param name="s">待判断的字符串</param>
         /// <returns></returns>
@@ -132,7 +134,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 字符串是否有一个为 null
+        /// 是否存在 null
         /// </summary>
         /// <param name="s">待判断的字符串</param>
         /// <returns></returns>
@@ -150,7 +152,7 @@ namespace Less.Text
         }
 
         /// <summary>
-        /// 字符串是否全部不为 null
+        /// 是否没有 null
         /// </summary>
         /// <param name="s">待判断的字符串</param>
         /// <returns></returns>

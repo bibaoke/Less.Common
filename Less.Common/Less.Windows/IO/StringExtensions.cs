@@ -64,17 +64,23 @@ namespace Less.Windows
         public static string CopyDir(this string s, string destDirName, bool merge)
         {
             if (destDirName.IsChildDirOf(s))
+            {
                 throw new InvalidOperationException("目标文件夹是源文件夹的子文件夹");
+            }
 
             if (s.ExistsDir())
             {
                 destDirName.CreateDir();
 
                 foreach (string i in s.GetFiles())
+                {
                     i.CopyFileToDir(destDirName, merge);
+                }
 
                 foreach (string i in s.GetDirectories())
+                {
                     i.CopyDirToDir(destDirName);
+                }
             }
             else
             {
@@ -101,9 +107,13 @@ namespace Less.Windows
                 while (parent.FullName != directory.FullName)
                 {
                     if (parent.Parent.IsNotNull())
+                    {
                         parent = parent.Parent;
+                    }
                     else
+                    {
                         return false;
+                    }
                 }
 
                 return true;
@@ -349,7 +359,9 @@ namespace Less.Windows
         public static string DeleteFile(this string s)
         {
             if (s.ExistsFile())
+            {
                 File.Delete(s);
+            }
 
             return s;
         }
@@ -517,9 +529,13 @@ namespace Less.Windows
             foreach (string i in children)
             {
                 if (i.IsEmptyDir())
+                {
                     i.DeleteDir();
+                }
                 else
+                {
                     i.ClearEmptyDir();
+                }
             }
 
             return s;
@@ -542,14 +558,20 @@ namespace Less.Windows
             if (deleteAll)
             {
                 foreach (string i in s.GetFiles())
+                {
                     i.DeleteFile();
+                }
 
                 foreach (string i in s.GetDirectories())
                 {
                     if (i.IsEmptyDir())
+                    {
                         i.DeleteDir();
+                    }
                     else
+                    {
                         i.DeleteDir(true);
+                    }
                 }
             }
 
@@ -690,7 +712,9 @@ namespace Less.Windows
         public static string CombinePath(this string s, params string[] paths)
         {
             foreach (string i in paths)
+            {
                 s = Path.Combine(s, i);
+            }
 
             return s;
         }

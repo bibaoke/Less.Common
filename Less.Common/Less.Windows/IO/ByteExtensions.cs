@@ -7,7 +7,7 @@ namespace Less.Windows
     /// <summary>
     /// Byte[] 扩展方法
     /// </summary>
-    public static class ByteArrayExtensions
+    public static class ByteExtensions
     {
         /// <summary>
         /// 转换为 MemoryStream

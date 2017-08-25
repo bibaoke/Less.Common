@@ -63,9 +63,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 以此实例为最大值
-        /// 生成随机数
-        /// 不包括最大值
+        /// 以此实例为最大值 生成非负随机数 不包括最大值
         /// </summary>
         /// <returns></returns>
         public static int Random(this int i)

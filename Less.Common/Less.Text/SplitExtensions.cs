@@ -29,6 +29,7 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="separator">分隔符</param>
         /// <returns></returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null</exception>
         public static string[] SplitByFirst(this string s, char separator)
         {
             int index = s.IndexOf(separator);

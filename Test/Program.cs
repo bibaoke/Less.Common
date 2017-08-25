@@ -86,22 +86,25 @@ namespace Test
             Assert.IsTrue(base64 == hex.ToBase64());
 
             //
-            Assert.IsTrue(new Url("http://bibaoke.com/post/74").GetUrl("71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new UriString("http://bibaoke.com/post/74").GetUriString("71") == "http://bibaoke.com/post/71");
 
-            Assert.IsTrue(new Url("http://bibaoke.com/post/74").GetUrl("/post/71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new UriString("http://bibaoke.com/post/74").GetUriString("/post/71") == "http://bibaoke.com/post/71");
 
-            Assert.IsTrue(new Url("http://bibaoke.com").GetUrl("post/71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new UriString("http://bibaoke.com").GetUriString("post/71") == "http://bibaoke.com/post/71");
 
             //
-            Assert.IsTrue(new Url("http://bibaoke.com/icon").SetQuery("char=和") == "http://bibaoke.com/icon?char=和");
+            Assert.IsTrue(new UriString("http://bibaoke.com/icon").SetQuery("char=和") == "http://bibaoke.com/icon?char=和");
 
             Assert.IsTrue(
-                new Url("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
+                new UriString("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
 
             Assert.IsTrue(2.Pow(3) == 8);
 
             //
             Assert.IsTrue("نیک تم | قالب وردپرس, قالب اورجينال فارسي و قالب وردپرس شرکتی".HasUnicode());
+
+            //
+            Encoding gbk = MyEncoding.GBK;
         }
     }
 }
