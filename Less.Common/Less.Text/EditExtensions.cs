@@ -17,6 +17,42 @@ namespace Less.Text
         /// 替换
         /// </summary>
         /// <param name="s"></param>
+        /// <param name="arg0"></param>
+        /// <returns></returns>
+        public static string FormatString(this string s, object arg0)
+        {
+            return string.Format(s, arg0);
+        }
+
+        /// <summary>
+        /// 替换
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="arg0"></param>
+        /// <param name="arg1"></param>
+        /// <returns></returns>
+        public static string FormatString(this string s, object arg0, object arg1)
+        {
+            return string.Format(s, arg0, arg1);
+        }
+
+        /// <summary>
+        /// 替换
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="arg0"></param>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <returns></returns>
+        public static string FormatString(this string s, object arg0, object arg1, object arg2)
+        {
+            return string.Format(s, arg0, arg1, arg2);
+        }
+
+        /// <summary>
+        /// 替换
+        /// </summary>
+        /// <param name="s"></param>
         /// <param name="args"></param>
         /// <returns></returns>
         public static string FormatString(this string s, params object[] args)
@@ -34,7 +70,7 @@ namespace Less.Text
         {
             string result = s.Trim(keepUnicodeCharCount);
 
-            return result.Length == s.Length ? result : result.Combine("…");
+            return result.Length == s.Length ? result : result + "…";
         }
 
         /// <summary>

@@ -15,30 +15,6 @@ namespace Less.Text
     public static class CombineExtensions
     {
         /// <summary>
-        /// 连接对象字面量
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static string Combine(this string s, params object[] values)
-        {
-            return string.Concat(s.ConstructArray(values));
-        }
-
-        /// <summary>
-        /// 连接字符串
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">values 不能为 null</exception>
-        /// <exception cref="OutOfMemoryException">内存不足</exception>
-        public static string Combine(this string s, params string[] values)
-        {
-            return string.Concat(s.ConstructArray(values));
-        }
-
-        /// <summary>
         /// 连接字符串
         /// </summary>
         /// <param name="items"></param>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using Less.Text;
 using Less.MultiThread;
+using System.Diagnostics;
 
 namespace Test
 {

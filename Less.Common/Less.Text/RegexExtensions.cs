@@ -17,10 +17,14 @@ namespace Less.Text
         public static string GlobalMatching(this string pattern)
         {
             if (!pattern.StartsWith("^"))
-                pattern = "^".Combine(pattern);
+            {
+                pattern = "^" + pattern;
+            }
 
             if (!pattern.EndsWith("$"))
-                pattern = pattern.Combine("$");
+            {
+                pattern = pattern + "$";
+            }
 
             return pattern;
         }

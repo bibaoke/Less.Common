@@ -339,7 +339,7 @@ namespace Less.Windows
         /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
         public static string AppendLine(this string s, string content, Encoding e)
         {
-            File.AppendAllText(s, content.Combine(Symbol.NewLine), e);
+            File.AppendAllText(s, content + Symbol.NewLine, e);
 
             return s;
         }
@@ -396,7 +396,7 @@ namespace Less.Windows
         /// <exception cref="ArgumentException">路径中含有非法字符</exception>
         public static string ChangeFileName(this string s, string fileName)
         {
-            return s.Combine(fileName.Combine(s.GetExtension()));
+            return s + fileName + s.GetExtension();
         }
 
         /// <summary>
@@ -474,7 +474,7 @@ namespace Less.Windows
         /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
         public static IEnumerable<string> SearchFiles(this string s, string startWith, bool ascending)
         {
-            string[] files = Directory.GetFiles(s, startWith.Combine("*"));
+            string[] files = Directory.GetFiles(s, startWith + "*");
 
             return ascending ? files.Sort() : files.SortDescending();
         }

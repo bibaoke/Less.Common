@@ -90,7 +90,7 @@ namespace Less
         {
             string concat = string.Concat(this.List.ToArray());
 
-            this.List = new List<string>();
+            this.List.Clear();
 
             this.List.Add(concat);
 
@@ -137,7 +137,9 @@ namespace Less
         public static bool operator ==(DynamicString l, DynamicString r)
         {
             if (l.IsNotNull() && r.IsNotNull())
+            {
                 return l.ToString() == r.ToString();
+            }
 
             return l.IsNull() && r.IsNull();
         }
@@ -161,7 +163,9 @@ namespace Less
         public override bool Equals(object obj)
         {
             if (obj is DynamicString)
+            {
                 return this == (DynamicString)obj;
+            }
 
             return false;
         }
@@ -243,8 +247,7 @@ namespace Less
         /// <returns></returns>
         public DynamicString Append(DynamicString value)
         {
-            foreach (string i in value.List)
-                this.List.Add(i);
+            this.List.AddRange(value.List);
 
             return this;
         }

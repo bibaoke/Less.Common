@@ -91,11 +91,11 @@ namespace Less
             if (query.IsNotEmpty())
             {
                 return new UriString(
-                    this.Scheme.Combine("://", this.Host, this.AbsolutePath, "?", this.Parameters.List("&")));
+                    this.Scheme + "://" + this.Host + this.AbsolutePath + "?" + this.Parameters.List("&"));
             }
             else
             {
-                return new UriString(this.Scheme.Combine("://", this.Host, this.AbsolutePath));
+                return new UriString(this.Scheme + "://" + this.Host + this.AbsolutePath);
             }
         }
 

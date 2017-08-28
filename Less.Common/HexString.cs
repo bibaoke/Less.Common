@@ -199,7 +199,9 @@ namespace Less
             string result = BitConverter.ToString(this.ByteArrayValue);
 
             if (prefix0x)
-                result = "0x".Combine(result.Clear("-"));
+            {
+                result = "0x" + result.Clear("-");
+            }
 
             return result;
         }

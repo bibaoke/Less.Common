@@ -61,7 +61,9 @@ namespace Less
             string format = "0";
 
             if (keep > 0)
-                format.Combine(".", "#".Repeat(keep));
+            {
+                format += "." + "#".Repeat(keep);
+            }
 
             return d.ToString(format);
         }

@@ -21,7 +21,7 @@ namespace Less.Windows
         /// <returns></returns>
         public static string GetAppSetting(string key)
         {
-            string key2 = key.Combine(".", Dns.GetHostName());
+            string key2 = key + "." + Dns.GetHostName();
 
             return ConfigurationManager.AppSettings[key2].IsNull(ConfigurationManager.AppSettings[key]);
         }
@@ -56,9 +56,13 @@ namespace Less.Windows
             IEnumerable<ConnectionStringSettings> settings = ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>();
 
             if (settings.IsNotEmpty())
-                return settings.Where(i => i.Name.EndsWith(".".Combine(host)));
+            {
+                return settings.Where(i => i.Name.EndsWith("." + host));
+            }
             else
+            {
                 return settings;
+            }
         }
 
         /// <summary>
@@ -68,7 +72,7 @@ namespace Less.Windows
         /// <returns></returns>
         public static ConnectionStringSettings GetConnectionStringSetting(string name)
         {
-            string name2 = name.Combine(".", Dns.GetHostName());
+            string name2 = name + "." + Dns.GetHostName();
 
             return ConfigurationManager.ConnectionStrings[name2].IsNull(ConfigurationManager.ConnectionStrings[name]);
         }
