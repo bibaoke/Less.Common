@@ -267,9 +267,9 @@ namespace Less
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <returns></returns>
-        public DynamicString SubString(int startIndex)
+        public DynamicString Substring(int startIndex)
         {
-            return this.SubString(startIndex, this.Length - startIndex);
+            return this.Substring(startIndex, this.Length - startIndex);
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace Less
         /// <param name="startIndex">起始索引</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public DynamicString SubString(int startIndex, int length)
+        public DynamicString Substring(int startIndex, int length)
         {
             DynamicString result = new DynamicString();
 
