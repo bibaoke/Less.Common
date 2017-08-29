@@ -86,15 +86,22 @@ namespace Less
         /// <returns></returns>
         public override string ToString()
         {
-            string concat = string.Concat(this.List.ToArray());
+            if (this.List.Count == 1)
+            {
+                return this.List[0];
+            }
+            else
+            {
+                string concat = string.Concat(this.List.ToArray());
 
-            this.List.Clear();
+                this.List.Clear();
 
-            this.Length = 0;
+                this.Length = 0;
 
-            this.Append(concat);
+                this.Append(concat);
 
-            return concat;
+                return concat;
+            }
         }
 
         /// <summary>
@@ -184,8 +191,8 @@ namespace Less
         /// </summary>
         /// <param name="startIndex">插入索引</param>
         /// <param name="value">要插入的字符串</param>
-        /// <returns></returns>
-        public DynamicString Insert(int startIndex, DynamicString value)
+        /// <returns>返回此实例</returns>
+        public DynamicString Insert(int startIndex, string value)
         {
             int i = 0;
             int index = 0;
@@ -196,7 +203,7 @@ namespace Less
             {
                 if (startIndex == index)
                 {
-                    this.List.InsertRange(i, value.List);
+                    this.List.Insert(i, value);
 
                     break;
                 }
@@ -213,7 +220,7 @@ namespace Less
         /// 移除指定位置的字符串 会修改此实例
         /// </summary>
         /// <param name="startIndex">起始索引</param>
-        /// <returns></returns>
+        /// <returns>返回此实例</returns>
         public DynamicString Remove(int startIndex)
         {
             return this.Remove(startIndex, this.Length - startIndex);
@@ -224,7 +231,7 @@ namespace Less
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <param name="length">长度</param>
-        /// <returns></returns>
+        /// <returns>返回此实例</returns>
         public DynamicString Remove(int startIndex, int length)
         {
             int i = 0;
@@ -263,56 +270,63 @@ namespace Less
         }
 
         /// <summary>
-        /// 截取子动态字符串 不会修改此实例
+        /// 截取子字符串 不会修改此实例
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <returns></returns>
-        public DynamicString Substring(int startIndex)
+        public string Substring(int startIndex)
         {
             return this.Substring(startIndex, this.Length - startIndex);
         }
 
         /// <summary>
-        /// 截取子动态字符串 不会修改此实例
+        /// 截取子字符串 不会修改此实例
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public DynamicString Substring(int startIndex, int length)
+        public string Substring(int startIndex, int length)
         {
-            DynamicString result = new DynamicString();
-
-            int i = 0;
-            int index = 0;
-
-            this.SplitList(startIndex, length, ref i, ref index);
-
-            int next = 0;
-
-            int stopIndex = startIndex + length;
-
-            while (i < this.List.Count)
+            if (this.List.Count == 1)
             {
-                next = index + this.List[i].Length;
+                return this.List[0].Substring(startIndex, length);
+            }
+            else
+            {
+                DynamicString result = new DynamicString();
 
-                if (index >= startIndex)
+                int i = 0;
+                int index = 0;
+
+                this.SplitList(startIndex, length, ref i, ref index);
+
+                int next = 0;
+
+                int stopIndex = startIndex + length;
+
+                while (i < this.List.Count)
                 {
-                    if (next <= stopIndex)
+                    next = index + this.List[i].Length;
+
+                    if (index >= startIndex)
                     {
-                        result.Append(this.List[i]);
+                        if (next <= stopIndex)
+                        {
+                            result.Append(this.List[i]);
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
-                    {
-                        break;
-                    }
+
+                    index = next;
+
+                    i++;
                 }
 
-                index = next;
-
-                i++;
+                return result;
             }
-
-            return result;
         }
 
         /// <summary>
