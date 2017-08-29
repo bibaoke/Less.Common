@@ -15,10 +15,8 @@ namespace Less
         /// </summary>
         public int Length
         {
-            get
-            {
-                return this.ToString().Length;
-            }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -31,7 +29,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 创建对象
+        /// 创建实例
         /// </summary>
         public DynamicString()
         {
@@ -39,12 +37,12 @@ namespace Less
         }
 
         /// <summary>
-        /// 创建对象
+        /// 创建实例
         /// </summary>
         /// <param name="value"></param>
         public DynamicString(string value) : this()
         {
-            this.List.Add(value);
+            this.Append(value);
         }
 
         /// <summary>
@@ -92,7 +90,9 @@ namespace Less
 
             this.List.Clear();
 
-            this.List.Add(concat);
+            this.Length = 0;
+
+            this.Append(concat);
 
             return concat;
         }
@@ -129,7 +129,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较两个对象是否相等
+        /// 比较两个实例是否相等
         /// </summary>
         /// <param name="l"></param>
         /// <param name="r"></param>
@@ -145,7 +145,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较两个对象是否不相等
+        /// 比较两个实例是否不相等
         /// </summary>
         /// <param name="l"></param>
         /// <param name="r"></param>
@@ -156,7 +156,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较是否相同
+        /// 比较两个实例是否相等
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -177,6 +177,142 @@ namespace Less
         public override int GetHashCode()
         {
             return this.ToString().GetHashCode();
+        }
+
+        /// <summary>
+        /// 在指定位置插入字符串 会修改此实例
+        /// </summary>
+        /// <param name="startIndex">插入索引</param>
+        /// <param name="value">要插入的字符串</param>
+        /// <returns></returns>
+        public DynamicString Insert(int startIndex, DynamicString value)
+        {
+            int i = 0;
+            int index = 0;
+
+            this.SplitList(startIndex, ref i, ref index);
+
+            while (i < this.List.Count)
+            {
+                if (startIndex == index)
+                {
+                    this.List.InsertRange(i, value.List);
+
+                    break;
+                }
+
+                index += this.List[i].Length;
+
+                i++;
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 移除指定位置的字符串 会修改此实例
+        /// </summary>
+        /// <param name="startIndex">起始索引</param>
+        /// <returns></returns>
+        public DynamicString Remove(int startIndex)
+        {
+            return this.Remove(startIndex, this.Length - startIndex);
+        }
+
+        /// <summary>
+        /// 移除指定位置的字符串 会修改此实例
+        /// </summary>
+        /// <param name="startIndex">起始索引</param>
+        /// <param name="length">长度</param>
+        /// <returns></returns>
+        public DynamicString Remove(int startIndex, int length)
+        {
+            int i = 0;
+            int index = 0;
+
+            this.SplitList(startIndex, length, ref i, ref index);
+
+            int next = 0;
+
+            int stopIndex = startIndex + length;
+
+            while (i < this.List.Count)
+            {
+                next = index + this.List[i].Length;
+
+                if (index >= startIndex)
+                {
+                    if (next <= stopIndex)
+                    {
+                        this.List.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+
+                index = next;
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 截取子动态字符串 不会修改此实例
+        /// </summary>
+        /// <param name="startIndex">起始索引</param>
+        /// <returns></returns>
+        public DynamicString SubString(int startIndex)
+        {
+            return this.SubString(startIndex, this.Length - startIndex);
+        }
+
+        /// <summary>
+        /// 截取子动态字符串 不会修改此实例
+        /// </summary>
+        /// <param name="startIndex">起始索引</param>
+        /// <param name="length">长度</param>
+        /// <returns></returns>
+        public DynamicString SubString(int startIndex, int length)
+        {
+            DynamicString result = new DynamicString();
+
+            int i = 0;
+            int index = 0;
+
+            this.SplitList(startIndex, length, ref i, ref index);
+
+            int next = 0;
+
+            int stopIndex = startIndex + length;
+
+            while (i < this.List.Count)
+            {
+                next = index + this.List[i].Length;
+
+                if (index >= startIndex)
+                {
+                    if (next <= stopIndex)
+                    {
+                        result.Append(this.List[i]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                index = next;
+
+                i++;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -237,6 +373,8 @@ namespace Less
         {
             this.List.Add(value);
 
+            this.Length += value.Length;
+
             return this;
         }
 
@@ -249,7 +387,51 @@ namespace Less
         {
             this.List.AddRange(value.List);
 
+            this.Length += value.Length;
+
             return this;
+        }
+
+        private void SplitList(int startIndex, int length, ref int i, ref int index)
+        {
+            this.SplitList(startIndex, ref i, ref index);
+
+            int iCopy = i;
+            int indexCopy = index;
+
+            this.SplitList(startIndex + length, ref iCopy, ref indexCopy);
+        }
+
+        private void SplitList(int startIndex, ref int i, ref int index)
+        {
+            int next = 0;
+
+            while (i < this.List.Count)
+            {
+                next = index + this.List[i].Length;
+
+                if (startIndex == index || startIndex == next)
+                {
+                    break;
+                }
+
+                if (startIndex > index && startIndex < next)
+                {
+                    string origin = this.List[i];
+
+                    int split = startIndex - index;
+
+                    this.List[i] = origin.Substring(split);
+
+                    this.List.Insert(i, origin.Substring(0, split));
+
+                    break;
+                }
+
+                index = next;
+
+                i++;
+            }
         }
     }
 }

@@ -95,7 +95,6 @@
     <Compile Include="Less.Windows\IO\StreamExtensions.cs" />
     <Compile Include="Less.Windows\IO\StringExtensions.cs" />
     <Compile Include="Less.Windows\Performance.cs" />
-    <Compile Include="MutableString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriString.cs" />
     <Compile Include="ValueSet.cs" />

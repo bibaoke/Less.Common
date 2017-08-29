@@ -106,6 +106,31 @@ namespace Test
 
             //
             Encoding gbk = MyEncoding.GBK;
+
+            //
+            Assert.IsTrue(new DynamicString("abc").SubString(1, 1) == "b");
+
+            Assert.IsTrue(new DynamicString("a").Append("bc").SubString(1, 1) == "b");
+
+            Assert.IsTrue(new DynamicString("a").Append("bc").SubString(0, 2) == "ab");
+
+            Assert.IsTrue(new DynamicString("a").Append("b").Append("c").SubString(1, 1) == "b");
+
+            Assert.IsTrue(new DynamicString("a").Append("b").Append("c").SubString(0, 3) == "abc");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").SubString(1, 4) == "bcde");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").SubString(3) == "def");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Remove(1, 4) == "af");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Remove(3) == "abc");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Insert(
+                3, new DynamicString("a").Append("b").Append("c")) == "abcabcdef");
+
+            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Insert(
+                3, new DynamicString("a").Append("bc")) == "abcabcdef");
         }
     }
 }

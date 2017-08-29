@@ -94,7 +94,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较两个对象是否相等
+        /// 比较两个实例是否相等
         /// </summary>
         /// <param name="l"></param>
         /// <param name="r"></param>
@@ -108,7 +108,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较两个对象是否不相等
+        /// 比较两个实例是否不相等
         /// </summary>
         /// <param name="l"></param>
         /// <param name="r"></param>
@@ -119,14 +119,16 @@ namespace Less
         }
 
         /// <summary>
-        /// 比较是否与目标对象相等
+        /// 比较两个实例是否相等
         /// </summary>
-        /// <param name="obj">要比较的对象</param>
+        /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is Base64)
+            {
                 return this == (Base64)obj;
+            }
 
             return false;
         }

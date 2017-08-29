@@ -11,7 +11,7 @@
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>删除 string 的扩展方法 Combine</releaseNotes>
+    <releaseNotes>修改 DynamicString</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
     <tags>system-extensions</tags>
   </metadata>
