@@ -194,23 +194,32 @@ namespace Less
         /// <returns>返回此实例</returns>
         public DynamicString Insert(int startIndex, string value)
         {
-            int i = 0;
-            int index = 0;
-
-            this.SplitList(startIndex, ref i, ref index);
-
-            while (i < this.List.Count)
+            if (startIndex == this.Length)
             {
-                if (startIndex == index)
+                this.Append(value);
+            }
+            else
+            {
+                int i = 0;
+                int index = 0;
+
+                this.SplitList(startIndex, ref i, ref index);
+
+                while (i < this.List.Count)
                 {
-                    this.List.Insert(i, value);
+                    if (startIndex == index)
+                    {
+                        this.List.Insert(i, value);
 
-                    break;
+                        this.Length += value.Length;
+
+                        break;
+                    }
+
+                    index += this.List[i].Length;
+
+                    i++;
                 }
-
-                index += this.List[i].Length;
-
-                i++;
             }
 
             return this;
@@ -251,6 +260,8 @@ namespace Less
                 {
                     if (next <= stopIndex)
                     {
+                        this.Length -= this.List[i].Length;
+
                         this.List.RemoveAt(i);
                     }
                     else
