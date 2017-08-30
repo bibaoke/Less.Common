@@ -2,6 +2,7 @@
 
 using Less.Text;
 using System.Collections.Generic;
+using System;
 
 namespace Less
 {
@@ -296,6 +297,7 @@ namespace Less
         /// <param name="startIndex">起始索引</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">截取的位置不存在</exception>
         public string Substring(int startIndex, int length)
         {
             if (this.List.Count == 1)
@@ -304,7 +306,12 @@ namespace Less
             }
             else
             {
-                DynamicString result = new DynamicString();
+                if (startIndex < 0 || length < 0 || startIndex + length > this.Length)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                string result = "";
 
                 int i = 0;
                 int index = 0;
@@ -323,7 +330,7 @@ namespace Less
                     {
                         if (next <= stopIndex)
                         {
-                            result.Append(this.List[i]);
+                            result += this.List[i];
                         }
                         else
                         {
