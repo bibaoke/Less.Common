@@ -13,15 +13,6 @@ namespace Less.Windows
     public static class ConsoleApp
     {
         /// <summary>
-        /// 名称列表
-        /// </summary>
-        private static List<string> NameList
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// 功能集合
         /// </summary>
         private static Dictionary<string, Function> Functions
@@ -33,7 +24,6 @@ namespace Less.Windows
         static ConsoleApp()
         {
             ConsoleApp.Functions = new Dictionary<string, Function>();
-            ConsoleApp.NameList = new List<string>();
 
             ConsoleApp.AddFuntion(new Exit());
         }
@@ -47,8 +37,10 @@ namespace Less.Windows
             Console.WriteLine("键入以下命令调用对应的程序：");
             Console.WriteLine();
 
-            foreach (string i in ConsoleApp.NameList)
+            foreach (string i in ConsoleApp.Functions.Keys)
+            {
                 Console.WriteLine("{0}： {1}".FormatString(i, ConsoleApp.Functions[i].Description));
+            }
 
             Console.WriteLine();
 
@@ -84,8 +76,6 @@ namespace Less.Windows
         public static void AddFuntion(Function function)
         {
             ConsoleApp.Functions.Add(function.Name, function);
-
-            ConsoleApp.NameList.Add(function.Name);
         }
     }
 }
