@@ -282,7 +282,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 截取子字符串 不会修改此实例
+        /// 截取子字符串
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <returns></returns>
@@ -292,7 +292,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 截取子字符串 不会修改此实例
+        /// 截取子字符串
         /// </summary>
         /// <param name="startIndex">起始索引</param>
         /// <param name="length">长度</param>
