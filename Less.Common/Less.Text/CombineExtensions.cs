@@ -43,23 +43,21 @@ namespace Less.Text
         /// <returns></returns>
         public static string List(this NameValueCollection list, string separator)
         {
-            //可变字符串
-            //保存结果
-            StringBuilder b = new StringBuilder();
+            string result = "";
 
             //拼接键值集合
             foreach (string i in list.AllKeys)
             {
-                b.Append(i).Append("=").Append(list[i]).Append(separator);
+                result += i + "=" + list[i] + separator;
             }
 
             //移除最后一个分隔符
-            if (b.Length > 0)
+            if (result.Length > 0)
             {
-                b.Remove(b.Length - 1, 1);
+                result = result.TrimEnd(separator);
             }
 
-            return b.ToString();
+            return result;
         }
 
         /// <summary>

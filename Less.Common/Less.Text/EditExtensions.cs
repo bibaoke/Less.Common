@@ -92,9 +92,13 @@ namespace Less.Text
                 result.Add(s[index]);
 
                 if (s[index].IsUnicode())
+                {
                     count += 1M;
+                }
                 else
+                {
                     count += 0.5M;
+                }
 
                 index++;
             }
@@ -112,7 +116,9 @@ namespace Less.Text
         public static string TrimStart(this string s, string startString, StringComparison stringComparison)
         {
             if (s.StartsWith(startString, stringComparison))
+            {
                 return s.Substring(startString.Length);
+            }
 
             return s;
         }
@@ -149,7 +155,9 @@ namespace Less.Text
         public static string TrimEnd(this string s, string endString, StringComparison stringComparison)
         {
             if (s.EndsWith(endString, stringComparison))
+            {
                 return s.Substring(0, s.Length - endString.Length);
+            }
 
             return s;
         }
@@ -231,7 +239,7 @@ namespace Less.Text
             int oldValueIndex = 0;
 
             //替换处理之后的结果
-            StringBuilder result = new StringBuilder(s.Length);
+            string result = "";
 
             //在文本中查找要替换的字符串
             while ((oldValueIndex = s.IndexOf(oldValue, startIndex, comparison)) >= 0)
@@ -239,11 +247,11 @@ namespace Less.Text
                 //把旧值索引前的内容追加到结果中
                 (oldValueIndex - startIndex).Each(index =>
                 {
-                    result.Append(s[startIndex + index]);
+                    result += s[startIndex + index];
                 });
 
                 //再追加新值
-                result.Append(newValue);
+                result += newValue;
 
                 //更新起始索引
                 startIndex = oldValueIndex + oldValue.Length;
@@ -252,7 +260,7 @@ namespace Less.Text
             //把剩余的内容追加到结果中
             (s.Length - startIndex).Each(index =>
             {
-                result.Append(s[startIndex + index]);
+                result += s[startIndex + index];
             });
 
             return result.ToString();
