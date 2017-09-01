@@ -87,7 +87,9 @@ namespace Less
                     for (int i = 0; i < l.ByteArrayValue.Length; i++)
                     {
                         if (l.ByteArrayValue[i] != r.ByteArrayValue[i])
+                        {
                             return false;
+                        }
                     }
 
                     return true;
@@ -116,7 +118,9 @@ namespace Less
         public override bool Equals(object obj)
         {
             if (obj is HexString)
+            {
                 return this == (HexString)obj;
+            }
 
             return false;
         }
@@ -132,9 +136,13 @@ namespace Less
             for (int i = 0; i < 4; i++)
             {
                 if (this.ByteArrayValue.Length > i)
+                {
                     hash |= this.ByteArrayValue[i] << 8 * i;
+                }
                 else
+                {
                     hash |= 0 << 8 * i;
+                }
             }
 
             return hash;

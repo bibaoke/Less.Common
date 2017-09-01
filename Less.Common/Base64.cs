@@ -102,7 +102,9 @@ namespace Less
         public static bool operator ==(Base64 l, Base64 r)
         {
             if (l.IsNotNull() && r.IsNotNull())
+            {
                 return l.ToString() == r.ToString();
+            }
 
             return l.IsNull() && r.IsNull();
         }

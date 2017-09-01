@@ -16,11 +16,6 @@ namespace Test
         static void Main(string[] args)
         {
             //
-            DynamicString a = "a";
-
-            Assert.IsTrue(a.Append("b").ToString() == "ab");
-
-            //
             Cmd.Exec("ping bibaoke.com");
 
             //
@@ -106,31 +101,6 @@ namespace Test
 
             //
             Encoding gbk = MyEncoding.GBK;
-
-            //
-            Assert.IsTrue(new DynamicString("abc").Substring(1, 1) == "b");
-
-            Assert.IsTrue(new DynamicString("a").Append("bc").Substring(1, 1) == "b");
-
-            Assert.IsTrue(new DynamicString("a").Append("bc").Substring(0, 2) == "ab");
-
-            Assert.IsTrue(new DynamicString("a").Append("b").Append("c").Substring(1, 1) == "b");
-
-            Assert.IsTrue(new DynamicString("a").Append("b").Append("c").Substring(0, 3) == "abc");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Substring(1, 4) == "bcde");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Substring(3) == "def");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Remove(1, 4) == "af");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Remove(3) == "abc");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Insert(
-                3, new DynamicString("a").Append("b").Append("c")) == "abcabcdef");
-
-            Assert.IsTrue(new DynamicString("ab").Append("cd").Append("ef").Insert(
-                3, new DynamicString("a").Append("bc")) == "abcabcdef");
         }
     }
 }
