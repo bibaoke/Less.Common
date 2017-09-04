@@ -102,7 +102,12 @@ namespace Less.Text
 
                 if (tuple.IsNotNull())
                 {
-                    result.Add(s.Substring(index, tuple.Value1 - index));
+                    int length = tuple.Value1 - index;
+
+                    if (length > 0)
+                    {
+                        result.Add(s.Substring(index, length));
+                    }
 
                     index = tuple.Value1 + tuple.Value2;
                 }
@@ -111,7 +116,9 @@ namespace Less.Text
                     int length = s.Length - index;
 
                     if (length > 0)
+                    {
                         result.Add(s.Substring(index, length));
+                    }
 
                     break;
                 }
@@ -153,7 +160,9 @@ namespace Less.Text
             Match match = SplitExtensions.WhiteSpacePattern.Match(s, startIndex, count);
 
             if (match.Success)
+            {
                 return new ValueSet<int, int>(match.Index, match.Length);
+            }
 
             return null;
         }

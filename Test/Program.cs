@@ -22,7 +22,7 @@ namespace Test
             Cmd.Exec("Form.exe");
 
             //
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.265.com");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://2345.com");
 
             using (WebResponse response = request.GetResponse())
             {
@@ -34,7 +34,7 @@ namespace Test
 
                     WebClient client = new WebClient();
 
-                    byte[] data2 = client.DownloadData("http://www.265.com");
+                    byte[] data2 = client.DownloadData("http://2345.com");
 
                     string text2 = data2.ToString(Encoding.UTF8);
 
@@ -57,7 +57,9 @@ namespace Test
             Pool pool = new Pool(50);
 
             for (int i = 0; i < 100; i++)
+            {
                 pool.Execute(i, j => Console.WriteLine(j));
+            }
 
             //
             int number1 = "10".ToInt();
@@ -101,6 +103,13 @@ namespace Test
 
             //
             Encoding gbk = MyEncoding.GBK;
+
+            //
+            Assert.IsTrue("".SplitByWhiteSpace().Length == 0);
+
+            Assert.IsTrue(" ".SplitByWhiteSpace().Length == 0);
+
+            Assert.IsTrue(" test1  test2 ".SplitByWhiteSpace()[1] == "test2");
         }
     }
 }
