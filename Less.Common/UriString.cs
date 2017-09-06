@@ -76,7 +76,7 @@ namespace Less
         /// </summary>
         /// <param name="query">
         /// 查询参数
-        /// 格式 name1=value1&name2=value2 或 ?name1=value1&name2=value2
+        /// 格式 name1=value1&amp;name2=value2 或 ?name1=value1&amp;name2=value2
         /// </param>
         /// <returns>返回一个新的 UriString 实例</returns>
         public UriString SetQuery(string query)

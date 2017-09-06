@@ -26,7 +26,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 从 Class<T> 到 T? 的隐式转换
+        /// 从 Class&lt;T&gt; 到 T? 的隐式转换
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 从 T? 到 Class<T> 的隐式转换
+        /// 从 T? 到 Class&lt;T&gt; 的隐式转换
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -46,7 +46,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 从 Class<T> 到 T 的隐式转换
+        /// 从 Class&lt;T&gt; 到 T 的隐式转换
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 从 T 到 Class<T> 的隐式转换
+        /// 从 T 到 Class&lt;T&gt; 的隐式转换
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
