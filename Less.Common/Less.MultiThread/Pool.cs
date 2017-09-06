@@ -79,7 +79,9 @@ namespace Less.MultiThread
             ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
 
             if (!ThreadPool.SetMaxThreads(value, completionPortThreads))
-                throw new ArgumentOutOfRangeException("线程数超出范围");
+            {
+                throw new ArgumentOutOfRangeException("value", value, "线程数超出范围");
+            }
         }
 
         /// <summary>

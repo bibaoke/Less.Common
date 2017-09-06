@@ -47,14 +47,18 @@ namespace Less
         public HexString(string stringValue)
         {
             if (stringValue.IsNull())
-                throw new ArgumentNullException("stringValue");
+            {
+                throw new ArgumentNullException("stringValue", "Hex 字符串不能为 null");
+            }
 
             stringValue = stringValue.TrimStart("0x").Clear("-");
 
             List<byte> list = new List<byte>(stringValue.Length / 2);
 
             for (int i = 0; i < stringValue.Length; i = i + 2)
+            {
                 list.Add(byte.Parse(stringValue.Substring(i, 2), NumberStyles.HexNumber));
+            }
 
             this.ByteArrayValue = list.ToArray();
         }
@@ -67,7 +71,9 @@ namespace Less
         public HexString(byte[] byteArrayValue)
         {
             if (byteArrayValue.IsNull())
-                throw new ArgumentNullException("byteArrayValue");
+            {
+                throw new ArgumentNullException("byteArrayValue", "字节序列不能为 null");
+            }
 
             this.ByteArrayValue = byteArrayValue;
         }
@@ -82,18 +88,7 @@ namespace Less
         {
             if (l.IsNotNull() && r.IsNotNull())
             {
-                if (l.ByteArrayValue.Length == r.ByteArrayValue.Length)
-                {
-                    for (int i = 0; i < l.ByteArrayValue.Length; i++)
-                    {
-                        if (l.ByteArrayValue[i] != r.ByteArrayValue[i])
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }
+                return l.ToString() == r.ToString();
             }
 
             return l.IsNull() && r.IsNull();
@@ -131,21 +126,7 @@ namespace Less
         /// <returns></returns>
         public override int GetHashCode()
         {
-            int hash = 0;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (this.ByteArrayValue.Length > i)
-                {
-                    hash |= this.ByteArrayValue[i] << 8 * i;
-                }
-                else
-                {
-                    hash |= 0 << 8 * i;
-                }
-            }
-
-            return hash;
+            return this.ToString().GetHashCode();
         }
 
         /// <summary>

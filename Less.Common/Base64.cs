@@ -38,7 +38,7 @@ namespace Less
         {
             this.StringValue = stringValue;
 
-            this.ByteArrayValue = Convert.FromBase64String(Base64.ConvertToStandardString(stringValue));
+            this.ByteArrayValue = Convert.FromBase64String(this.ConvertToStandardString(stringValue));
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Less
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return this.ToHexString().GetHashCode();
+            return this.ToString().GetHashCode();
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Less
         /// <returns></returns>
         public override string ToString()
         {
-            return this.StringValue.IsNull() ? null : Base64.ConvertToStandardString(this.StringValue);
+            return this.ConvertToStandardString(this.StringValue);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Less
         /// <returns></returns>
         public string ToUrlString()
         {
-            return this.StringValue.IsNull() ? null : Base64.ConvertToUrlString(this.StringValue);
+            return this.ConvertToUrlString(this.StringValue);
         }
 
         /// <summary>
@@ -185,9 +185,9 @@ namespace Less
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private static string ConvertToStandardString(string s)
+        private string ConvertToStandardString(string s)
         {
-            return string.Concat(s.Replace("_", "+").Replace("-", "/"), "=".Repeat(s.Length % 4));
+            return s.Replace("_", "+").Replace("-", "/") + "=".Repeat(s.Length % 4);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Less
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private static string ConvertToUrlString(string s)
+        private string ConvertToUrlString(string s)
         {
             return s.Replace("+", "_").Replace("/", "-").TrimEnd('=');
         }

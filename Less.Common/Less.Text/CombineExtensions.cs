@@ -66,16 +66,19 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="count">重复次数</param>
         /// <returns>重复后的字符串</returns>
+        /// <exception cref="ArgumentOutOfRangeException">重复次数不能小于零</exception>
         public static string Repeat(this string s, int count)
         {
-            string[] result = new string[count];
-
-            count.Each(delegate (int index)
+            if (count < 0)
             {
-                result[index] = s;
-            });
+                throw new ArgumentOutOfRangeException("count", count, "重复次数不能小于零");
+            }
 
-            return string.Concat(result);
+            string result = "";
+
+            count.Each(() => result += s);
+
+            return result;
         }
     }
 }

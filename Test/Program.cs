@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using Less.Text;
 using Less.MultiThread;
-using System.Diagnostics;
+using Less.Collection;
 
 namespace Test
 {
@@ -22,7 +22,7 @@ namespace Test
             Cmd.Exec("Form.exe");
 
             //
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://2345.com");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://265.com");
 
             using (WebResponse response = request.GetResponse())
             {
@@ -34,7 +34,7 @@ namespace Test
 
                     WebClient client = new WebClient();
 
-                    byte[] data2 = client.DownloadData("http://2345.com");
+                    byte[] data2 = client.DownloadData("http://265.com");
 
                     string text2 = data2.ToString(Encoding.UTF8);
 
@@ -110,6 +110,12 @@ namespace Test
             Assert.IsTrue(" ".SplitByWhiteSpace().Length == 0);
 
             Assert.IsTrue(" test1  test2 ".SplitByWhiteSpace()[1] == "test2");
+
+            //
+            Assert.IsTrue(new int[] { 1, 2 }.ExtArray(new int[0]).Length == 2);
+
+            //
+            Assert.IsTrue("test".Repeat(2) == "testtest");
         }
     }
 }
