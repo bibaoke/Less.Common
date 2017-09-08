@@ -64,6 +64,7 @@
     <Compile Include="Less.Collection\HashSetExtensions.cs" />
     <Compile Include="Less.Collection\IEnumerableExtensions.cs" />
     <Compile Include="Less.Collection\IntExtensions.cs" />
+    <Compile Include="Less.Collection\ListExtensions.cs" />
     <Compile Include="Less.Collection\ObjectExtensions.cs" />
     <Compile Include="Less.Encrypt\Encrypt.cs" />
     <Compile Include="Less.MultiThread\Asyn.cs" />
