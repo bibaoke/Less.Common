@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Less.Collection
 {
     /// <summary>
-    /// 数组迭代器
+    /// 数组枚举器
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ArrayEnumerator<T> : IEnumerator<T>, IEnumerable<T>
@@ -42,10 +42,16 @@ namespace Less.Collection
             set;
         }
 
+        private int ArrayLength
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <param name="array">要迭代的数组</param>
+        /// <param name="array">要枚举的数组</param>
         /// <param name="startIndex">起始索引</param>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         public ArrayEnumerator(T[] array, int startIndex) : this(array, startIndex, array.Length - startIndex)
@@ -56,9 +62,9 @@ namespace Less.Collection
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <param name="array">要迭代的数组</param>
+        /// <param name="array">要枚举的数组</param>
         /// <param name="startIndex">起始索引</param>
-        /// <param name="count">迭代次数</param>
+        /// <param name="count">枚举次数</param>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         /// <exception cref="ArgumentException">count 不能大于 startIndex 到数组末尾的元素数</exception>
         public ArrayEnumerator(T[] array, int startIndex, int count)
@@ -80,6 +86,8 @@ namespace Less.Collection
             this.CurrentIndex = startIndex - 1;
 
             this.StopIndex = startIndex + count;
+
+            this.ArrayLength = this.Array.Length;
         }
 
         /// <summary>
@@ -90,14 +98,12 @@ namespace Less.Collection
         {
             get
             {
-                try
+                if (this.Array.Length != this.ArrayLength)
                 {
-                    return this.Array[CurrentIndex];
+                    throw new InvalidOperationException("在创建了枚举数后集合被修改了");
                 }
-                catch (IndexOutOfRangeException ex)
-                {
-                    throw new InvalidOperationException("在创建了枚举数后集合被修改了", ex);
-                }
+
+                return this.Array[CurrentIndex];
             }
         }
 

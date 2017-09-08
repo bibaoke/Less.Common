@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Less.Collection
 {
     /// <summary>
-    /// 列表迭代器
+    /// 列表枚举器
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ListEnumerator<T> : IEnumerator<T>, IEnumerable<T>
@@ -42,10 +42,16 @@ namespace Less.Collection
             set;
         }
 
+        private int ListCount
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <param name="list">要迭代的列表</param>
+        /// <param name="list">要枚举的列表</param>
         /// <param name="startIndex">起始索引</param>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         public ListEnumerator(List<T> list, int startIndex) : this(list, startIndex, list.Count - startIndex)
@@ -56,9 +62,9 @@ namespace Less.Collection
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <param name="list">要迭代的列表</param>
+        /// <param name="list">要枚举的列表</param>
         /// <param name="startIndex">起始索引</param>
-        /// <param name="count">迭代次数</param>
+        /// <param name="count">枚举次数</param>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         /// <exception cref="ArgumentException">count 不能大于 startIndex 到列表末尾的元素数</exception>
         public ListEnumerator(List<T> list, int startIndex, int count)
@@ -80,6 +86,8 @@ namespace Less.Collection
             this.CurrentIndex = startIndex - 1;
 
             this.StopIndex = startIndex + count;
+
+            this.ListCount = this.List.Count;
         }
 
         /// <summary>
@@ -90,14 +98,12 @@ namespace Less.Collection
         {
             get
             {
-                try
+                if (this.List.Count != this.ListCount)
                 {
-                    return this.List[CurrentIndex];
+                    throw new InvalidOperationException("在创建了枚举数后集合被修改了");
                 }
-                catch (IndexOutOfRangeException ex)
-                {
-                    throw new InvalidOperationException("在创建了枚举数后集合被修改了", ex);
-                }
+
+                return this.List[CurrentIndex];
             }
         }
 
