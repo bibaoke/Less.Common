@@ -8,6 +8,7 @@ using System.Text;
 using Less.Text;
 using Less.MultiThread;
 using Less.Collection;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -116,6 +117,24 @@ namespace Test
 
             //
             Assert.IsTrue("test".Repeat(2) == "testtest");
+
+            //
+            int[] testArray = new int[100];
+
+            100.Each(index => testArray[index] = index);
+
+            IEnumerable<int> enumerator = testArray.GetEnumerator(50);
+
+            int count = 0;
+
+            enumerator.Each((index, item) =>
+            {
+                Assert.IsTrue(item == index + 50);
+
+                count++;
+            });
+
+            Assert.IsTrue(count == 50);
         }
     }
 }

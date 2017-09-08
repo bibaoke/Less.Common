@@ -93,7 +93,9 @@ namespace Less.MultiThread
         public static void Exec(Action action)
         {
             if (action.IsNotNull())
+            {
                 ThreadPool.QueueUserWorkItem(i => action());
+            }
         }
 
         /// <summary>
@@ -106,7 +108,9 @@ namespace Less.MultiThread
         public static void Exec<T>(T value, Action<T> action)
         {
             if (action.IsNotNull())
+            {
                 ThreadPool.QueueUserWorkItem(i => action((T)i), value);
+            }
         }
 
         /// <summary>

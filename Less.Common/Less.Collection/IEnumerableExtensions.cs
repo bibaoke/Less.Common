@@ -19,7 +19,9 @@ namespace Less.Collection
         public static void Dispose(this IEnumerable<IDisposable> items)
         {
             foreach (IDisposable i in items)
+            {
                 i.Dispose();
+            }
         }
 
         /// <summary>
@@ -34,7 +36,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 是否非空白
+        /// 项数是否不为零
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
@@ -44,7 +46,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 是否空白
+        /// 项数是否为零
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
@@ -54,7 +56,9 @@ namespace Less.Collection
             {
                 //能进入循环即非空白
                 foreach (object i in items)
+                {
                     return false;
+                }
             }
 
             return true;
@@ -113,7 +117,9 @@ namespace Less.Collection
             foreach (T item in e)
             {
                 if (!func(index++, item))
+                {
                     break;
+                }
             }
         }
 
@@ -152,13 +158,19 @@ namespace Less.Collection
                 EnumInfo info = new EnumInfo();
 
                 if (index == 0)
+                {
                     info.IsFirst = true;
+                }
 
                 if (index == count - 1)
+                {
                     info.IsLast = true;
+                }
 
                 if (!func(index++, item, info))
+                {
                     break;
+                }
             }
         }
     }

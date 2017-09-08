@@ -82,7 +82,9 @@ namespace Less.Windows
             ManagementObject o = null;
 
             foreach (ManagementObject i in instances)
+            {
                 o = i;
+            }
 
             if (o.IsNotNull())
             {

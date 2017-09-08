@@ -212,10 +212,14 @@ namespace Less.Windows
 
                 //读取成功 提升位置
                 if (read > 0)
+                {
                     this.Position += read;
+                }
                 //读取结束 退出
                 else
+                {
                     break;
+                }
             }
         }
 

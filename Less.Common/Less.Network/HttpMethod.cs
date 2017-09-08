@@ -35,6 +35,7 @@ namespace Less.Network
 
         private HttpMethod(string value) : base(value)
         {
+            //
         }
 
         /// <summary>
@@ -67,7 +68,9 @@ namespace Less.Network
         public override bool Equals(object obj)
         {
             if (obj is HttpMethod)
+            {
                 return this == (HttpMethod)obj;
+            }
 
             return false;
         }

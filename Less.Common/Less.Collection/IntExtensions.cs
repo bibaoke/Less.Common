@@ -17,7 +17,9 @@ namespace Less.Collection
         public static void Each(this int count, Action action)
         {
             for (int i = 0; i < count; i++)
+            {
                 action();
+            }
         }
 
         /// <summary>
@@ -29,7 +31,9 @@ namespace Less.Collection
         public static void Each(this int count, Action<int> action)
         {
             for (int i = 0; i < count; i++)
+            {
                 action(i);
+            }
         }
 
         /// <summary>
@@ -41,7 +45,9 @@ namespace Less.Collection
         public static void EachDesc(this int count, Action<int> action)
         {
             for (int i = count - 1; i >= 0; i--)
+            {
                 action(i);
+            }
         }
 
         /// <summary>
@@ -55,7 +61,9 @@ namespace Less.Collection
             for (int i = 0; i < count; i++)
             {
                 if (!func(i))
+                {
                     break;
+                }
             }
         }
 
@@ -70,7 +78,9 @@ namespace Less.Collection
             for (int i = count - 1; i >= 0; i--)
             {
                 if (!func(i))
+                {
                     break;
+                }
             }
         }
     }

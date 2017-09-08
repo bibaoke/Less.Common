@@ -56,7 +56,9 @@ namespace Less.Text
             foreach (string i in array)
             {
                 if (i.Equals(s, option.ToStringComparison()))
+                { 
                     return true;
+                }
             }
 
             return false;
@@ -105,9 +107,13 @@ namespace Less.Text
         public static StringComparison ToStringComparison(this CaseOptions caseOption)
         {
             if (caseOption == CaseOptions.CaseSensitive)
+            {
                 return StringComparison.Ordinal;
+            }
             else
+            {
                 return StringComparison.OrdinalIgnoreCase;
+            }
         }
     }
 }

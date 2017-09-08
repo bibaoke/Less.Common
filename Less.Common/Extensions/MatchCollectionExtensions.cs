@@ -21,7 +21,9 @@ namespace Less
             List<string> list = new List<string>();
 
             foreach (Match i in m)
+            {
                 list.Add(i.Groups[groupName].Value);
+            }
 
             return list.ToArray();
         }
@@ -37,7 +39,9 @@ namespace Less
             List<string> list = new List<string>();
 
             foreach (Match i in m)
+            {
                 list.Add(i.Groups[groupIndex].Value);
+            }
 
             return list.ToArray();
         }

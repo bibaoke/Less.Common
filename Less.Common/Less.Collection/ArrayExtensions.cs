@@ -11,6 +11,34 @@ namespace Less.Collection
     public static class ArrayExtensions
     {
         /// <summary>
+        /// 获取数组迭代器
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
+        public static ArrayEnumerator<T> GetEnumerator<T>(this T[] array, int startIndex)
+        {
+            return new ArrayEnumerator<T>(array, startIndex);
+        }
+
+        /// <summary>
+        /// 获取数组迭代器
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <param name="count">迭代次数</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
+        /// <exception cref="ArgumentException">count 不能大于 startIndex 到数组末尾的元素数</exception>
+        public static ArrayEnumerator<T> GetEnumerator<T>(this T[] array, int startIndex, int count)
+        {
+            return new ArrayEnumerator<T>(array, startIndex, count);
+        }
+
+        /// <summary>
         /// 倒序迭代
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -131,7 +159,8 @@ namespace Less.Collection
         /// <param name="array">父数组</param>
         /// <param name="startIndex">起始索引</param>
         /// <returns>子数组</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="NullReferenceException">数组不能为 null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于数组的下限</exception>
         public static T[] SubArray<T>(this T[] array, int startIndex)
         {
             T[] result = new T[array.Length - startIndex];
@@ -149,9 +178,9 @@ namespace Less.Collection
         /// <param name="startIndex">起始索引</param>
         /// <param name="count">元素个数</param>
         /// <returns>子数组</returns>
-        /// <exception cref="ArgumentNullException">array 不能为 null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于 array 的下限</exception>
-        /// <exception cref="ArgumentException">count 不能大于 startIndex 到 array 末尾的元素数</exception>
+        /// <exception cref="ArgumentNullException">数组不能为 null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于数组的下限</exception>
+        /// <exception cref="ArgumentException">count 不能大于 startIndex 到数组末尾的元素数</exception>
         /// <exception cref="OverflowException">count 超出范围</exception>
         public static T[] SubArray<T>(this T[] array, int startIndex, int count)
         {

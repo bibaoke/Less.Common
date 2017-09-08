@@ -145,6 +145,7 @@ namespace Less.Network
 
         private MimeType(string value) : base(value)
         {
+            //
         }
 
         /// <summary>
@@ -156,7 +157,9 @@ namespace Less.Network
         public static bool operator ==(MimeType l, MimeType r)
         {
             if (l.IsNotNull() && r.IsNotNull())
+            {
                 return l.Value.CompareTrimAndIgnoreCase(r.Value);
+            }
 
             return l.IsNull() && r.IsNull();
         }
@@ -180,7 +183,9 @@ namespace Less.Network
         public override bool Equals(object obj)
         {
             if (obj is MimeType)
+            { 
                 return this == (MimeType)obj;
+            }
 
             return false;
         }

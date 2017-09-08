@@ -1,8 +1,6 @@
 ﻿//bibaoke.com
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Less.Collection;
@@ -62,9 +60,13 @@ namespace Less.Text
             DateTime result;
 
             if (DateTime.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -111,9 +113,13 @@ namespace Less.Text
             decimal result;
 
             if (decimal.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -126,9 +132,13 @@ namespace Less.Text
             byte result;
 
             if (byte.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -141,9 +151,13 @@ namespace Less.Text
             short result;
 
             if (short.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -156,9 +170,13 @@ namespace Less.Text
             int result;
 
             if (int.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -188,9 +206,13 @@ namespace Less.Text
             long result;
 
             if (long.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
 
         /// <summary>
@@ -203,9 +225,13 @@ namespace Less.Text
             bool result;
 
             if (bool.TryParse(s, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
     }
 }
