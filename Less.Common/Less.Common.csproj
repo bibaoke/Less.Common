@@ -57,8 +57,9 @@
     <Compile Include="Extensions\MatchExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="HexString.cs" />
-    <Compile Include="Less.Collection\ArrayEnumerator.cs" />
+    <Compile Include="Less.Collection\Enumerators\ArrayEnumerator.cs" />
     <Compile Include="Less.Collection\ArrayExtensions.cs" />
+    <Compile Include="Less.Collection\Enumerators\ListEnumerator.cs" />
     <Compile Include="Less.Collection\EnumInfo.cs" />
     <Compile Include="Less.Collection\HashSetExtensions.cs" />
     <Compile Include="Less.Collection\IEnumerableExtensions.cs" />
