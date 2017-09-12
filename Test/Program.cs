@@ -138,6 +138,8 @@ namespace Test
 
             //
             Assert.IsTrue(new char[] { 'a', 'b', 'c', 'd' }.GetString(1, 2) == "bc");
+
+            Assert.IsTrue(new char[] { }.GetString() == "");
         }
     }
 }

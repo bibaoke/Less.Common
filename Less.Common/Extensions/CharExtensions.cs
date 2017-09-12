@@ -68,6 +68,11 @@ namespace Less
         /// <exception cref="ArgumentException">length 不能大于 startIndex 到数组末尾的元素数</exception>
         public static string GetString(this char[] array, int startIndex, int length)
         {
+            if (array.IsNull())
+            {
+                throw new ArgumentNullException("array", "数组不能为 nul");
+            }
+
             if (startIndex < 0)
             {
                 throw new ArgumentOutOfRangeException("startIndex", startIndex, "startIndex 不能小于零");
@@ -78,11 +83,24 @@ namespace Less
                 throw new ArgumentException("length 不能大于 startIndex 到数组末尾的元素数", "length");
             }
 
-            unsafe
+            if (array.Length > 0)
             {
-                fixed (char* p = &array[0])
+                unsafe
                 {
-                    return new string(p, startIndex, length);
+                    fixed (char* p = &array[0])
+                    {
+                        return new string(p, startIndex, length);
+                    }
+                }
+            }
+            else
+            {
+                unsafe
+                {
+                    fixed (char* p = array)
+                    {
+                        return new string(p);
+                    }
                 }
             }
         }
