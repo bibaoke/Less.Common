@@ -4,6 +4,7 @@ using Less.Collection;
 using Less.Text;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace Less
 {
@@ -32,6 +33,58 @@ namespace Less
             CharExtensions.NumberMap.Add('7', '七');
             CharExtensions.NumberMap.Add('8', '八');
             CharExtensions.NumberMap.Add('9', '九');
+        }
+
+        /// <summary>
+        /// 获取引用此实例地址的字符串
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns>返回引用此实例地址的字符串</returns>
+        public static string GetString(this char[] array)
+        {
+            return array.GetString(0, array.Length);
+        }
+
+        /// <summary>
+        /// 获取引用此实例地址的字符串
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <returns>返回引用此实例地址的字符串</returns>
+        /// <exception cref="ArgumentOutOfRangeException">起始索引不能小于零</exception>
+        public static string GetString(this char[] array, int startIndex)
+        {
+            return array.GetString(startIndex, array.Length - startIndex);
+        }
+
+        /// <summary>
+        /// 获取引用此实例地址的字符串
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <param name="length">长度</param>
+        /// <returns>返回引用此实例地址的字符串</returns>
+        /// <exception cref="ArgumentOutOfRangeException">起始索引不能小于零</exception>
+        /// <exception cref="ArgumentException">length 不能大于 startIndex 到数组末尾的元素数</exception>
+        public static string GetString(this char[] array, int startIndex, int length)
+        {
+            if (startIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("startIndex", startIndex, "startIndex 不能小于零");
+            }
+
+            if (length > array.Length - startIndex)
+            {
+                throw new ArgumentException("length 不能大于 startIndex 到数组末尾的元素数", "length");
+            }
+
+            unsafe
+            {
+                fixed (char* p = &array[0])
+                {
+                    return new string(p, startIndex, length);
+                }
+            }
         }
 
         /// <summary>

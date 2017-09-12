@@ -135,6 +135,9 @@ namespace Test
             });
 
             Assert.IsTrue(count == 50);
+
+            //
+            Assert.IsTrue(new char[] { 'a', 'b', 'c', 'd' }.GetString(1, 2) == "bc");
         }
     }
 }
