@@ -24,6 +24,50 @@ namespace Less.Text
         }
 
         /// <summary>
+        /// 获取引用此实例地址的子字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <returns>返回引用此实例地址的子字符串</returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">起始索引不能小于零</exception>
+        public static string SubstringUnsafe(this string s, int startIndex)
+        {
+            return s.SubstringUnsafe(startIndex, s.Length - startIndex);
+        }
+
+        /// <summary>
+        /// 获取引用此实例地址的子字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="startIndex">起始索引</param>
+        /// <param name="length">长度</param>
+        /// <returns>返回引用此实例地址的子字符串</returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">起始索引不能小于零</exception>
+        /// <exception cref="ArgumentException">length 不能大于 startIndex 到数组末尾的元素数</exception>
+        public static string SubstringUnsafe(this string s, int startIndex, int length)
+        {
+            if (startIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("startIndex", startIndex, "startIndex 不能小于零");
+            }
+
+            if (length > s.Length - startIndex)
+            {
+                throw new ArgumentException("length 不能大于 startIndex 到数组末尾的元素数", "length");
+            }
+
+            unsafe
+            {
+                fixed (char* p = s)
+                {
+                    return new string(p, startIndex, length);
+                }
+            }
+        }
+
+        /// <summary>
         /// 根据出现的第一个分隔符分隔字符串
         /// </summary>
         /// <param name="s"></param>

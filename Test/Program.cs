@@ -137,9 +137,9 @@ namespace Test
             Assert.IsTrue(count == 50);
 
             //
-            Assert.IsTrue(new char[] { 'a', 'b', 'c', 'd' }.GetString(1, 2) == "bc");
+            Assert.IsTrue("abcd".SubstringUnsafe(1, 2) == "bc");
 
-            Assert.IsTrue(new char[] { }.GetString() == "");
+            Assert.IsTrue("".SubstringUnsafe(0) == "");
         }
     }
 }
