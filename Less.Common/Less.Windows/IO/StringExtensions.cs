@@ -16,6 +16,17 @@ namespace Less.Windows
     /// </summary>
     public static class StringExtensions
     {
+        private static Dictionary<string, ValueSet<DateTime, byte[]>> FileCache
+        {
+            get;
+            set;
+        }
+
+        static StringExtensions()
+        {
+            StringExtensions.FileCache = new Dictionary<string, ValueSet<DateTime, byte[]>>();
+        }
+
         /// <summary>
         /// 复制目录到指定目录
         /// </summary>
@@ -198,7 +209,41 @@ namespace Less.Windows
         /// </exception>
         public static string ReadString(this string s, Encoding e)
         {
-            byte[] bytes = s.ReadBytes();
+            return s.ReadString(e, false);
+        }
+
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e">编码</param>
+        /// <param name="cache">是否使用缓存</param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        /// <exception cref="DecoderFallbackException">
+        /// 发生回退（请参见了解编码以获得完整的解释） 
+        /// - 并且 - 
+        /// System.Text.Encoding.DecoderFallback 被设置为 System.Text.DecoderExceptionFallback
+        /// </exception>
+        public static string ReadString(this string s, Encoding e, bool cache)
+        {
+            byte[] bytes = s.ReadBytes(cache);
+
+            if (bytes.Length >= 3)
+            {
+                if (bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
+                {
+                    return e.GetString(bytes, 3, bytes.Length - 3);
+                }
+            }
 
             return e.GetString(bytes);
         }
@@ -219,7 +264,59 @@ namespace Less.Windows
         /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
         public static byte[] ReadBytes(this string s)
         {
-            return File.ReadAllBytes(s);
+            return s.ReadBytes(false);
+        }
+
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="cache">是否使用缓存</param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">调用方没有所要求的权限 或 路径是一个目录</exception>
+        /// <exception cref="ArgumentException">路径中含有非法字符</exception>
+        /// <exception cref="ArgumentNullException">路径不能为 null</exception>
+        /// <exception cref="PathTooLongException">路径或文件名超出了系统定义的最大长度</exception>
+        /// <exception cref="DirectoryNotFoundException">指定的路径无效</exception>
+        /// <exception cref="FileNotFoundException">找不到指定文件</exception>
+        /// <exception cref="NotSupportedException">指定的路径格式无效</exception>
+        /// <exception cref="IOException">读取错误</exception>
+        /// <exception cref="SecurityException">调用方没有所要求的权限</exception>
+        public static byte[] ReadBytes(this string s, bool cache)
+        {
+            if (cache)
+            {
+                ValueSet<DateTime, byte[]> value;
+
+                DateTime last = new FileInfo(s).LastWriteTime;
+
+                if (StringExtensions.FileCache.TryGetValue(s, out value))
+                {
+                    if (value.Value1 >= last)
+                    {
+                        return value.Value2.Copy();
+                    }
+                }
+
+                byte[] data = File.ReadAllBytes(s);
+
+                byte[] clone = data.Copy();
+
+                try
+                {
+                    StringExtensions.FileCache.Add(s, new ValueSet<DateTime, byte[]>(last, clone));
+                }
+                catch (ArgumentException)
+                {
+                    //
+                }
+
+                return data;
+            }
+            else
+            {
+                return File.ReadAllBytes(s);
+            }
         }
 
         /// <summary>

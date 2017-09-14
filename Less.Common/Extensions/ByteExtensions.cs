@@ -1,5 +1,6 @@
 ﻿//bibaoke.com
 
+using System;
 using System.Text;
 
 namespace Less
@@ -28,6 +29,20 @@ namespace Less
         public static string ToString(this byte[] byteArray, Encoding encoding)
         {
             return encoding.GetString(byteArray);
+        }
+
+        /// <summary>
+        /// 复制 byte[]
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns>返回复制的 byte[] 副本</returns>
+        public static byte[] Copy(this byte[] array)
+        {
+            byte[] clone = new byte[array.Length];
+
+            Buffer.BlockCopy(array, 0, clone, 0, array.Length);
+
+            return clone;
         }
     }
 }

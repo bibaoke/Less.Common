@@ -190,5 +190,22 @@ namespace Less.Collection
 
             return result;
         }
+
+        /// <summary>
+        /// 复制数组
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns>返回复制的数组副本</returns>
+        /// <exception cref="NullReferenceException">数组不能为 null</exception>
+        /// <exception cref="RankException">不能复制多维数组</exception>
+        public static T[] Copy<T>(this T[] array)
+        {
+            T[] clone = new T[array.Length];
+
+            array.CopyTo(clone, 0);
+
+            return clone;
+        }
     }
 }

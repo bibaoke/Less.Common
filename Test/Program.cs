@@ -140,6 +140,15 @@ namespace Test
             Assert.IsTrue("abcd".SubstringUnsafe(1, 2) == "bc");
 
             Assert.IsTrue("".SubstringUnsafe(0) == "");
+
+            //
+            file = Application.SetupDir.CombinePath("testReadBytes.txt");
+
+            Assert.IsTrue(file.ReadString(Encoding.UTF8, true) == "abc");
+
+            file.Write("abcd", Encoding.UTF8);
+
+            Assert.IsTrue(file.ReadString(Encoding.UTF8, true) == "abcd");
         }
     }
 }

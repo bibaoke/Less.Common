@@ -11,7 +11,7 @@
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>删除 char[] 的 GetString 扩展方法 添加 string 的 SubstringUnsafe 扩展方法</releaseNotes>
+    <releaseNotes>添加文件读取缓存</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
     <tags>system-extensions</tags>
   </metadata>
