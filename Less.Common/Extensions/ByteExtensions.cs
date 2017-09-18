@@ -36,6 +36,8 @@ namespace Less
         /// </summary>
         /// <param name="array"></param>
         /// <returns>返回复制的 byte[] 副本</returns>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数组超过了最大长度</exception>
         public static byte[] Copy(this byte[] array)
         {
             byte[] clone = new byte[array.Length];
@@ -43,6 +45,23 @@ namespace Less
             Buffer.BlockCopy(array, 0, clone, 0, array.Length);
 
             return clone;
+        }
+
+        /// <summary>
+        /// 扩展 byte[]
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="length">新长度</param>
+        /// <returns></returns>
+        /// <exception cref="OutOfMemoryException">内存不足</exception>
+        /// <exception cref="OverflowException">数组超过了最大长度</exception>
+        public static byte[] ExtArray(this byte[] array, int length)
+        {
+            byte[] result = new byte[length];
+
+            Buffer.BlockCopy(array, 0, result, 0, array.Length);
+
+            return result;
         }
     }
 }
