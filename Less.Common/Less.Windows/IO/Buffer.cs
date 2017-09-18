@@ -252,14 +252,16 @@ namespace Less.Windows
         /// <exception cref="OverflowException">数组超过了最大长度</exception>
         private void CheckSpace(int write)
         {
-            //如果空间不足
-            if (this.Position + write > this.Space.Length)
-            {
-                //空间扩展一倍
-                this.Space = this.Space.ExtArray(this.Space.Length * 2);
+            int length = this.Space.Length;
 
-                //递归调用 确保空间足够
-                this.CheckSpace(write);
+            while (this.Position + write > length)
+            {
+                length = length * 2;
+            }
+
+            if (length > this.Space.Length)
+            {
+                this.Space = this.Space.ExtArray(length);
             }
         }
     }
