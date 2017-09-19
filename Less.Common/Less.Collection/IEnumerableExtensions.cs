@@ -87,12 +87,11 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 迭代对象
-        /// 在处理委托中同时得到当前的实例、计数
+        /// 枚举对象 在处理委托中同时得到当前的实例、计数
         /// </summary>
         /// <typeparam name="T">元素类型</typeparam>
-        /// <param name="e">可迭代的对象</param>
-        /// <param name="action">迭代处理的委托</param>
+        /// <param name="e">可枚举的对象</param>
+        /// <param name="action">枚举处理的委托</param>
         public static void Each<T>(this IEnumerable<T> e, Action<int, T> action)
         {
             e.Each((index, item) =>
@@ -104,12 +103,11 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 迭代对象
-        /// 在处理委托中同时得到当前的实例、计数
+        /// 枚举对象 在处理委托中同时得到当前的实例、计数
         /// </summary>
         /// <typeparam name="T">元素类型</typeparam>
-        /// <param name="e">可迭代的对象</param>
-        /// <param name="func">迭代处理的委托</param>
+        /// <param name="e">可枚举的对象</param>
+        /// <param name="func">枚举处理的委托</param>
         public static void Each<T>(this IEnumerable<T> e, Func<int, T, bool> func)
         {
             int index = 0;
@@ -124,12 +122,11 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 迭代对象
-        /// 在处理委托中同时得到当前的实例、计数和扩展信息
+        /// 枚举对象 在处理委托中同时得到当前的实例、计数和扩展信息
         /// </summary>
         /// <typeparam name="T">元素类型</typeparam>
-        /// <param name="e">可迭代的对象</param>
-        /// <param name="action">迭代处理的委托</param>
+        /// <param name="e">可枚举的对象</param>
+        /// <param name="action">枚举处理的委托</param>
         public static void Each<T>(this IEnumerable<T> e, Action<int, T, EnumInfo> action)
         {
             e.Each((index, item, info) =>
@@ -141,12 +138,11 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 迭代对象
-        /// 在处理委托中同时得到当前的实例、计数和扩展信息
+        /// 枚举对象 在处理委托中同时得到当前的实例、计数和扩展信息
         /// </summary>
         /// <typeparam name="T">元素类型</typeparam>
-        /// <param name="e">可迭代的对象</param>
-        /// <param name="func">迭代处理的委托</param>
+        /// <param name="e">可枚举的对象</param>
+        /// <param name="func">枚举处理的委托</param>
         public static void Each<T>(this IEnumerable<T> e, Func<int, T, EnumInfo, bool> func)
         {
             int index = 0;

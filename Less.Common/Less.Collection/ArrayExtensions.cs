@@ -83,6 +83,84 @@ namespace Less.Collection
         }
 
         /// <summary>
+        /// 枚举数组 在处理委托中同时得到当前的实例、计数
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="array"></param>
+        /// <param name="action">枚举处理的委托</param>
+        public static void Each<T>(this T[] array, Action<int, T> action)
+        {
+            array.Each((index, item) =>
+            {
+                action(index, item);
+
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// 枚举数组 在处理委托中同时得到当前的实例、计数
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="array"></param>
+        /// <param name="func">枚举处理的委托</param>
+        public static void Each<T>(this T[] array, Func<int, T, bool> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (!func(i, array[i]))
+                {
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 枚举数组 在处理委托中同时得到当前的实例、计数和扩展信息
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="array"></param>
+        /// <param name="action">枚举处理的委托</param>
+        public static void Each<T>(this T[] array, Action<int, T, EnumInfo> action)
+        {
+            array.Each((index, item, info) =>
+            {
+                action(index, item, info);
+
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// 枚举数组 在处理委托中同时得到当前的实例、计数和扩展信息
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="array"></param>
+        /// <param name="func">枚举处理的委托</param>
+        public static void Each<T>(this T[] array, Func<int, T, EnumInfo, bool> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                EnumInfo info = new EnumInfo();
+
+                if (i == 0)
+                {
+                    info.IsFirst = true;
+                }
+
+                if (i == array.Length - 1)
+                {
+                    info.IsLast = true;
+                }
+
+                if (!func(i, array[i], info))
+                {
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
         /// 降序排序
         /// </summary>
         /// <typeparam name="T"></typeparam>
