@@ -6,7 +6,7 @@ using System.Text;
 namespace Less
 {
     /// <summary>
-    /// 字节的扩展方法
+    /// byte 的扩展方法
     /// </summary>
     public static class ByteExtensions
     {

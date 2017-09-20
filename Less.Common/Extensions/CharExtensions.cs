@@ -9,7 +9,7 @@ using System;
 namespace Less
 {
     /// <summary>
-    /// 字符类型的扩展方法
+    /// char 的扩展方法
     /// </summary>
     public static class CharExtensions
     {

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace Less
 {
     /// <summary>
-    /// Match 扩展方法
+    /// Match 的扩展方法
     /// </summary>
     public static class MatchExtensions
     {

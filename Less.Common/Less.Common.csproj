@@ -75,6 +75,7 @@
     <Compile Include="Less.Network\HttpMethod.cs" />
     <Compile Include="Less.Network\MimeType.cs" />
     <Compile Include="Less.Text\CaseOptions.cs" />
+    <Compile Include="Less.Text\CaseOptionsExtensions.cs" />
     <Compile Include="Less.Text\CombineExtensions.cs" />
     <Compile Include="Less.Text\CompareExtensions.cs" />
     <Compile Include="Less.Text\ConvertExtensions.cs" />

@@ -5,7 +5,7 @@ using System;
 namespace Less
 {
     /// <summary>
-    /// 对象基类的扩展方法
+    /// object 的扩展方法
     /// </summary>
     public static class ObjectExtensions
     {

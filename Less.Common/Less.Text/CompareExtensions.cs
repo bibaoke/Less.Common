@@ -53,10 +53,12 @@ namespace Less.Text
         /// <returns></returns>
         public static bool In(this string s, CaseOptions option, params string[] array)
         {
+            StringComparison comparison = option.ToStringComparison();
+
             foreach (string i in array)
             {
-                if (i.Equals(s, option.ToStringComparison()))
-                { 
+                if (i.Equals(s, comparison))
+                {
                     return true;
                 }
             }
@@ -97,23 +99,6 @@ namespace Less.Text
         public static bool CompareTrimAndIgnoreCase(this string s, string toCompare)
         {
             return s.Trim().Equals(toCompare.Trim(), StringComparison.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// 根据大小写选项决定字符串查找选项
-        /// </summary>
-        /// <param name="caseOption"></param>
-        /// <returns></returns>
-        public static StringComparison ToStringComparison(this CaseOptions caseOption)
-        {
-            if (caseOption == CaseOptions.CaseSensitive)
-            {
-                return StringComparison.Ordinal;
-            }
-            else
-            {
-                return StringComparison.OrdinalIgnoreCase;
-            }
         }
     }
 }

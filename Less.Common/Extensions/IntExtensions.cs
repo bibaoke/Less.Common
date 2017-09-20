@@ -6,7 +6,7 @@ using System;
 namespace Less
 {
     /// <summary>
-    /// 32位整型的扩展方法
+    /// int 的扩展方法
     /// </summary>
     public static class IntExtensions
     {
