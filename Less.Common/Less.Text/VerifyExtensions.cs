@@ -2,6 +2,7 @@
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Less.Text
 {
@@ -10,6 +11,19 @@ namespace Less.Text
     /// </summary>
     public static class VerifyExtensions
     {
+        private static Regex IntPattern
+        {
+            get;
+            set;
+        }
+
+        static VerifyExtensions()
+        {
+            VerifyExtensions.IntPattern = "^-?([1-9][0-9]*|0)$".ToRegex(
+                    RegexOptions.ExplicitCapture |
+                    RegexOptions.Compiled);
+        }
+
         /// <summary>
         /// 是否包含 values 中的任意一个值
         /// </summary>
@@ -43,6 +57,17 @@ namespace Less.Text
         public static bool HasUnicode(this string s)
         {
             return Encoding.UTF8.GetByteCount(s) > s.Length;
+        }
+
+        /// <summary>
+        /// 检查字符串是否一个整数
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">字符串不能为 null</exception>
+        public static bool IsInt(this string s)
+        {
+            return VerifyExtensions.IntPattern.IsMatch(s);
         }
 
         /// <summary>

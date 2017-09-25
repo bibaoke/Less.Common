@@ -9,6 +9,7 @@ using Less.Text;
 using Less.MultiThread;
 using Less.Collection;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Test
 {
@@ -149,6 +150,32 @@ namespace Test
             file.Write("abcd", Encoding.UTF8);
 
             Assert.IsTrue(file.ReadString(Encoding.UTF8, true) == "abcd");
+
+            //
+            Regex pattern = @"(?<order>order\s+by\s+.*?)\s*$".ToRegex(
+                RegexOptions.Compiled |
+                RegexOptions.ExplicitCapture |
+                RegexOptions.IgnoreCase);
+
+            Assert.IsTrue(
+                pattern.Match("select * from user order by dept desc, id asc").GetValue("order") == "order by dept desc, id asc");
+
+            Assert.IsTrue(
+                pattern.Match("select * from user order by id ").GetValue("order") == "order by id");
+
+            //
+            Assert.IsTrue("90".IsInt());
+            Assert.IsTrue("-90".IsInt());
+            Assert.IsTrue("0".IsInt());
+            Assert.IsTrue("-9".IsInt());
+            Assert.IsTrue("-19".IsInt());
+            Assert.IsFalse("09".IsInt());
+            Assert.IsTrue("9".IsInt());
+            Assert.IsFalse("1.9".IsInt());
+            Assert.IsFalse(" 19".IsInt());
+            Assert.IsTrue("19".IsInt());
+            Assert.IsFalse("19 ".IsInt());
+            Assert.IsFalse("1九".IsInt());
         }
     }
 }
