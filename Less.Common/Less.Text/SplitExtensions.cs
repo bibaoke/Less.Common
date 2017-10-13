@@ -92,8 +92,18 @@ namespace Less.Text
         /// 获取语料
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="func">语料库检查委托 如果在语料库中存在返回 true 否则返回 false</param>
+        /// <param name="func">断句委托 返回 true 表示断句 返回 false 表示连接</param>
         public static void GetCorpus(this string s, Func<string, bool> func)
+        {
+            s.GetCorpus((corpus, index) => func(corpus));
+        }
+
+        /// <summary>
+        /// 获取语料
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="func">断句委托 返回 true 表示断句 返回 false 表示连接</param>
+        public static void GetCorpus(this string s, Func<string, int, bool> func)
         {
             int index = 0;
 
@@ -103,7 +113,7 @@ namespace Less.Text
             {
                 while (index + length <= s.Length)
                 {
-                    if (func(s.Substring(index, length)))
+                    if (func(s.Substring(index, length), index))
                     {
                         index = index + length;
                     }

@@ -71,7 +71,7 @@ namespace Less.Windows
         {
             int result = r.Read();
 
-            while (result >= 0)
+            while (result > -1)
             {
                 action((char)result);
 

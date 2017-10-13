@@ -57,7 +57,9 @@ namespace Less.Windows
                     if (ConsoleApp.Functions.TryGetValue(array[0].ToLower(), out function))
                     {
                         if (!function.Execute(array.SubArray(1)))
+                        {
                             break;
+                        }
                     }
                     else
                     {
