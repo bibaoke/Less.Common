@@ -11,7 +11,7 @@
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>增加一个 IsDefault 方法的重载</releaseNotes>
+    <releaseNotes>添加线程池的计数</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
     <tags>system-extensions</tags>
   </metadata>

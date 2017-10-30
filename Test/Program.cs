@@ -10,6 +10,7 @@ using Less.MultiThread;
 using Less.Collection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Test
 {
@@ -62,6 +63,10 @@ namespace Test
             {
                 pool.Execute(i, j => Console.WriteLine(j));
             }
+
+            pool.Execute(() => Thread.Sleep(1000));
+
+            pool.Wait();
 
             //
             int number1 = "10".ToInt();

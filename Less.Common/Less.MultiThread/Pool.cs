@@ -12,10 +12,42 @@ namespace Less.MultiThread
     {
         private static object MaxThreadsLock = new object();
 
+        private object BusyLock = new object();
+        private object AvailableLock = new object();
+
+        private int Threads
+        {
+            get;
+            set;
+        }
+
+        private int Busy
+        {
+            get;
+            set;
+        }
+
+        private int Available
+        {
+            get;
+            set;
+        }
+
         private Semaphore Semaphore
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// 线程池的所有线程已经退出
+        /// </summary>
+        public bool Done
+        {
+            get
+            {
+                return this.Available == this.Threads;
+            }
         }
 
         /// <summary>
@@ -29,6 +61,9 @@ namespace Less.MultiThread
             {
                 Pool.SetMaxThreads(Pool.GetMaxThreads() + threads);
             }
+
+            this.Threads = threads;
+            this.Available = threads;
 
             this.Semaphore = new Semaphore(threads, threads);
         }
@@ -114,6 +149,22 @@ namespace Less.MultiThread
         }
 
         /// <summary>
+        /// 等待所有线程退出
+        /// </summary>
+        public void Wait()
+        {
+            while (true)
+            {
+                if (this.Done)
+                {
+                    return;
+                }
+
+                Thread.Sleep(100);
+            }
+        }
+
+        /// <summary>
         /// 在线程池实例中执行任务
         /// </summary>
         /// <param name="action">任务委托</param>
@@ -127,6 +178,16 @@ namespace Less.MultiThread
 
                 ThreadPool.QueueUserWorkItem(i =>
                 {
+                    lock (this.BusyLock)
+                    {
+                        this.Busy++;
+                    }
+
+                    lock (this.AvailableLock)
+                    {
+                        this.Available--;
+                    }
+
                     try
                     {
                         action();
@@ -134,6 +195,16 @@ namespace Less.MultiThread
                     finally
                     {
                         this.Semaphore.Release();
+
+                        lock (this.BusyLock)
+                        {
+                            this.Busy--;
+                        }
+
+                        lock (this.AvailableLock)
+                        {
+                            this.Available++;
+                        }
                     }
                 });
             }
@@ -154,6 +225,16 @@ namespace Less.MultiThread
 
                 ThreadPool.QueueUserWorkItem(i =>
                 {
+                    lock (this.BusyLock)
+                    {
+                        this.Busy++;
+                    }
+
+                    lock (this.AvailableLock)
+                    {
+                        this.Available--;
+                    }
+
                     try
                     {
                         action((T)i);
@@ -161,6 +242,16 @@ namespace Less.MultiThread
                     finally
                     {
                         this.Semaphore.Release();
+
+                        lock (this.BusyLock)
+                        {
+                            this.Busy--;
+                        }
+
+                        lock (this.AvailableLock)
+                        {
+                            this.Available++;
+                        }
                     }
                 }, value);
             }
