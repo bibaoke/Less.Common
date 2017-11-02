@@ -181,6 +181,10 @@ namespace Test
             Assert.IsTrue("19".IsInt());
             Assert.IsFalse("19 ".IsInt());
             Assert.IsFalse("1九".IsInt());
+
+            //
+            Assert.IsTrue("192.168.1.1".IsIpv4());
+            Assert.IsFalse("192.168.1".IsIpv4());
         }
     }
 }

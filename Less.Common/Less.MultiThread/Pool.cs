@@ -176,18 +176,18 @@ namespace Less.MultiThread
             {
                 this.Semaphore.WaitOne();
 
+                lock (this.BusyLock)
+                {
+                    this.Busy++;
+                }
+
+                lock (this.AvailableLock)
+                {
+                    this.Available--;
+                }
+
                 ThreadPool.QueueUserWorkItem(i =>
                 {
-                    lock (this.BusyLock)
-                    {
-                        this.Busy++;
-                    }
-
-                    lock (this.AvailableLock)
-                    {
-                        this.Available--;
-                    }
-
                     try
                     {
                         action();
@@ -223,18 +223,18 @@ namespace Less.MultiThread
             {
                 this.Semaphore.WaitOne();
 
+                lock (this.BusyLock)
+                {
+                    this.Busy++;
+                }
+
+                lock (this.AvailableLock)
+                {
+                    this.Available--;
+                }
+
                 ThreadPool.QueueUserWorkItem(i =>
                 {
-                    lock (this.BusyLock)
-                    {
-                        this.Busy++;
-                    }
-
-                    lock (this.AvailableLock)
-                    {
-                        this.Available--;
-                    }
-
                     try
                     {
                         action((T)i);

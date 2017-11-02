@@ -25,6 +25,38 @@ namespace Less.Text
         }
 
         /// <summary>
+        /// 是否 ipv4 地址
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsIpv4(this string s)
+        {
+            string[] array = s.Split('.');
+
+            if (array.Length == 4)
+            {
+                foreach (string i in array)
+                {
+                    if (i.IsInt())
+                    {
+                        if (int.Parse(i) < 256)
+                        {
+                            continue;
+                        }
+                    }
+
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 是否包含 values 中的任意一个值
         /// </summary>
         /// <param name="s"></param>
