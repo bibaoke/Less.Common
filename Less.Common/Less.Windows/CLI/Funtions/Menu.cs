@@ -34,7 +34,7 @@ namespace Less.Windows
 
             foreach (string i in ConsoleApp.Functions.Keys)
             {
-                Console.WriteLine("{0}： {1}".FormatString(i, ConsoleApp.Functions[i].Description));
+                Console.WriteLine("{0}： {1}".FormatString(i.ToLower(), ConsoleApp.Functions[i].Description));
             }
 
             Console.WriteLine();
