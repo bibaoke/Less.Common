@@ -95,6 +95,7 @@
     <Compile Include="Less.Windows\CLI\ConsoleApp.cs" />
     <Compile Include="Less.Windows\CLI\Function.cs" />
     <Compile Include="Less.Windows\CLI\Funtions\Exit.cs" />
+    <Compile Include="Less.Windows\CLI\Funtions\Menu.cs" />
     <Compile Include="Less.Windows\Config.cs" />
     <Compile Include="Less.Windows\GUI\ControlExtensions.cs" />
     <Compile Include="Less.Windows\IO\Buffer.cs" />

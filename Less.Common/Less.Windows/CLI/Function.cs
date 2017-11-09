@@ -16,7 +16,7 @@ namespace Less.Windows
         {
             get
             {
-                return this.GetType().Name.ToLower();
+                return this.GetType().Name;
             }
         }
 

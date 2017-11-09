@@ -15,17 +15,28 @@ namespace Less.Windows
         /// <summary>
         /// 功能集合
         /// </summary>
-        private static Dictionary<string, Function> Functions
+        internal static Dictionary<string, Function> Functions
         {
             get;
-            set;
+            private set;
         }
 
         static ConsoleApp()
         {
-            ConsoleApp.Functions = new Dictionary<string, Function>();
+            ConsoleApp.Functions = new Dictionary<string, Function>(StringComparer.OrdinalIgnoreCase);
 
+            ConsoleApp.AddFuntion(new Menu());
             ConsoleApp.AddFuntion(new Exit());
+        }
+
+        /// <summary>
+        /// 启动并执行命令
+        /// </summary>
+        /// <param name="function">要执行的命令</param>
+        /// <param name="args">命令参数</param>
+        public static void Start(string function, params string[] args)
+        {
+            ConsoleApp.Functions[function].Execute(args);
         }
 
         /// <summary>
@@ -33,16 +44,7 @@ namespace Less.Windows
         /// </summary>
         public static void Start()
         {
-            Console.WriteLine();
-            Console.WriteLine("键入以下命令调用对应的程序：");
-            Console.WriteLine();
-
-            foreach (string i in ConsoleApp.Functions.Keys)
-            {
-                Console.WriteLine("{0}： {1}".FormatString(i, ConsoleApp.Functions[i].Description));
-            }
-
-            Console.WriteLine();
+            ConsoleApp.Functions["menu"].Execute(null);
 
             while (true)
             {
@@ -54,7 +56,7 @@ namespace Less.Windows
                 {
                     Function function;
 
-                    if (ConsoleApp.Functions.TryGetValue(array[0].ToLower(), out function))
+                    if (ConsoleApp.Functions.TryGetValue(array[0], out function))
                     {
                         if (!function.Execute(array.SubArray(1)))
                         {
