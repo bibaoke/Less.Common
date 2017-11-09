@@ -88,6 +88,8 @@
     <Compile Include="Less.Text\StringEnum.cs" />
     <Compile Include="Less.Text\Symbol.cs" />
     <Compile Include="Less.Text\VerifyExtensions.cs" />
+    <Compile Include="Less.Windows\Agent\Agent.cs" />
+    <Compile Include="Less.Windows\Agent\AgentMode.cs" />
     <Compile Include="Less.Windows\Application.cs" />
     <Compile Include="Less.Windows\CLI\Cmd.cs" />
     <Compile Include="Less.Windows\CLI\ConsoleApp.cs" />

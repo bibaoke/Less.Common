@@ -15,28 +15,37 @@ namespace Less.MultiThread
         private object BusyLock = new object();
         private object AvailableLock = new object();
 
-        private int Threads
-        {
-            get;
-            set;
-        }
-
-        private int Busy
-        {
-            get;
-            set;
-        }
-
-        private int Available
-        {
-            get;
-            set;
-        }
-
         private Semaphore Semaphore
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// 线程数
+        /// </summary>
+        public int Threads
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 正在工作的线程数
+        /// </summary>
+        public int Busy
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 空闲的线程数
+        /// </summary>
+        public int Available
+        {
+            get;
+            private set;
         }
 
         /// <summary>

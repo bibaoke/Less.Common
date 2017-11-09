@@ -72,6 +72,7 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="toCompare">要比较的字符串</param>
         /// <returns>是否相同</returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null</exception>
         public static bool CompareIgnoreCase(this string s, string toCompare)
         {
             return s.Equals(toCompare, StringComparison.OrdinalIgnoreCase);
@@ -84,6 +85,7 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="toCompare">要比较的字符串</param>
         /// <returns>是否相同</returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null toCompare 不能为 null</exception>
         public static bool CompareTrim(this string s, string toCompare)
         {
             return s.Trim().Equals(toCompare.Trim());
@@ -96,6 +98,7 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="toCompare">要比较的字符串</param>
         /// <returns>是否相同</returns>
+        /// <exception cref="NullReferenceException">字符串不能为 null toCompare 不能为 null</exception>
         public static bool CompareTrimAndIgnoreCase(this string s, string toCompare)
         {
             return s.Trim().Equals(toCompare.Trim(), StringComparison.OrdinalIgnoreCase);

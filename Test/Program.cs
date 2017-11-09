@@ -185,6 +185,15 @@ namespace Test
             //
             Assert.IsTrue("192.168.1.1".IsIpv4());
             Assert.IsFalse("192.168.1".IsIpv4());
+
+            //
+            Agent agent = new Agent("ping vaiying.com -t", AgentMode.Restart, TimeSpan.FromSeconds(2));
+
+            agent.StartUp();
+
+            Thread.Sleep(5000);
+
+            agent.ShutDown();
         }
     }
 }
