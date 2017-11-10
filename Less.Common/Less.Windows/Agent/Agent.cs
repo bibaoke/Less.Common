@@ -47,6 +47,15 @@ namespace Less.Windows
         }
 
         /// <summary>
+        /// 最近一次开始时间
+        /// </summary>
+        public DateTime Last
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 是否已经停止
         /// </summary>
         public bool HasShutDown
@@ -83,6 +92,7 @@ namespace Less.Windows
             this.Mode = mode;
             this.Interval = interval;
             this.StartTime = startTime;
+            this.Last = DateTime.MaxValue;
             this.HasShutDown = false;
 
             ValueSet<int, int> result = command.IndexOfWhiteSpace();
@@ -117,14 +127,7 @@ namespace Less.Windows
             {
                 if (DateTime.Now >= this.StartTime)
                 {
-                    DateTime begin = DateTime.Now;
-
-                    Asyn.Exec(() =>
-                    {
-                        begin = DateTime.Now;
-
-                        this.Exec();
-                    });
+                    this.Exec();
 
                     Asyn.Exec(() =>
                     {
@@ -135,15 +138,10 @@ namespace Less.Windows
                                 break;
                             }
 
-                            Asyn.Exec(() =>
+                            if (DateTime.Now - this.Last >= this.Interval)
                             {
-                                if (DateTime.Now - begin > this.Interval)
-                                {
-                                    begin = DateTime.Now;
-
-                                    this.Exec();
-                                }
-                            });
+                                this.Exec();
+                            }
 
                             Thread.Sleep(100);
                         }
@@ -178,12 +176,14 @@ namespace Less.Windows
 
         private void Exec()
         {
+            this.Last = DateTime.Now;
+
             switch (this.Mode)
             {
                 case AgentMode.New:
                     lock (this.Process)
                     {
-                        this.Process.Start();
+                        Asyn.Exec(() => this.Process.Start());
                     }
 
                     break;
@@ -192,7 +192,7 @@ namespace Less.Windows
                     {
                         this.Kill();
 
-                        this.Process.Start();
+                        Asyn.Exec(() => this.Process.Start());
                     }
 
                     break;
@@ -201,7 +201,7 @@ namespace Less.Windows
                     {
                         if (this.HasExited())
                         {
-                            this.Process.Start();
+                            Asyn.Exec(() => this.Process.Start());
                         }
                     }
 
