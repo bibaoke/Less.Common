@@ -1,5 +1,7 @@
 ﻿//bibaoke.com
 
+using System.Diagnostics;
+
 namespace Less.Windows
 {
     /// <summary>
@@ -25,6 +27,8 @@ namespace Less.Windows
         /// <returns></returns>
         public override bool Execute(params string[] args)
         {
+            Process.GetCurrentProcess().Kill();
+
             return false;
         }
     }

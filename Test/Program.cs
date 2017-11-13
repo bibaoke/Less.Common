@@ -11,6 +11,7 @@ using Less.Collection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Test
 {
@@ -194,6 +195,9 @@ namespace Test
             Thread.Sleep(5000);
 
             agent.ShutDown();
+
+            //
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
