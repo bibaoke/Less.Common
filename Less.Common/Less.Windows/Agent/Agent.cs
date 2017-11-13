@@ -65,6 +65,69 @@ namespace Less.Windows
         }
 
         /// <summary>
+        /// 创建一个每天执行的代理作业
+        /// </summary>
+        /// <param name="command">命令 包括文件名和参数</param>
+        /// <param name="mode">代理作业模式</param>
+        /// <param name="hour">开始执行时间 时</param>
+        /// <exception cref="ArgumentOutOfRangeException">hour 超出范围</exception>
+        public Agent(string command, AgentMode mode, int hour) : this(command, mode, hour, 0, 0)
+        {
+            //
+        }
+
+        /// <summary>
+        /// 创建一个每天执行的代理作业
+        /// </summary>
+        /// <param name="command">命令 包括文件名和参数</param>
+        /// <param name="mode">代理作业模式</param>
+        /// <param name="hour">开始执行时间 时</param>
+        /// <param name="minute">开始执行时间 分</param>
+        /// <exception cref="ArgumentOutOfRangeException">hour 或 minute 超出范围</exception>
+        public Agent(string command, AgentMode mode, int hour, int minute) : this(command, mode, hour, minute, 0)
+        {
+            //
+        }
+
+        /// <summary>
+        /// 创建一个每天执行的代理作业
+        /// </summary>
+        /// <param name="command">命令 包括文件名和参数</param>
+        /// <param name="mode">代理作业模式</param>
+        /// <param name="hour">开始执行时间 时</param>
+        /// <param name="minute">开始执行时间 分</param>
+        /// <param name="second">开始执行时间 秒</param>
+        /// <exception cref="ArgumentOutOfRangeException">hour 或 minute 或 second 超出范围</exception>
+        public Agent(string command, AgentMode mode, int hour, int minute, int second)
+        {
+            if (hour < 0 || hour > 23)
+            {
+                throw new ArgumentOutOfRangeException("hour");
+            }
+
+            if (minute < 0 || minute > 59)
+            {
+                throw new ArgumentOutOfRangeException("minute");
+            }
+
+            if (second < 0 || second > 59)
+            {
+                throw new ArgumentOutOfRangeException("second");
+            }
+
+            DateTime now = DateTime.Now;
+
+            DateTime startTime = new DateTime(now.Year, now.Month, now.Day, hour, minute, second);
+
+            if (startTime < now)
+            {
+                startTime = startTime.AddDays(1);
+            }
+
+            this.Init(command, mode, TimeSpan.FromDays(1), startTime);
+        }
+
+        /// <summary>
         /// 创建一个启动即执行的代理作业
         /// </summary>
         /// <param name="command">命令 包括文件名和参数</param>
@@ -84,30 +147,7 @@ namespace Less.Windows
         /// <param name="startTime">开始时间</param>
         public Agent(string command, AgentMode mode, TimeSpan interval, DateTime startTime)
         {
-            if (command.IsNull())
-            {
-                throw new ArgumentNullException("command", "command 不能为 null");
-            }
-
-            this.Mode = mode;
-            this.Interval = interval;
-            this.StartTime = startTime;
-            this.Last = DateTime.MaxValue;
-            this.HasShutDown = false;
-
-            ValueSet<int, int> result = command.IndexOfWhiteSpace();
-
-            this.Process = new Process();
-
-            if (result.IsNull())
-            {
-                this.Process.StartInfo.FileName = command;
-            }
-            else
-            {
-                this.Process.StartInfo.FileName = command.Substring(0, result.Value1);
-                this.Process.StartInfo.Arguments = command.Substring(result.Value1 + result.Value2);
-            }
+            this.Init(command, mode, interval, startTime);
         }
 
         /// <summary>
@@ -172,6 +212,34 @@ namespace Less.Windows
             this.ShutDown();
 
             this.Process.Dispose();
+        }
+
+        private void Init(string command, AgentMode mode, TimeSpan interval, DateTime startTime)
+        {
+            if (command.IsNull())
+            {
+                throw new ArgumentNullException("command", "command 不能为 null");
+            }
+
+            this.Mode = mode;
+            this.Interval = interval;
+            this.StartTime = startTime;
+            this.Last = DateTime.MaxValue;
+            this.HasShutDown = false;
+
+            ValueSet<int, int> result = command.IndexOfWhiteSpace();
+
+            this.Process = new Process();
+
+            if (result.IsNull())
+            {
+                this.Process.StartInfo.FileName = command;
+            }
+            else
+            {
+                this.Process.StartInfo.FileName = command.Substring(0, result.Value1);
+                this.Process.StartInfo.Arguments = command.Substring(result.Value1 + result.Value2);
+            }
         }
 
         private void Exec()

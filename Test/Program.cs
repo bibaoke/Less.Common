@@ -192,9 +192,20 @@ namespace Test
 
             agent.StartUp();
 
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
 
             agent.ShutDown();
+
+            //
+            DateTime startTime = DateTime.Now.AddSeconds(2);
+
+            Agent calc = new Agent("notepad", AgentMode.Singleton, startTime.Hour, startTime.Minute, startTime.Second);
+
+            calc.StartUp();
+
+            Thread.Sleep(1000);
+
+            calc.ShutDown();
 
             //
             Process.GetCurrentProcess().Kill();
