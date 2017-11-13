@@ -13,22 +13,22 @@ namespace Less
         /// <summary>
         /// 输出 Hex 字符串
         /// </summary>
-        /// <param name="byteArray"></param>
+        /// <param name="array"></param>
         /// <returns></returns>
-        public static HexString ToHexString(this byte[] byteArray)
+        public static HexString ToHexString(this byte[] array)
         {
-            return byteArray;
+            return array;
         }
 
         /// <summary>
         /// 按指定编码输出字符串
         /// </summary>
-        /// <param name="byteArray"></param>
+        /// <param name="array"></param>
         /// <param name="encoding">指定的编码</param>
         /// <returns></returns>
-        public static string ToString(this byte[] byteArray, Encoding encoding)
+        public static string ToString(this byte[] array, Encoding encoding)
         {
-            return encoding.GetString(byteArray);
+            return encoding.GetString(array);
         }
 
         /// <summary>

@@ -46,7 +46,9 @@ namespace Less
             foreach (int item in array)
             {
                 if (i == item)
+                {
                     return true;
+                }
             }
 
             return false;
@@ -82,7 +84,7 @@ namespace Less
         {
             string original = i.ToString();
 
-            return string.Concat("0".Repeat(length - original.Length), original);
+            return "0".Repeat(length - original.Length) + original;
         }
 
         /// <summary>
