@@ -163,35 +163,38 @@ namespace Less.Windows
         /// </summary>
         public void StartUp()
         {
-            while (true)
+            Asyn.Exec(() =>
             {
-                if (DateTime.Now >= this.StartTime)
+                while (true)
                 {
-                    this.Exec();
-
-                    Asyn.Exec(() =>
+                    if (DateTime.Now >= this.StartTime)
                     {
-                        while (true)
+                        this.Exec();
+
+                        Asyn.Exec(() =>
                         {
-                            if (this.HasShutDown)
+                            while (true)
                             {
-                                break;
+                                if (this.HasShutDown)
+                                {
+                                    break;
+                                }
+
+                                if (DateTime.Now - this.Last >= this.Interval)
+                                {
+                                    this.Exec();
+                                }
+
+                                Thread.Sleep(100);
                             }
+                        });
 
-                            if (DateTime.Now - this.Last >= this.Interval)
-                            {
-                                this.Exec();
-                            }
+                        break;
+                    }
 
-                            Thread.Sleep(100);
-                        }
-                    });
-
-                    break;
+                    Thread.Sleep(100);
                 }
-
-                Thread.Sleep(100);
-            }
+            });
         }
 
         /// <summary>
