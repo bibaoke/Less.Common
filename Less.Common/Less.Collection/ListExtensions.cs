@@ -11,7 +11,7 @@ namespace Less.Collection
     public static class ListExtensions
     {
         /// <summary>
-        /// 获取列表迭代器
+        /// 获取列表枚举器
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -24,12 +24,12 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 获取列表迭代器
+        /// 获取列表枚举器
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <param name="startIndex">起始索引</param>
-        /// <param name="count">迭代次数</param>
+        /// <param name="count">枚举次数</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         /// <exception cref="ArgumentException">count 不能大于 startIndex 到列表末尾的元素数</exception>

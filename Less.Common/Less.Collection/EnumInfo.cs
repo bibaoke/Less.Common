@@ -3,7 +3,7 @@
 namespace Less.Collection
 {
     /// <summary>
-    /// 迭代信息
+    /// 枚举信息
     /// </summary>
     public class EnumInfo
     {

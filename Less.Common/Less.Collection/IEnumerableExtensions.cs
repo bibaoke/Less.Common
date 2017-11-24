@@ -8,7 +8,7 @@ using System;
 namespace Less.Collection
 {
     /// <summary>
-    /// 可迭代对象的扩展方法
+    /// 可枚举对象的扩展方法
     /// </summary>
     public static class IEnumerableExtensions
     {

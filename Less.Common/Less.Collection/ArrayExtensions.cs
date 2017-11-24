@@ -11,7 +11,7 @@ namespace Less.Collection
     public static class ArrayExtensions
     {
         /// <summary>
-        /// 获取数组迭代器
+        /// 获取数组枚举器
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -24,12 +24,12 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 获取数组迭代器
+        /// 获取数组枚举器
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
         /// <param name="startIndex">起始索引</param>
-        /// <param name="count">迭代次数</param>
+        /// <param name="count">枚举次数</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">startIndex 不能小于零</exception>
         /// <exception cref="ArgumentException">count 不能大于 startIndex 到数组末尾的元素数</exception>
@@ -39,7 +39,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 倒序迭代
+        /// 倒序枚举
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -53,7 +53,7 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 倒序迭代
+        /// 倒序枚举
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -69,7 +69,21 @@ namespace Less.Collection
         }
 
         /// <summary>
-        /// 倒序迭代
+        /// 倒序枚举
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="func"></param>
+        public static void EachDesc<T>(this T[] array, Func<T, bool> func)
+        {
+            array.Length.EachDesc(i =>
+            {
+                return func(array[i]);
+            });
+        }
+
+        /// <summary>
+        /// 倒序枚举
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
