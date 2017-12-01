@@ -109,6 +109,15 @@ namespace Less.Network
         }
 
         /// <summary>
+        /// text/xml
+        /// </summary>
+        public static MimeType Text_Xml
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// text/css
         /// </summary>
         public static MimeType Text_Css
@@ -121,6 +130,15 @@ namespace Less.Network
         /// application/json
         /// </summary>
         public static MimeType Application_Json
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// */*
+        /// </summary>
+        public static MimeType All
         {
             get;
             private set;
@@ -139,8 +157,10 @@ namespace Less.Network
             MimeType.Image_Wmf = "image/wmf";
             MimeType.Image_MemoryBmp = "image/memorybmp";
             MimeType.Text_Html = "text/html";
+            MimeType.Text_Xml = "text/xml";
             MimeType.Text_Css = "text/css";
             MimeType.Application_Json = "application/json";
+            MimeType.All = "*/*";
         }
 
         private MimeType(string value) : base(value)

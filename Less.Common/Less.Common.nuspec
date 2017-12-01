@@ -11,7 +11,7 @@
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>添加一个 EachDesc 重载</releaseNotes>
+    <releaseNotes>添加两个 MimeType 实例</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
     <tags>system-extensions</tags>
   </metadata>
