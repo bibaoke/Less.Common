@@ -113,7 +113,7 @@ namespace Less.Text
             {
                 while (index + length <= s.Length)
                 {
-                    if (func(s.Substring(index, length), index))
+                    if (func(s.SubstringUnsafe(index, length), index))
                     {
                         index = index + length;
                     }
