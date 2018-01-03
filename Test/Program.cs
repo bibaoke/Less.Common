@@ -209,6 +209,15 @@ namespace Test
 
             //
             Process.GetCurrentProcess().Kill();
+
+            //
+            long l = 10;
+
+            Assert.IsTrue(l.ToInt() == 10);
+
+            l = long.MaxValue;
+
+            Assert.IsTrue(l.ToInt() == int.MaxValue);
         }
     }
 }
