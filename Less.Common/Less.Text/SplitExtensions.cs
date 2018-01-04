@@ -226,6 +226,17 @@ namespace Less.Text
         /// </summary>
         /// <param name="s">要分隔的字符串</param>
         /// <param name="separator">分隔符</param>
+        /// <returns>分隔后的字符串数组</returns>
+        public static string[] Split(this string s, string separator)
+        {
+            return s.Split(separator, CaseOptions.CaseSensitive);
+        }
+
+        /// <summary>
+        /// 分隔字符串
+        /// </summary>
+        /// <param name="s">要分隔的字符串</param>
+        /// <param name="separator">分隔符</param>
         /// <param name="caseOption">大小写选项</param>
         /// <returns>分隔后的字符串数组</returns>
         public static string[] Split(this string s, string separator, CaseOptions caseOption)
