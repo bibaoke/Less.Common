@@ -144,6 +144,7 @@ namespace Less.Text
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">参数为 null</exception>
         public static string[] SplitByWhiteSpace(this string s)
         {
             int index = 0;
@@ -186,6 +187,7 @@ namespace Less.Text
         /// </summary>
         /// <param name="s"></param>
         /// <returns>第一个值是索引 第二个值是长度</returns>
+        /// <exception cref="ArgumentNullException">参数为 null</exception>
         public static ValueSet<int, int> IndexOfWhiteSpace(this string s)
         {
             return s.IndexOfWhiteSpace(0);
@@ -197,6 +199,7 @@ namespace Less.Text
         /// <param name="s"></param>
         /// <param name="startIndex"></param>
         /// <returns>第一个值是索引 第二个值是长度</returns>
+        /// <exception cref="ArgumentNullException">参数为 null</exception>
         public static ValueSet<int, int> IndexOfWhiteSpace(this string s, int startIndex)
         {
             return s.IndexOfWhiteSpace(startIndex, s.Length - startIndex);
@@ -209,6 +212,7 @@ namespace Less.Text
         /// <param name="startIndex"></param>
         /// <param name="count"></param>
         /// <returns>第一个值是索引 第二个值是长度</returns>
+        /// <exception cref="ArgumentNullException">参数为 null</exception>
         public static ValueSet<int, int> IndexOfWhiteSpace(this string s, int startIndex, int count)
         {
             Match match = SplitExtensions.WhiteSpacePattern.Match(s, startIndex, count);
