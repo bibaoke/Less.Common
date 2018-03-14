@@ -57,7 +57,7 @@ namespace Less
 
             for (int i = 0; i < stringValue.Length; i = i + 2)
             {
-                list.Add(byte.Parse(stringValue.Substring(i, 2), NumberStyles.HexNumber));
+                list.Add(byte.Parse(stringValue.SubstringUnsafe(i, 2), NumberStyles.HexNumber));
             }
 
             this.ByteArrayValue = list.ToArray();
