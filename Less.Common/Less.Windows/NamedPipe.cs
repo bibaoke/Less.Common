@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.IO.Pipes;
-using Less;
-using Less.MultiThread;
+﻿using System.IO.Pipes;
 
 namespace Less.Windows
 {
@@ -18,7 +14,7 @@ namespace Less.Windows
         /// <returns></returns>
         public static NamedPipeClientStream Client(string name)
         {
-            return new NamedPipeClientStream(".", name, PipeDirection.In);
+            return new NamedPipeClientStream(".", name, PipeDirection.InOut);
         }
 
         /// <summary>
@@ -28,7 +24,7 @@ namespace Less.Windows
         /// <returns></returns>
         public static NamedPipeServerStream Server(string name)
         {
-            return new NamedPipeServerStream(name, PipeDirection.Out);
+            return new NamedPipeServerStream(name, PipeDirection.InOut);
         }
     }
 }
