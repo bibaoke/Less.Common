@@ -12,6 +12,36 @@ namespace Less.Windows
     public static class StreamExtensions
     {
         /// <summary>
+        /// 读取一行
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string ReadLine(this Stream s, Encoding encoding)
+        {
+            using (StreamReader sr = new StreamReader(s, encoding))
+            {
+                return sr.ReadLine();
+            }
+        }
+
+        /// <summary>
+        /// 写入并换行
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="content"></param>
+        /// <param name="encoding"></param>
+        public static void WriteLine(this Stream s, string content, Encoding encoding)
+        {
+            using (StreamWriter sw = new StreamWriter(s, encoding))
+            {
+                sw.AutoFlush = true;
+
+                sw.WriteLine(content);
+            }
+        }
+
+        /// <summary>
         /// 全部写入
         /// </summary>
         /// <param name="s"></param>

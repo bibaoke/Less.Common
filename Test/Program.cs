@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
+using System.IO.Pipes;
 
 namespace Test
 {
@@ -19,6 +20,26 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            //
+            NamedPipeServerStream server = NamedPipe.Server("testPipe");
+
+            Asyn.Exec(server, (s) =>
+            {
+                s.WaitForConnection();
+
+                s.WriteLine("hello", Encoding.UTF8);
+            });
+
+            {
+                NamedPipeClientStream client = NamedPipe.Client("testPipe");
+
+                client.Connect();
+
+                string received = client.ReadLine(Encoding.UTF8);
+
+                Console.WriteLine(received);
+            }
+
             //
             Cmd.Exec("ping bibaoke.com");
 
