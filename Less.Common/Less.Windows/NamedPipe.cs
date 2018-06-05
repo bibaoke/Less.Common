@@ -1,4 +1,7 @@
-﻿using System.IO.Pipes;
+﻿using Less.Text;
+using System;
+using System.IO.Pipes;
+using System.Text;
 
 namespace Less.Windows
 {
@@ -8,23 +11,39 @@ namespace Less.Windows
     public static class NamedPipe
     {
         /// <summary>
-        /// 创建客户端命名管道
+        /// 发送一行
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="content"></param>
+        /// <param name="encoding"></param>
         /// <returns></returns>
-        public static NamedPipeClientStream Client(string name)
+        public static string SendLine(string name, string content, Encoding encoding)
         {
-            return new NamedPipeClientStream(".", name, PipeDirection.InOut);
+            using (NamedPipeClientStream stream = new NamedPipeClientStream(".", name, PipeDirection.InOut))
+            {
+                stream.Connect();
+
+                stream.WriteLine(content, encoding);
+
+                return stream.ReadLine(encoding);
+            }
         }
 
         /// <summary>
         /// 创建服务端命名管道
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="action"></param>
         /// <returns></returns>
-        public static NamedPipeServerStream Server(string name)
+        public static NamedPipeServerStream Server(string name, Action<NamedPipeServerStream> action)
         {
-            return new NamedPipeServerStream(name, PipeDirection.InOut);
+            NamedPipeServerStream stream = new NamedPipeServerStream(name, PipeDirection.InOut);
+
+            stream.WaitForConnection();
+
+            action(stream);
+
+            return stream;
         }
     }
 }

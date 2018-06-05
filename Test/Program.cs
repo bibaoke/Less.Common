@@ -21,23 +21,43 @@ namespace Test
         static void Main(string[] args)
         {
             //
-            NamedPipeServerStream server = NamedPipe.Server("testPipe");
-
-            Asyn.Exec(server, (s) =>
             {
-                s.WaitForConnection();
+                Asyn.Exec(() =>
+                {
+                    Tcp.Listen("127.0.0.1", 10601, (stream) =>
+                    {
+                        string request = stream.ReadLine(Encoding.UTF8);
 
-                s.WriteLine("hello", Encoding.UTF8);
+                        Console.WriteLine("request:" + request);
+
+                        stream.WriteLine(request, Encoding.UTF8);
+                    });
+                });
+            }
+
+            {
+                string response = Tcp.SendLine("127.0.0.1", 10601, "test", Encoding.UTF8);
+
+                Console.WriteLine("response:" + response);
+            }
+
+            //
+            Asyn.Exec(() =>
+            {
+                NamedPipeServerStream server = NamedPipe.Server("testPipe", (stream) =>
+                {
+                    string request = stream.ReadLine(Encoding.UTF8);
+
+                    Console.WriteLine("request:" + request);
+
+                    stream.WriteLine(request, Encoding.UTF8);
+                });
             });
 
             {
-                NamedPipeClientStream client = NamedPipe.Client("testPipe");
+                string response = NamedPipe.SendLine("testPipe", "hello", Encoding.UTF8);
 
-                client.Connect();
-
-                string received = client.ReadLine(Encoding.UTF8);
-
-                Console.WriteLine(received);
+                Console.WriteLine("response:" + response);
             }
 
             //
@@ -47,23 +67,25 @@ namespace Test
             Cmd.Exec("Form.exe");
 
             //
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://265.com");
-
-            using (WebResponse response = request.GetResponse())
             {
-                using (Stream stream = response.GetResponseStream())
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://265.com");
+
+                using (WebResponse response = request.GetResponse())
                 {
-                    byte[] data1 = stream.ToByteArray();
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        byte[] data1 = stream.ToByteArray();
 
-                    string text1 = data1.ToString(Encoding.UTF8);
+                        string text1 = data1.ToString(Encoding.UTF8);
 
-                    WebClient client = new WebClient();
+                        WebClient client = new WebClient();
 
-                    byte[] data2 = client.DownloadData("http://265.com");
+                        byte[] data2 = client.DownloadData("http://265.com");
 
-                    string text2 = data2.ToString(Encoding.UTF8);
+                        string text2 = data2.ToString(Encoding.UTF8);
 
-                    Assert.IsTrue(data1.Length == data2.Length);
+                        Assert.IsTrue(data1.Length == data2.Length);
+                    }
                 }
             }
 
