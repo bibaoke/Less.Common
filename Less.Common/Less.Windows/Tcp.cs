@@ -64,7 +64,7 @@ namespace Less.Windows
         /// <param name="port"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static TcpListener Listen(string ip, int port, Action<NetworkStream> action)
+        public static void Listen(string ip, int port, Action<NetworkStream> action)
         {
             IPAddress ipAddress = IPAddress.Parse(ip);
 
@@ -72,15 +72,16 @@ namespace Less.Windows
 
             server.Start();
 
-            using (TcpClient client = server.AcceptTcpClient())
+            while (true)
             {
-                using (NetworkStream stream = client.GetStream())
+                using (TcpClient client = server.AcceptTcpClient())
                 {
-                    action(stream);
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        action(stream);
+                    }
                 }
             }
-
-            return server;
         }
     }
 }

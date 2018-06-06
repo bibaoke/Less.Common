@@ -35,15 +35,18 @@ namespace Less.Windows
         /// <param name="name"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static NamedPipeServerStream Server(string name, Action<NamedPipeServerStream> action)
+        public static void Server(string name, Action<NamedPipeServerStream> action)
         {
             NamedPipeServerStream stream = new NamedPipeServerStream(name, PipeDirection.InOut);
 
-            stream.WaitForConnection();
+            while (true)
+            {
+                stream.WaitForConnection();
 
-            action(stream);
+                action(stream);
 
-            return stream;
+                stream.Disconnect();
+            }
         }
     }
 }

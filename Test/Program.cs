@@ -30,7 +30,7 @@ namespace Test
 
                         Console.WriteLine("request:" + request);
 
-                        stream.WriteLine(request, Encoding.UTF8);
+                        stream.Write(request.ToByteArray(Encoding.UTF8));
                     });
                 });
             }
@@ -39,12 +39,16 @@ namespace Test
                 string response = Tcp.SendLine("127.0.0.1", 10601, "test", Encoding.UTF8);
 
                 Console.WriteLine("response:" + response);
+
+                response = Tcp.SendLine("127.0.0.1", 10601, "test", Encoding.UTF8);
+
+                Console.WriteLine("response:" + response);
             }
 
             //
             Asyn.Exec(() =>
             {
-                NamedPipeServerStream server = NamedPipe.Server("testPipe", (stream) =>
+                NamedPipe.Server("testPipe", (stream) =>
                 {
                     string request = stream.ReadLine(Encoding.UTF8);
 
@@ -56,6 +60,10 @@ namespace Test
 
             {
                 string response = NamedPipe.SendLine("testPipe", "hello", Encoding.UTF8);
+
+                Console.WriteLine("response:" + response);
+
+                response = NamedPipe.SendLine("testPipe", "hello", Encoding.UTF8);
 
                 Console.WriteLine("response:" + response);
             }
