@@ -1,4 +1,6 @@
-﻿using Less.Text;
+﻿//bibaoke.com
+
+using Less.Text;
 using System;
 using System.Net;
 using System.Net.Sockets;
