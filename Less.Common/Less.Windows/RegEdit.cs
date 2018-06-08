@@ -49,7 +49,14 @@ namespace Less.Windows
                     {
                         string name = Process.GetCurrentProcess().ProcessName + ".exe";
 
-                        int oldVersion = (int)wb.GetValue(name);
+                        object value = wb.GetValue(name);
+
+                        int oldVersion = 0;
+
+                        if (value.IsNotNull())
+                        {
+                            oldVersion = (int)value;
+                        }
 
                         mainVersion = mainVersion * 1000;
 

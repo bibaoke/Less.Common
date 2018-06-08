@@ -20,6 +20,9 @@ namespace Test
         static void Main(string[] args)
         {
             //
+            RegEdit.UpdateWebBrowserVersion();
+
+            //
             {
                 Asyn.Exec(() =>
                 {
