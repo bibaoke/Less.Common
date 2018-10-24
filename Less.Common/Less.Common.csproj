@@ -101,6 +101,7 @@
     <Compile Include="Less.Windows\CLI\Funtions\Menu.cs" />
     <Compile Include="Less.Windows\Config.cs" />
     <Compile Include="Less.Windows\GUI\ControlExtensions.cs" />
+    <Compile Include="Less.Windows\GUI\HtmlDocumentExtensions.cs" />
     <Compile Include="Less.Windows\GUI\HtmlElementExtensions.cs" />
     <Compile Include="Less.Windows\IO\Buffer.cs" />
     <Compile Include="Less.Windows\IO\ByteExtensions.cs" />
