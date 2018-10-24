@@ -3,9 +3,9 @@ using Less.Windows;
 
 namespace Form
 {
-    public partial class Form1 : System.Windows.Forms.Form
+    public partial class TestForm1 : System.Windows.Forms.Form
     {
-        public Form1()
+        public TestForm1()
         {
             InitializeComponent();
 

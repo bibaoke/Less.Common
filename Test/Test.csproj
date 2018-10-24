@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -59,13 +59,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Form\Form.csproj">
-      <Project>{f2862e53-69b1-4175-bb68-6433942f5b66}</Project>
-      <Name>Form</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Less.Common\Less.Common.csproj">
       <Project>{6d2b8f6a-04b4-4fd4-858e-727d2b5902e0}</Project>
       <Name>Less.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestForm1\TestForm1.csproj">
+      <Project>{f2862e53-69b1-4175-bb68-6433942f5b66}</Project>
+      <Name>TestForm1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

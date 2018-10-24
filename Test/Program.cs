@@ -74,7 +74,7 @@ namespace Test
             Cmd.Exec("ping bibaoke.com");
 
             //
-            Cmd.Exec("Form.exe");
+            Cmd.Exec("TestForm1.exe");
 
             //
             {
