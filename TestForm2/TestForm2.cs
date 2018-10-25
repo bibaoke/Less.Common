@@ -44,7 +44,7 @@ namespace TestForm2
 
             Point p = item.GetScreenCenter(this);
 
-            Simulation.SetCursorPos(p.X, p.Y);
+            User32.SetCursorPos(p.X, p.Y);
         }
     }
 }

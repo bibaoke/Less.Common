@@ -93,12 +93,14 @@
     <Compile Include="Less.Text\VerifyExtensions.cs" />
     <Compile Include="Less.Windows\Agent\Agent.cs" />
     <Compile Include="Less.Windows\Agent\AgentMode.cs" />
+    <Compile Include="Less.Windows\API\CtrlType.cs" />
     <Compile Include="Less.Windows\Application.cs" />
     <Compile Include="Less.Windows\CLI\Cmd.cs" />
     <Compile Include="Less.Windows\CLI\ConsoleApp.cs" />
     <Compile Include="Less.Windows\CLI\Function.cs" />
     <Compile Include="Less.Windows\CLI\Funtions\Exit.cs" />
     <Compile Include="Less.Windows\CLI\Funtions\Menu.cs" />
+    <Compile Include="Less.Windows\API\Kernel32.cs" />
     <Compile Include="Less.Windows\Config.cs" />
     <Compile Include="Less.Windows\GUI\ControlExtensions.cs" />
     <Compile Include="Less.Windows\GUI\HtmlDocumentExtensions.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Less.Windows\NamedPipe.cs" />
     <Compile Include="Less.Windows\Performance.cs" />
     <Compile Include="Less.Windows\RegEdit.cs" />
-    <Compile Include="Less.Windows\Simulation.cs" />
+    <Compile Include="Less.Windows\API\User32.cs" />
     <Compile Include="Less.Windows\Tcp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriString.cs" />

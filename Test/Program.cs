@@ -20,6 +20,12 @@ namespace Test
         static void Main(string[] args)
         {
             //
+            Kernel32.AddConsoleCtrlHandler(() =>
+            {
+                //
+            });
+
+            //
             RegEdit.UpdateWebBrowserVersion();
 
             //
