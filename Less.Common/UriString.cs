@@ -152,7 +152,14 @@ namespace Less
                 {
                     if (names.Length >= 3)
                     {
-                        names = names.SubArray(names.Length - 3);
+                        if (names[names.Length - 2] == names[names.Length - 1])
+                        {
+                            names = names.SubArray(names.Length - 2);
+                        }
+                        else
+                        {
+                            names = names.SubArray(names.Length - 3);
+                        }
                     }
                     else
                     {

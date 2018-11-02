@@ -163,6 +163,12 @@ namespace Test
             Assert.IsTrue(
                 new UriString("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
 
+            //
+            Assert.IsTrue(new UriString("http://jianzhimao.com.com").GetDomain() == "com.com");
+
+            Assert.IsTrue(new UriString("http://pconline.com.cn").GetDomain() == "pconline.com.cn");
+
+            //
             Assert.IsTrue(2.Pow(3) == 8);
 
             //
