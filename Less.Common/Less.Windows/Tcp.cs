@@ -2,6 +2,7 @@
 
 using Less.Text;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -21,6 +22,9 @@ namespace Less.Windows
         /// <param name="content"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
+        /// <exception cref="SocketException">访问套接字时出错</exception>
+        /// <exception cref="InvalidOperationException">未连接到远程主机</exception>
+        /// <exception cref="IOException">IO异常</exception>
         public static string SendLine(string ip, int port, string content, Encoding encoding)
         {
             return Tcp.Send(ip, port, content + Symbol.NewLine, encoding);
@@ -34,6 +38,9 @@ namespace Less.Windows
         /// <param name="content"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
+        /// <exception cref="SocketException">访问套接字时出错</exception>
+        /// <exception cref="InvalidOperationException">未连接到远程主机</exception>
+        /// <exception cref="IOException">IO异常</exception>
         public static string Send(string ip, int port, string content, Encoding encoding)
         {
             return Tcp.Send(ip, port, encoding.GetBytes(content)).ToString(encoding);
@@ -46,6 +53,9 @@ namespace Less.Windows
         /// <param name="port"></param>
         /// <param name="data"></param>
         /// <returns></returns>
+        /// <exception cref="SocketException">访问套接字时出错</exception>
+        /// <exception cref="InvalidOperationException">未连接到远程主机</exception>
+        /// <exception cref="IOException">IO异常</exception>
         public static byte[] Send(string ip, int port, byte[] data)
         {
             using (TcpClient client = new TcpClient(ip, port))
@@ -66,6 +76,7 @@ namespace Less.Windows
         /// <param name="port"></param>
         /// <param name="action"></param>
         /// <returns></returns>
+        /// <exception cref="SocketException">Socket异常</exception>
         public static void Listen(string ip, int port, Action<NetworkStream> action)
         {
             IPAddress ipAddress = IPAddress.Parse(ip);
