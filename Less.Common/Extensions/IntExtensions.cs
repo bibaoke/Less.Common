@@ -10,20 +10,6 @@ namespace Less
     /// </summary>
     public static class IntExtensions
     {
-        private static Random MyRandom
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        static IntExtensions()
-        {
-            IntExtensions.MyRandom = new Random();
-        }
-
         /// <summary>
         /// 返回指定次幂
         /// </summary>
@@ -70,7 +56,7 @@ namespace Less
         /// <returns></returns>
         public static int Random(this int i)
         {
-            return IntExtensions.MyRandom.Next(i);
+            return RandomDef.Ins.Next(i);
         }
 
         /// <summary>
