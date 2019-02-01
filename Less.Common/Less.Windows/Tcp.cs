@@ -74,10 +74,33 @@ namespace Less.Windows
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
-        /// <param name="action"></param>
+        /// <param name="action">接收到信息的操作</param>
         /// <returns></returns>
         /// <exception cref="SocketException">Socket异常</exception>
         public static void Listen(string ip, int port, Action<NetworkStream> action)
+        {
+            Tcp.Listen(ip, port, (stream) =>
+            {
+                action(stream);
+
+                return true;
+            }, null);
+        }
+
+        /// <summary>
+        /// 监听
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
+        /// <param name="func">
+        /// 接收到信息的操作
+        /// 返回 true 继续监听
+        /// 返回 false 停止监听
+        /// </param>
+        /// <param name="started">成功监听端口时执行</param>
+        /// <returns></returns>
+        /// <exception cref="SocketException">Socket异常</exception>
+        public static void Listen(string ip, int port, Func<NetworkStream, bool> func, Action started)
         {
             IPAddress ipAddress = IPAddress.Parse(ip);
 
@@ -85,13 +108,21 @@ namespace Less.Windows
 
             server.Start();
 
+            if (started.IsNotNull())
+            {
+                started();
+            }
+
             while (true)
             {
                 using (TcpClient client = server.AcceptTcpClient())
                 {
                     using (NetworkStream stream = client.GetStream())
                     {
-                        action(stream);
+                        if (!func(stream))
+                        {
+                            break;
+                        }
                     }
                 }
             }
