@@ -70,6 +70,92 @@ namespace Less.Windows
         }
 
         /// <summary>
+        /// 监听随机端口
+        /// 端口范围 5001-65535
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="action">
+        /// 接收到信息的操作
+        /// </param>
+        /// <param name="started">成功监听端口时执行</param>
+        /// <returns></returns>
+        /// <exception cref="SocketException">Socket异常</exception>
+        public static void Listen(string ip, Action<NetworkStream> action, Action<int> started)
+        {
+            Tcp.Listen(ip, (stream) =>
+            {
+                action(stream);
+
+                return true;
+            }, started);
+        }
+
+        /// <summary>
+        /// 监听随机端口
+        /// 端口范围 5001-65535
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="func">
+        /// 接收到信息的操作
+        /// 返回 true 继续监听
+        /// 返回 false 停止监听
+        /// </param>
+        /// <param name="started">成功监听端口时执行</param>
+        /// <returns></returns>
+        /// <exception cref="SocketException">Socket异常</exception>
+        public static void Listen(string ip, Func<NetworkStream, bool> func, Action<int> started)
+        {
+            IPAddress ipAddress = IPAddress.Parse(ip);
+
+            int port = 0;
+
+            TcpListener server = null;
+
+            int retry = 1;
+
+            for (int i = 0; i <= retry; i++)
+            {
+                try
+                {
+                    port = RandomDef.Ins.Next(5001, 65536);
+
+                    server = new TcpListener(ipAddress, port);
+
+                    server.Start();
+                }
+                catch (SocketException)
+                {
+                    if (i >= retry)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                break;
+            }
+
+            started(port);
+
+            while (true)
+            {
+                using (TcpClient client = server.AcceptTcpClient())
+                {
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        if (!func(stream))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 监听
         /// </summary>
         /// <param name="ip"></param>
