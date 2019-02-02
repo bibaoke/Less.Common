@@ -18,6 +18,7 @@ namespace Less.Windows
         /// <param name="s"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
+        /// <exception cref="IOException"></exception>
         public static string ReadLine(this Stream s, Encoding encoding)
         {
             StreamReader sr = new StreamReader(s, encoding);
