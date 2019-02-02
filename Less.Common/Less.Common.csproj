@@ -74,6 +74,7 @@
     <Compile Include="Less.Encrypt\Encrypt.cs" />
     <Compile Include="Less.MultiThread\Asyn.cs" />
     <Compile Include="Less.MultiThread\Pool.cs" />
+    <Compile Include="Less.MultiThread\Syn.cs" />
     <Compile Include="Less.Network\EmailClient.cs" />
     <Compile Include="Less.Network\HttpMethod.cs" />
     <Compile Include="Less.Network\MimeType.cs" />

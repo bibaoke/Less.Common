@@ -264,25 +264,51 @@ namespace Test
             //
             DateTime startTime = DateTime.Now.AddSeconds(2);
 
-            Agent calc = new Agent("notepad", AgentMode.Singleton, startTime.Hour, startTime.Minute, startTime.Second);
+            Agent notepad = new Agent("notepad", AgentMode.Singleton, startTime.Hour, startTime.Minute, startTime.Second);
 
-            calc.StartUp();
+            notepad.StartUp();
 
             Thread.Sleep(1000);
 
-            calc.ShutDown();
-
-            //
-            Process.GetCurrentProcess().Kill();
+            notepad.ShutDown();
 
             //
             long l = 10;
 
             Assert.IsTrue(l.ToInt() == 10);
 
-            l = long.MaxValue;
+            l = int.MinValue;
 
-            Assert.IsTrue(l.ToInt() == int.MaxValue);
+            Assert.IsTrue(l.ToInt() == int.MinValue);
+
+            //
+            Syn.Wait(() =>
+            {
+                100.Each((index) =>
+                {
+                    Console.WriteLine(index);
+
+                    Thread.Sleep(10);
+                });
+
+                return true;
+            });
+
+            //
+            try
+            {
+                Syn.Wait(TimeSpan.FromSeconds(1), () =>
+                {
+                    return false;
+                });
+            }
+            catch (TimeoutException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            //
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

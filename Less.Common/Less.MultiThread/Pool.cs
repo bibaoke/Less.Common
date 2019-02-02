@@ -162,15 +162,7 @@ namespace Less.MultiThread
         /// </summary>
         public void Wait()
         {
-            while (true)
-            {
-                if (this.Done)
-                {
-                    return;
-                }
-
-                Thread.Sleep(100);
-            }
+            Syn.Wait(() => this.Done);
         }
 
         /// <summary>

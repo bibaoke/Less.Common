@@ -165,35 +165,32 @@ namespace Less.Windows
         {
             Asyn.Exec(() =>
             {
-                while (true)
+                Syn.Wait(() => DateTime.Now >= this.StartTime);
+
+                if (!this.HasShutDown)
                 {
-                    if (DateTime.Now >= this.StartTime)
-                    {
-                        this.Exec();
-
-                        Asyn.Exec(() =>
-                        {
-                            while (true)
-                            {
-                                if (this.HasShutDown)
-                                {
-                                    break;
-                                }
-
-                                if (DateTime.Now - this.Last >= this.Interval)
-                                {
-                                    this.Exec();
-                                }
-
-                                Thread.Sleep(100);
-                            }
-                        });
-
-                        break;
-                    }
-
-                    Thread.Sleep(100);
+                    this.Exec();
                 }
+
+                Asyn.Exec(() =>
+                {
+                    Syn.Wait(() =>
+                    {
+                        if (this.HasShutDown)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            if (DateTime.Now - this.Last >= this.Interval)
+                            {
+                                this.Exec();
+                            }
+
+                            return false;
+                        }
+                    });
+                });
             });
         }
 
