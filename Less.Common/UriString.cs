@@ -116,26 +116,7 @@ namespace Less
         /// <returns></returns>
         public bool IsIpHost()
         {
-            string[] numbers = this.Host.Split('.');
-
-            if (numbers.Length == 4)
-            {
-                foreach (string i in numbers)
-                {
-                    byte value;
-
-                    if (!byte.TryParse(i, out value))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return this.Host.IsIpv4();
         }
 
         /// <summary>

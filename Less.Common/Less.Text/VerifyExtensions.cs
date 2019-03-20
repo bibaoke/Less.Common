@@ -11,19 +11,6 @@ namespace Less.Text
     /// </summary>
     public static class VerifyExtensions
     {
-        private static Regex IntPattern
-        {
-            get;
-            set;
-        }
-
-        static VerifyExtensions()
-        {
-            VerifyExtensions.IntPattern = "^-?([1-9][0-9]*|0)$".ToRegex(
-                    RegexOptions.ExplicitCapture |
-                    RegexOptions.Compiled);
-        }
-
         /// <summary>
         /// 是否 ipv4 地址
         /// </summary>
@@ -37,15 +24,10 @@ namespace Less.Text
             {
                 foreach (string i in array)
                 {
-                    if (i.IsInt())
+                    if (!i.IsByte())
                     {
-                        if (int.Parse(i) < 256)
-                        {
-                            continue;
-                        }
+                        return false;
                     }
-
-                    return false;
                 }
 
                 return true;
@@ -92,14 +74,72 @@ namespace Less.Text
         }
 
         /// <summary>
+        /// 检查字符串是否可以解析为 byte 类型
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsByte(this string s)
+        {
+            byte result;
+
+            return s.IsByte(out result);
+        }
+
+        /// <summary>
+        /// 检查字符串是否可以解析为 byte 类型
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool IsByte(this string s, out byte result)
+        {
+            return byte.TryParse(s, out result);
+        }
+
+        /// <summary>
+        /// 检查字符串是否可以解析为 short 类型
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsShort(this string s)
+        {
+            short result;
+
+            return s.IsShort(out result);
+        }
+
+        /// <summary>
+        /// 检查字符串是否可以解析为 short 类型
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool IsShort(this string s, out short result)
+        {
+            return short.TryParse(s, out result);
+        }
+
+        /// <summary>
         /// 检查字符串是否一个整数
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">字符串不能为 null</exception>
         public static bool IsInt(this string s)
         {
-            return VerifyExtensions.IntPattern.IsMatch(s);
+            int result;
+
+            return s.IsInt(out result);
+        }
+
+        /// <summary>
+        /// 检查字符串是否一个整数
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static bool IsInt(this string s, out int result)
+        {
+            return int.TryParse(s, out result);
         }
 
         /// <summary>

@@ -240,12 +240,12 @@ namespace Test
             Assert.IsTrue("0".IsInt());
             Assert.IsTrue("-9".IsInt());
             Assert.IsTrue("-19".IsInt());
-            Assert.IsFalse("09".IsInt());
+            Assert.IsTrue("09".IsInt());
             Assert.IsTrue("9".IsInt());
             Assert.IsFalse("1.9".IsInt());
-            Assert.IsFalse(" 19".IsInt());
+            Assert.IsTrue(" 19".IsInt());
             Assert.IsTrue("19".IsInt());
-            Assert.IsFalse("19 ".IsInt());
+            Assert.IsTrue("19 ".IsInt());
             Assert.IsFalse("1九".IsInt());
 
             //
