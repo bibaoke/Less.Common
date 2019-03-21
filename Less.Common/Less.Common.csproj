@@ -61,6 +61,7 @@
     <Compile Include="Extensions\MatchCollectionExtensions.cs" />
     <Compile Include="Extensions\MatchExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="HexString.cs" />
     <Compile Include="Less.Collection\Enumerators\ArrayEnumerator.cs" />
     <Compile Include="Less.Collection\ArrayExtensions.cs" />
