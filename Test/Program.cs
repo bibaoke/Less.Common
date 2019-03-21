@@ -24,6 +24,12 @@ namespace Test
 
             Assert.IsTrue(uri.SchemaAndHost() == "https://www.baidu.com");
 
+            Assert.IsTrue(uri.GetUri("/test/test.html").AbsoluteUri == "https://www.baidu.com/test/test.html");
+
+            Assert.IsTrue(uri.IsInternalLink(uri.GetUri("/test/test.html")));
+
+            Assert.IsFalse(uri.IsInternalLink(new Uri("https://cn.bing.com/")));
+
             //
             Kernel32.AddConsoleCtrlHandler(() =>
             {
