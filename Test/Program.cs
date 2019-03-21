@@ -24,7 +24,7 @@ namespace Test
 
             Assert.IsTrue(uri.SchemaAndHost() == "https://www.baidu.com");
 
-            Assert.IsTrue(uri.GetUri("/test/test.html").AbsoluteUri == "https://www.baidu.com/test/test.html");
+            Assert.IsTrue(uri.GetUri("/test/test.html").OriginalString == "https://www.baidu.com/test/test.html");
 
             Assert.IsTrue(uri.IsInternalLink(uri.GetUri("/test/test.html")));
 
@@ -162,22 +162,22 @@ namespace Test
             Assert.IsTrue(base64 == hex.ToBase64());
 
             //
-            Assert.IsTrue(new UriString("http://bibaoke.com/post/74").GetUriString("71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new Uri("http://bibaoke.com/post/74").GetUri("71") == new Uri("http://bibaoke.com/post/71"));
 
-            Assert.IsTrue(new UriString("http://bibaoke.com/post/74").GetUriString("/post/71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new Uri("http://bibaoke.com/post/74").GetUri("/post/71") == new Uri("http://bibaoke.com/post/71"));
 
-            Assert.IsTrue(new UriString("http://bibaoke.com").GetUriString("post/71") == "http://bibaoke.com/post/71");
+            Assert.IsTrue(new Uri("http://bibaoke.com").GetUri("post/71") == new Uri("http://bibaoke.com/post/71"));
 
             //
-            Assert.IsTrue(new UriString("http://bibaoke.com/icon").SetQuery("char=和") == "http://bibaoke.com/icon?char=和");
+            Assert.IsTrue(new Uri("http://bibaoke.com/icon").SetQuery("char=和") == new Uri("http://bibaoke.com/icon?char=和"));
 
             Assert.IsTrue(
-                new UriString("http://bibaoke.com/icon?char=和").SetQuery("color=white") == "http://bibaoke.com/icon?char=和&color=white");
+                new Uri("http://bibaoke.com/icon?char=和").SetQuery("color=white") == new Uri("http://bibaoke.com/icon?char=和&color=white"));
 
             //
-            Assert.IsTrue(new UriString("http://jianzhimao.com.com").GetDomain() == "com.com");
+            Assert.IsTrue(new Uri("http://jianzhimao.com.com").GetDomain() == "com.com");
 
-            Assert.IsTrue(new UriString("http://pconline.com.cn").GetDomain() == "pconline.com.cn");
+            Assert.IsTrue(new Uri("http://pconline.com.cn").GetDomain() == "pconline.com.cn");
 
             //
             Assert.IsTrue(2.Pow(3) == 8);
