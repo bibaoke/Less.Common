@@ -100,6 +100,8 @@ namespace Less
         /// <param name="uri"></param>
         /// <param name="relativeUri"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">relativeUri 不能为 null</exception>
+        /// <exception cref="UriFormatException">relativeUri 无效</exception>
         public static Uri GetUri(this Uri uri, string relativeUri)
         {
             return new Uri(uri, relativeUri);
