@@ -127,6 +127,15 @@ namespace Less.Network
         }
 
         /// <summary>
+        /// application/javascript
+        /// </summary>
+        public static MimeType Application_Javascript
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// application/json
         /// </summary>
         public static MimeType Application_Json
@@ -159,6 +168,7 @@ namespace Less.Network
             MimeType.Text_Html = "text/html";
             MimeType.Text_Xml = "text/xml";
             MimeType.Text_Css = "text/css";
+            MimeType.Application_Javascript = "application/javascript";
             MimeType.Application_Json = "application/json";
             MimeType.All = "*/*";
         }
