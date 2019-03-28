@@ -117,6 +117,16 @@ namespace Less
             return uri.Scheme + "://" + uri.Host;
         }
 
+        /// <summary>
+        /// 获取移除查询部分的链接
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static string RemoveQuery(this Uri uri)
+        {
+            return uri.SchemaAndHost() + uri.AbsolutePath;
+        }
+
         private static void ParseQuery(string query, NameValueCollection parameters)
         {
             string[] conditions = query.Trim().TrimStart('?').Split('&');

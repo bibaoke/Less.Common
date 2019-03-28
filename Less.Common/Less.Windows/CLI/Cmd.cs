@@ -13,6 +13,15 @@ namespace Less.Windows
     public static class Cmd
     {
         /// <summary>
+        /// 打开文件夹
+        /// </summary>
+        /// <param name="path"></param>
+        public static void OpenFolder(string path)
+        {
+            Cmd.Exec("explorer.exe " + path);
+        }
+
+        /// <summary>
         /// 执行命令
         /// </summary>
         /// <param name="cmd">命令文本</param>
