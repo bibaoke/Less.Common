@@ -100,6 +100,15 @@ namespace Less.Network
         }
 
         /// <summary>
+        /// image/vnd.microsoft.icon
+        /// </summary>
+        public static MimeType Image_VndMicrosoftIcon
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// text/html
         /// </summary>
         public static MimeType Text_Html
@@ -165,6 +174,7 @@ namespace Less.Network
             MimeType.Image_Emf = "image/emf";
             MimeType.Image_Wmf = "image/wmf";
             MimeType.Image_MemoryBmp = "image/memorybmp";
+            MimeType.Image_VndMicrosoftIcon = "image/vnd.microsoft.icon";
             MimeType.Text_Html = "text/html";
             MimeType.Text_Xml = "text/xml";
             MimeType.Text_Css = "text/css";

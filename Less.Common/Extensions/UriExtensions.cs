@@ -4,6 +4,7 @@ using Less.Collection;
 using Less.Text;
 using System;
 using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 
 namespace Less
 {
@@ -12,6 +13,29 @@ namespace Less
     /// </summary>
     public static class UriExtensions
     {
+        private static Regex ExtensionPattern
+        {
+            get;
+            set;
+        }
+
+        static UriExtensions()
+        {
+            UriExtensions.ExtensionPattern = @"\.\w+".ToRegex(RegexOptions.Compiled);
+        }
+
+        /// <summary>
+        /// 获取 uri 的后缀
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static string GetExtension(this Uri uri)
+        {
+            Match match = UriExtensions.ExtensionPattern.Match(uri.AbsolutePath);
+
+            return match.Value;
+        }
+
         /// <summary>
         /// 设置 uri 的查询参数
         /// 已经存在的查询参数会覆盖 否则会添加

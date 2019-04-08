@@ -20,7 +20,12 @@ namespace Test
         static void Main(string[] args)
         {
             //
-            Uri uri = new Uri("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1");
+            Uri uri = new Uri("https://item.jd.com/37175085087.html");
+
+            Assert.IsTrue(uri.GetExtension() == ".html");
+
+            //
+            uri = new Uri("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1");
 
             Assert.IsTrue(uri.SchemaAndHost() == "https://www.baidu.com");
 
