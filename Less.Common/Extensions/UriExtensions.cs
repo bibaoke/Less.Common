@@ -66,7 +66,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 获取 Uri 的域名
+        /// 获取 uri 的域名
         /// </summary>
         /// <param name="uri"></param>
         /// <returns>返回 uri 的域名 如果没有域名 返回 null</returns>
@@ -108,14 +108,14 @@ namespace Less
         }
 
         /// <summary>
-        /// 判断目标 Uri 是否为本实例的内部链接
+        /// 判断目标 uri 是否为本实例的内部链接
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="targetUri"></param>
         /// <returns></returns>
         public static bool IsInternalLink(this Uri uri, Uri targetUri)
         {
-            return uri.Host == targetUri.Host;
+            return uri.Host.CompareIgnoreCase(targetUri.Host);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Less
         }
 
         /// <summary>
-        /// 获取 Uri 的协议和主机部分
+        /// 获取 uri 的协议和主机部分
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
