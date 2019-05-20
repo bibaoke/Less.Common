@@ -17,44 +17,10 @@ namespace Less.Text
         /// 替换
         /// </summary>
         /// <param name="s"></param>
-        /// <param name="arg0"></param>
-        /// <returns></returns>
-        public static string FormatString(this string s, object arg0)
-        {
-            return string.Format(s, arg0);
-        }
-
-        /// <summary>
-        /// 替换
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="arg0"></param>
-        /// <param name="arg1"></param>
-        /// <returns></returns>
-        public static string FormatString(this string s, object arg0, object arg1)
-        {
-            return string.Format(s, arg0, arg1);
-        }
-
-        /// <summary>
-        /// 替换
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="arg0"></param>
-        /// <param name="arg1"></param>
-        /// <param name="arg2"></param>
-        /// <returns></returns>
-        public static string FormatString(this string s, object arg0, object arg1, object arg2)
-        {
-            return string.Format(s, arg0, arg1, arg2);
-        }
-
-        /// <summary>
-        /// 替换
-        /// </summary>
-        /// <param name="s"></param>
         /// <param name="args"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">字符串不能为 null，args 不能为 null</exception>
+        /// <exception cref="FormatException">用于指示要格式化的参数的数字小于零，或者大于等于 args 数组的长度</exception>
         public static string FormatString(this string s, params object[] args)
         {
             return string.Format(s, args);
