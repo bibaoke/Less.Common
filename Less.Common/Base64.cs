@@ -1,6 +1,7 @@
 ﻿//bibaoke.com
 
 using Less.Text;
+using Newtonsoft.Json;
 using System;
 
 namespace Less
@@ -8,6 +9,7 @@ namespace Less
     /// <summary>
     /// 表示 Base64 字符串
     /// </summary>
+    [JsonConverter(typeof(Base64JsonConverter))]
     public class Base64
     {
         /// <summary>

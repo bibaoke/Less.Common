@@ -11,7 +11,7 @@
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>删除 FormatString 的几个重载</releaseNotes>
+    <releaseNotes>添加自定义的 json 转换</releaseNotes>
     <copyright>Copyright 2017 Shao Zhuang</copyright>
     <tags>system-extensions</tags>
   </metadata>

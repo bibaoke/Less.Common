@@ -1,6 +1,7 @@
 ﻿//bibaoke.com
 
 using Less.Text;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,6 +11,7 @@ namespace Less
     /// <summary>
     /// 表示 Hex 字符串
     /// </summary>
+    [JsonConverter(typeof(HexStringJsonConverter))]
     public class HexString
     {
         /// <summary>

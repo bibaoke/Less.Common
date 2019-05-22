@@ -1,9 +1,11 @@
 ﻿using Less;
 using Less.Collection;
+using Less.Encrypt;
 using Less.MultiThread;
 using Less.Text;
 using Less.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +21,18 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            //
+            string json = JsonConvert.SerializeObject(new Test1
+            {
+                Md5 = "test".MD5(Encoding.UTF8),
+                Msg = Guid.Empty.ToBase64()
+            });
+
+            Test1 test1 = JsonConvert.DeserializeObject<Test1>(json);
+
+            Assert.IsTrue(test1.Md5 == "test".MD5(Encoding.UTF8));
+            Assert.IsTrue(test1.Msg == Guid.Empty.ToBase64());
+
             //
             Uri uri = new Uri("https://item.jd.com/37175085087.html");
 
