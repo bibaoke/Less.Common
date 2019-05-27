@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -21,6 +23,9 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            //
+            MemberInfo[] members = typeof(Test2).GetPropertiesAndFields().ToArray();
+
             //
             string json = JsonConvert.SerializeObject(new Test1
             {

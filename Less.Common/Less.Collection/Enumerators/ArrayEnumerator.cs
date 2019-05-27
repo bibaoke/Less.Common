@@ -12,41 +12,17 @@ namespace Less.Collection
     /// <typeparam name="T"></typeparam>
     public class ArrayEnumerator<T> : IEnumerator<T>, IEnumerable<T>
     {
-        private T[] Array
-        {
-            get;
-            set;
-        }
+        private T[] Array;
 
-        private int StartIndex
-        {
-            get;
-            set;
-        }
+        private int StartIndex;
 
-        private int Count
-        {
-            get;
-            set;
-        }
+        private int Count;
 
-        private int CurrentIndex
-        {
-            get;
-            set;
-        }
+        private int CurrentIndex;
 
-        private int StopIndex
-        {
-            get;
-            set;
-        }
+        private int StopIndex;
 
-        private int ArrayLength
-        {
-            get;
-            set;
-        }
+        private int ArrayLength;
 
         /// <summary>
         /// 创建实例

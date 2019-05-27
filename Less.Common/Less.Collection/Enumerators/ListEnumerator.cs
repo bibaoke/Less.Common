@@ -12,41 +12,17 @@ namespace Less.Collection
     /// <typeparam name="T"></typeparam>
     public class ListEnumerator<T> : IEnumerator<T>, IEnumerable<T>
     {
-        private List<T> List
-        {
-            get;
-            set;
-        }
+        private List<T> List;
 
-        private int StartIndex
-        {
-            get;
-            set;
-        }
+        private int StartIndex;
 
-        private int Count
-        {
-            get;
-            set;
-        }
+        private int Count;
 
-        private int CurrentIndex
-        {
-            get;
-            set;
-        }
+        private int CurrentIndex;
 
-        private int StopIndex
-        {
-            get;
-            set;
-        }
+        private int StopIndex;
 
-        private int ListCount
-        {
-            get;
-            set;
-        }
+        private int ListCount;
 
         /// <summary>
         /// 创建实例
