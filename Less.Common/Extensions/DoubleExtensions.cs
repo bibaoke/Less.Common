@@ -18,5 +18,15 @@ namespace Less
         {
             return Convert.ToInt32(d);
         }
+
+        /// <summary>
+        /// 转换为十进制
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public static decimal ToDecimal(this double d)
+        {
+            return Convert.ToDecimal(d);
+        }
     }
 }
