@@ -54,7 +54,7 @@ namespace Less
         /// 输出字符串
         /// </summary>
         /// <param name="d"></param>
-        /// <param name="keep">保留小数位</param>
+        /// <param name="keep">保留有效数字</param>
         /// <returns></returns>
         public static string ToString(this decimal d, int keep)
         {
