@@ -151,6 +151,20 @@ namespace Less
             return uri.SchemaAndHost() + uri.AbsolutePath;
         }
 
+        /// <summary>
+        /// 获取 uri 的查询参数名称与值的集合
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static NameValueCollection ParseQuery(this Uri uri)
+        {
+            NameValueCollection parameters = new NameValueCollection();
+
+            UriExtensions.ParseQuery(uri.Query, parameters);
+
+            return parameters;
+        }
+
         private static void ParseQuery(string query, NameValueCollection parameters)
         {
             string[] conditions = query.Trim().TrimStart('?').Split('&');
