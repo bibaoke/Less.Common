@@ -187,7 +187,7 @@ namespace Less.MultiThread
                     this.Available--;
                 }
 
-                ThreadPool.QueueUserWorkItem(i =>
+                bool result = ThreadPool.QueueUserWorkItem(i =>
                 {
                     try
                     {
@@ -208,6 +208,21 @@ namespace Less.MultiThread
                         }
                     }
                 });
+
+                if (!result)
+                {
+                    this.Semaphore.Release();
+
+                    lock (this.BusyLock)
+                    {
+                        this.Busy--;
+                    }
+
+                    lock (this.AvailableLock)
+                    {
+                        this.Available++;
+                    }
+                }
             }
         }
 
@@ -234,7 +249,7 @@ namespace Less.MultiThread
                     this.Available--;
                 }
 
-                ThreadPool.QueueUserWorkItem(i =>
+                bool result = ThreadPool.QueueUserWorkItem(i =>
                 {
                     try
                     {
@@ -255,6 +270,21 @@ namespace Less.MultiThread
                         }
                     }
                 }, value);
+
+                if (!result)
+                {
+                    this.Semaphore.Release();
+
+                    lock (this.BusyLock)
+                    {
+                        this.Busy--;
+                    }
+
+                    lock (this.AvailableLock)
+                    {
+                        this.Available++;
+                    }
+                }
             }
         }
 
